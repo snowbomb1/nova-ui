@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.label {
+    color: var(--color-text);
+    font-size: small;
+}
+
+.description {
+    font-size: x-small;
+    color: var(--color-text-secondary);
+}

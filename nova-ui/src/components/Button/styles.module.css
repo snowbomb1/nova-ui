@@ -1,0 +1,68 @@
+.button {   
+    border: none;
+    margin: 1rem;
+    border-radius: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
+}
+
+/* PRIMARY BUTTON */
+.buttonPrimary {
+    background: linear-gradient(
+        135deg,
+        var(--color-primary) 0%,
+        var(--color-primary-dark) 100%
+    );
+    color: white;
+    box-shadow: 
+        var(--shadow-md),
+        0 0 2rem var(--glow-primary);
+}
+
+.buttonPrimary:hover:not(:disabled) {
+    box-shadow: 
+        var(--shadow-lg),
+        0 0 2.5rem var(--glow-primary);
+    transform: translateY(-2px);
+}
+
+/* SECONDARY BUTTON */
+.buttonSecondary {
+    background: linear-gradient(
+        135deg,
+        var(--color-secondary) 0%,
+        var(--color-secondary-dark) 100%
+    );
+    color: white;
+    box-shadow: 
+        var(--shadow-sm),
+        0 0 1rem var(--glow-secondary);
+}
+
+.buttonSecondary:hover:not(:disabled) {
+    box-shadow: 
+        var(--shadow-md),
+        0 0 1.5rem var(--glow-secondary);
+    transform: translateY(-2px);
+}
+
+.buttonIcon {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--color-primary);
+    object-fit: cover;
+}
+
+.buttonIcon:hover:not(:disabled) {
+    color: var(--color-accent);
+}
