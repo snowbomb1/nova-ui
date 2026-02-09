@@ -1,9 +1,8 @@
 import { useState, useLayoutEffect, useRef } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { ViewerLoader } from "./ViewerLoader";
 import { useMediaLoader } from "../../hooks/useMediaLoader";
 import styles from "./styles.module.css";
-
 
 interface VideoProps {
     controls?: boolean;
@@ -18,62 +17,113 @@ export interface ViewerProps {
     onError?: (error: Error) => void;
 }
 
-const Viewer = ({ src, alt, video = { controls: false, loop: true }, thumbnailWidth = "300px", onError }: ViewerProps) => {
-    const { isLoading, hasError, isVideo, reload } = useMediaLoader({ src, onError })
+const Viewer = ({ src, alt, video = { controls: true, loop: false }, thumbnailWidth = "300px", onError }: ViewerProps) => {
+    const { isLoading, hasError, isVideo, reload } = useMediaLoader({ src, onError });
     const [isOpen, setIsOpen] = useState(false);
-    const imageRef = useRef<HTMLDivElement>(null);
+    const thumbnailRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
-        imageRef.current?.style.setProperty('--thumbnail-size', thumbnailWidth)
-    }, [src]);
+        thumbnailRef.current?.style.setProperty('--thumbnail-size', thumbnailWidth);
+    }, [thumbnailWidth]);
+
+    useLayoutEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') setIsOpen(false);
+        };
+        
+        if (isOpen) {
+            document.addEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'hidden';
+        }
+        
+        return () => {
+            document.removeEventListener('keydown', handleEscape);
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
 
     if (isLoading) {
-        return <ViewerLoader divRef={imageRef} />
+        return <ViewerLoader divRef={thumbnailRef} />;
     }
 
     if (hasError) {
         return (
-            <div className={styles.errorState} role="alert">
+            <div ref={thumbnailRef} className={styles.errorState} role="alert">
                 <span className={styles.errorIcon}>⚠️</span>
                 <p className={styles.errorText}>Failed to load media</p>
-                <button onClick={reload} className={styles.retryButton}>
-                    Retry
-                </button>
+                <button onClick={reload} className={styles.retryButton}>Retry</button>
             </div>
         );
     }
 
-    if (!isOpen) {
-        return (
-            <motion.div>
-                {!isVideo ? (
-                    <motion.img
+    return (
+        <>
+            <motion.div ref={thumbnailRef} className={styles.thumbnailWrapper} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                {isVideo ? (
+                    <motion.video
                         className={styles.thumbnail}
-                        rel="preload" src={src} alt={alt} 
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
+                        src={src}
+                        muted
+                        loop={video.loop}
+                        disablePictureInPicture
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
                         onClick={() => setIsOpen(true)}
                     />
                 ) : (
-                    <motion.video controls={video.controls} src={src} loop={video.loop} disablePictureInPicture initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
+                    <motion.img
+                        className={styles.thumbnail}
+                        src={src}
+                        alt={alt}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        onClick={() => setIsOpen(true)}
+                    />
                 )}
+                <motion.div className={styles.hoverOverlay} initial={{ opacity: 0 }} whileHover={{ opacity: 1 }}>
+                    <span className={styles.expandIcon}>🔍</span>
+                </motion.div>
             </motion.div>
-        )
-    }
 
-    return (
-        <motion.div>
-            {!isVideo ? (
-                <motion.img
-                    className={styles.thumbnail}
-                    rel="preload" src={src} alt={alt} 
-                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} 
-                    onClick={() => setIsOpen(true)}
-                />
-            ) : (
-                <motion.video controls={video.controls} src={src} loop={video.loop} disablePictureInPicture initial={{ opacity: 0 }} animate={{ opacity: 1 }} />
-            )}
-        </motion.div>
-    )
-}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        className={styles.lightboxOverlay}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        <motion.button
+                            className={styles.closeButton}
+                            onClick={() => setIsOpen(false)}
+                            whileHover={{ scale: 1.1, rotate: 90 }}
+                            transition={{ duration: 0.2 }}
+                            aria-label="Close lightbox"
+                        >
+                            ✕
+                        </motion.button>
+
+                        <motion.div
+                            className={styles.lightboxContent}
+                            onClick={(e) => e.stopPropagation()}
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.8, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                        >
+                            {isVideo ? (
+                                <video className={styles.lightboxMedia} src={src} controls={video.controls} loop={video.loop} autoPlay />
+                            ) : (
+                                <img className={styles.lightboxMedia} src={src} alt={alt} />
+                            )}
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </>
+    );
+};
 
 export default Viewer;

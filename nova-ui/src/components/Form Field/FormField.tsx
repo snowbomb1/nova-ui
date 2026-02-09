@@ -1,4 +1,4 @@
-import { motion, scale } from "motion/react";
+import { motion } from "motion/react";
 import styles from './styles.module.css';
 import type { LabelHTMLAttributes } from "react";
 

@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, type HTMLMotionProps } from "motion/react";
 import Tooltip from "../Tooltip/Tooltip";
 import styles from "./styles.module.css";
 
@@ -26,6 +26,7 @@ const Button = ({ children, onClick, variant = 'primary', disabled = false, disa
                 onClick={onClick}
                 whileHover={disabled ? undefined : { scale: 1.05 }}
                 whileTap={disabled ? undefined : { scale: 0.95 }}
+                {...props as HTMLMotionProps<'button'>}
             >
                 {children}
             </motion.button>

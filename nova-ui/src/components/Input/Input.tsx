@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, type HTMLMotionProps } from "motion/react";
 import styles from './styles.module.css';
 
 interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -15,6 +15,7 @@ const Input = ({value, onChange, placeholder, ...props}: InputProps) => {
             value={value}
             onChange={({ target }) => onChange(target.value)}
             placeholder={placeholder}
+            {...props as HTMLMotionProps<"input">}
         />
     )
 }
