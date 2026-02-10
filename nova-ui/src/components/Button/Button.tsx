@@ -1,6 +1,6 @@
 import { motion, type HTMLMotionProps } from "motion/react";
 import Tooltip from "../Tooltip/Tooltip";
-import styles from "./styles.module.css";
+import styles from "./button.module.css";
 
 export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
     children: React.ReactNode;

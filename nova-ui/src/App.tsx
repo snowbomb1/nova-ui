@@ -7,11 +7,15 @@ import TopNav from './components/TopNav/TopNav'
 import Header from './components/Header/Header'
 import { SupernovaLogo } from './Logo'
 import Input from './components/Input/Input';
-import FormField from './components/Form Field/FormField';
+import FormField from './components/Form field/FormField';
+import Modal from './components/Modal/Modal';
+import Box from './components/Box/Box';
+import Tooltip from './components/Tooltip/Tooltip';
 
 function App() {
   const [count, setCount] = useState(0)
   const [string, setString] = useState<string>();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   return (
     <>
@@ -26,20 +30,30 @@ function App() {
       />
     <div className={styles.appWrapper}>
       <Viewer src={reactLogo} alt="React logo" />
-      <h1>Vite + React</h1>
-        <Button onClick={() => setCount(prev => prev + 1)}>
+      <Tooltip message='This is a test'>
+        <h1>Vite + React</h1>
+      </Tooltip>
+        <Button onClick={() => {
+          setCount(prev => prev + 1)
+          setIsVisible(true)
+          }}>
           count is {count}
         </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
         <FormField label="This is a form" description='You have to fill it out'>
           <Input value={string} onChange={setString} />
         </FormField>
-      <p>
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
+    <Modal
+      size="s"
+      isVisible={isVisible}
+      onClose={() => setIsVisible(false)}
+      header={<Header variant='h2'>Modal Header</Header>}
+      footer={<Box position='center'>
+        <Button variant='primary' onClick={() => setIsVisible(false)}>Close</Button>
+      </Box>}
+    >
+      This is my modal
+    </Modal>
     </>
   )
 }

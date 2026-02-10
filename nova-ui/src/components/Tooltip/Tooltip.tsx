@@ -20,7 +20,7 @@ const Tooltip = ({ children, message = undefined,  position = 'top' }: TooltipPr
         const tooltip = tooltipRef.current?.getBoundingClientRect();
 
         if (trigger && tooltip) {
-            const gap = 2;
+            const gap = 12;
 
             const positions = {
                 top: {
@@ -75,10 +75,10 @@ const Tooltip = ({ children, message = undefined,  position = 'top' }: TooltipPr
                         <motion.div
                             ref={tooltipRef}
                             data-position={position}
-                            initial={{ opacity: 0, scale: 0.9 }}
+                            initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.15 }}
+                            exit={{ opacity: 0, scale: 0.5 }}
+                            transition={{ duration: 0.2 }}
                             className={styles.tooltip}
                         >
                             {message}

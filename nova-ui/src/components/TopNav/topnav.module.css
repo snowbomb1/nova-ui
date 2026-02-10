@@ -1,0 +1,93 @@
+/* --- Base Container --- */
+.topnavContainer {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px solid var(--color-border);
+    z-index: 100;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column; /* Stack items vertically on mobile */
+    gap: 1rem;
+}
+
+/* --- The Top Row (Logo & Toggle) --- */
+.topRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* --- Desktop vs Mobile Toggles --- */
+.menuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.desktopTheme {
+    display: none; /* Hide on mobile */
+}
+
+/* --- The Search Area --- */
+.searchWrapper {
+    width: 100%;
+}
+
+.mobileTheme {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+}
+
+/* --- Desktop Layout (768px and up) --- */
+@media (min-width: 768px) {
+    .topnavContainer {
+        flex-direction: row; /* Align in a line */
+        justify-content: space-between;
+        padding: 0.75rem 2rem;
+        height: 64px; /* Fixed height for consistency */
+    }
+
+    /* Hide mobile-only elements */
+    .menuButton, 
+    .mobileTheme {
+        display: none !important;
+    }
+
+    /* Show desktop-only elements */
+    .desktopTheme {
+        display: block;
+    }
+
+    /* Ensure search bar stays centered */
+    .searchWrapper {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 400px;
+        padding: 0;
+    }
+
+    .topRow {
+        width: auto;
+    }
+
+    .controls {
+        display: flex;
+        align-items: center;
+        margin-left: auto; /* Push theme toggler to the far right */
+    }
+}
