@@ -1,16 +1,16 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import Button from './components/Button/Button'
-import Viewer from './components/Viewer/Viewer'
+import Button from '../packages/core/src/components/Button/Button'
+import Viewer from '../packages/core/src/components/Viewer/Viewer'
 import styles from './App.module.css';
-import TopNav from './components/TopNav/TopNav'
-import Header from './components/Header/Header'
-import { SupernovaLogo } from './Logo'
-import Input from './components/Input/Input';
-import FormField from './components/Form field/FormField';
-import Modal from './components/Modal/Modal';
-import Box from './components/Box/Box';
-import Tooltip from './components/Tooltip/Tooltip';
+import TopNav from '../packages/core/src/components/TopNav/TopNav'
+import Header from '../packages/core/src/components/Header/Header'
+import { SupernovaLogo } from './logo/Logo'
+import Input from '../packages/core/src/components/Input/Input';
+import FormField from '../packages/core/src/components/Form field/FormField';
+import Modal from '../packages/core/src/components/Modal/Modal';
+import Box from '../packages/core/src/components/Box/Box';
+import Tooltip from '../packages/core/src/components/Tooltip/Tooltip';
 
 function App() {
   const [count, setCount] = useState(0)

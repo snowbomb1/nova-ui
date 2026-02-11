@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import styles from './box.module.css';
+import styles from './box.module.css'
 
 interface BoxProps {
     children: React.ReactNode;
