@@ -1,6 +1,13 @@
+.inputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
 .input {
     width: 100%;
-    padding: 0.8rem 1.2rem;
+    padding: 0.8rem 2.5rem 0.8rem 1.2rem;
     font-size: 0.75rem;
     border-radius: 0.5rem;
     
@@ -39,4 +46,58 @@
     background-color: var(--color-disabled);
     cursor: not-allowed;
     opacity: 0.5;
+}
+
+.clearButton {
+    position: absolute;
+    right: 0.8rem;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.clearButton:hover {
+    color: var(--color-primary);
+    transform: scale(1.1);
+}
+
+.suggestionsList {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 0.5rem;
+    list-style: none;
+    padding: 0.4rem;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.suggestionItem {
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    color: var(--color-text);
+    border-radius: 0.3rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.suggestionItem:hover {
+    background-color: var(--color-primary);
+    color: white; /* Contrast against the primary supernova color */
+    box-shadow: 0 0 10px var(--glow-primary);
+}
+
+/* Custom scrollbar for the suggestions list */
+.suggestionsList::-webkit-scrollbar {
+    width: 4px;
+}
+
+.suggestionsList::-webkit-scrollbar-thumb {
+    background: var(--color-text-secondary);
+    border-radius: 10px;
 }

@@ -7,6 +7,8 @@ import styles from "./styles.module.css";
 interface VideoProps {
     controls?: boolean;
     loop?: boolean;
+    autoPlay?: boolean;
+    muted?: boolean;
 }
 
 export interface ViewerProps {
@@ -17,7 +19,7 @@ export interface ViewerProps {
     onError?: (error: Error) => void;
 }
 
-const Viewer = ({ src, alt, video = { controls: true, loop: false }, thumbnailWidth = "300px", onError }: ViewerProps) => {
+const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPlay: true, muted: true }, thumbnailWidth = "300px", onError }: ViewerProps) => {
     const { isLoading, hasError, isVideo, reload } = useMediaLoader({ src, onError });
     const [isOpen, setIsOpen] = useState(false);
     const thumbnailRef = useRef<HTMLDivElement>(null);
@@ -64,6 +66,7 @@ const Viewer = ({ src, alt, video = { controls: true, loop: false }, thumbnailWi
                         className={styles.thumbnail}
                         src={src}
                         muted
+                        autoPlay={video.autoPlay}
                         loop={video.loop}
                         disablePictureInPicture
                         initial={{ opacity: 0 }}
@@ -73,6 +76,7 @@ const Viewer = ({ src, alt, video = { controls: true, loop: false }, thumbnailWi
                 ) : (
                     <motion.img
                         className={styles.thumbnail}
+                        loading="lazy"
                         src={src}
                         alt={alt}
                         initial={{ opacity: 0 }}
@@ -114,7 +118,7 @@ const Viewer = ({ src, alt, video = { controls: true, loop: false }, thumbnailWi
                             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                         >
                             {isVideo ? (
-                                <video className={styles.lightboxMedia} src={src} controls={video.controls} loop={video.loop} autoPlay />
+                                <video className={styles.lightboxMedia} src={src} controls={video.controls} loop={video.loop} autoPlay={video.autoPlay} muted={video.muted} />
                             ) : (
                                 <img className={styles.lightboxMedia} src={src} alt={alt} />
                             )}

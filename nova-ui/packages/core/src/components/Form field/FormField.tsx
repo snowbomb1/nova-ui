@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import styles from './styles.module.css';
 import type { LabelHTMLAttributes } from "react";
 
-interface FormFieldProps extends LabelHTMLAttributes<HTMLLabelElement> {
+export interface FormFieldProps extends LabelHTMLAttributes<HTMLLabelElement> {
     children: React.ReactNode;
     label: string;
     description?: string;

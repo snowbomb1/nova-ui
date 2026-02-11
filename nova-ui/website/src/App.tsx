@@ -1,15 +1,24 @@
-import { useState } from 'react'
-import styles from './App.module.css';
+import { useState } from 'react';
+import { Header, Input, TopNav } from '@nova-ui/core';
 import { SupernovaLogo } from './logo/Logo'
-import { Button, Viewer, TopNav, Header, Input, FormField, Modal, Box, Tooltip } from '@nova-ui/core'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { routes } from './routes';
+
+const suggestions: string[] = routes.map(r => r?.path!)
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [string, setString] = useState<string>();
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [string, setString] = useState<string>()
+
+  const handleChange = (value: string) => {
+    setString(value)
+    const matchingRoute = routes.find((route) => route.path === value);
+    if (matchingRoute) {
+      window.location.href = value;
+    }
+  }
 
   return (
-    <>
+    <BrowserRouter>
       <TopNav
         header={
           <Header variant='h2'>
@@ -17,35 +26,14 @@ function App() {
           </Header>
         }
         logo={<SupernovaLogo />}
-        search={<Input value={string} onChange={setString} placeholder='Fill this out' />}
+        search={<Input value={string} autoComplete='on' suggestions={suggestions} onChange={(value) => handleChange(value)} placeholder='Fill this out' />}
       />
-    <div className={styles.appWrapper}>
-      {/* <Viewer src={reactLogo} alt="React logo" /> */}
-      <Tooltip message='This is a test'>
-        <h1>Vite + React</h1>
-      </Tooltip>
-        <Button onClick={() => {
-          setCount(prev => prev + 1)
-          setIsVisible(true)
-          }}>
-          count is {count}
-        </Button>
-        <FormField label="This is a form" description='You have to fill it out'>
-          <Input value={string} onChange={setString} />
-        </FormField>
-    </div>
-    <Modal
-      size="s"
-      isVisible={isVisible}
-      onClose={() => setIsVisible(false)}
-      header={<Header variant='h2'>Modal Header</Header>}
-      footer={<Box position='center'>
-        <Button variant='primary' onClick={() => setIsVisible(false)}>Close</Button>
-      </Box>}
-    >
-      This is my modal
-    </Modal>
-    </>
+      <Routes>
+        {routes.map((r) => (
+          <Route path={r.path} Component={r.Component} />
+        ))}
+      </Routes>
+    </BrowserRouter>
   )
 }
 

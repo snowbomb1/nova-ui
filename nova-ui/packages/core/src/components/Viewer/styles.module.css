@@ -1,8 +1,10 @@
 /* Thumbnail */
 .thumbnailWrapper {
     position: relative;
+    width: var(--thumbnail-size, 300px);
+    max-width: 100%;
+    height: auto;
     display: inline-block;
-    width: var(--thumbnail-size);
 }
 
 .thumbnail {

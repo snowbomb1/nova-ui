@@ -2,7 +2,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { MdClose } from "react-icons/md";
 import styles from './modal.module.css';
 
-interface ModalProps {
+export interface ModalProps {
     isVisible: boolean;
     onClose: () => void;
     children: React.ReactNode;

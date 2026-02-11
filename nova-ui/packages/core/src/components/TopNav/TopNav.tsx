@@ -6,7 +6,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
 import Button from "../Button/Button";
 
-interface TopNavProps {
+export interface TopNavProps {
     header: React.ReactNode;
     logo?: React.ReactNode;
     search?: React.ReactNode;
@@ -32,40 +32,38 @@ const TopNav = ({ header, logo, search }: TopNavProps) => {
 
     return (
         <motion.nav className={styles.topnavContainer}>
-            {/* Top Row: Always Visible */}
             <div className={styles.topRow}>
                 <div className={styles.header}>
                     {logo}
                     {header}
                 </div>
                 
-                <div className={styles.controls}>
-                    <div className={styles.desktopTheme}>
-                        <ThemeToggler />
-                    </div>
-                    {isMobile && (
-                        <Button variant="icon" onClick={() => setIsOpen(!isOpen)}>
-                            {isOpen ? (
-                                <MdClose />
-                            ) : <RxHamburgerMenu />
-                            }
-                        </Button>
-                    )}
-                </div>
+                {/* Only show hamburger on mobile */}
+                {isMobile && (
+                    <Button variant="icon" onClick={() => setIsOpen(!isOpen)}>
+                        {isOpen ? <MdClose /> : <RxHamburgerMenu />}
+                    </Button>
+                )}
             </div>
 
-            {/* Collapsible Area: Search + Theme (on mobile) */}
             <AnimatePresence>
-                {(isOpen || window.innerWidth > 768) && (
+                {(isOpen || !isMobile) && (
                     <motion.div 
                         className={styles.collapsibleContent}
-                        initial={{ height: 0, opacity: 0 }}
+                        initial={isMobile ? { height: 0, opacity: 0 } : false}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                     >
                         <div className={styles.searchWrapper}>
                             {search}
                         </div>
+                        
+                        {/* Desktop Theme: Pushed right via flex */}
+                        <div className={styles.desktopTheme}>
+                            <ThemeToggler />
+                        </div>
+
+                        {/* Mobile Theme: Centered below search */}
                         <div className={styles.mobileTheme}>
                             <ThemeToggler />
                         </div>
