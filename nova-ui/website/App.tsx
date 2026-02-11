@@ -1,16 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import Button from '../packages/core/src/components/Button/Button'
-import Viewer from '../packages/core/src/components/Viewer/Viewer'
 import styles from './App.module.css';
-import TopNav from '../packages/core/src/components/TopNav/TopNav'
-import Header from '../packages/core/src/components/Header/Header'
 import { SupernovaLogo } from './logo/Logo'
-import Input from '../packages/core/src/components/Input/Input';
-import FormField from '../packages/core/src/components/Form field/FormField';
-import Modal from '../packages/core/src/components/Modal/Modal';
-import Box from '../packages/core/src/components/Box/Box';
-import Tooltip from '../packages/core/src/components/Tooltip/Tooltip';
+import { Button, Viewer, TopNav, Header, Input, FormField, Modal, Box, Tooltip } from '@nova-ui/core'
 
 function App() {
   const [count, setCount] = useState(0)

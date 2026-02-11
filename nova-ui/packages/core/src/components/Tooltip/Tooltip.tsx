@@ -1,7 +1,7 @@
 import { useState, useRef, useLayoutEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import styles from './styles.module.css';
+import styles from './tooltip.module.css';
 
 export interface TooltipProps {
     children: React.ReactNode;
