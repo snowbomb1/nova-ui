@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import styles from './App.module.css';
 import { SupernovaLogo } from './logo/Logo'
 import { Button, Viewer, TopNav, Header, Input, FormField, Modal, Box, Tooltip } from '@nova-ui/core'
@@ -21,7 +20,7 @@ function App() {
         search={<Input value={string} onChange={setString} placeholder='Fill this out' />}
       />
     <div className={styles.appWrapper}>
-      <Viewer src={reactLogo} alt="React logo" />
+      {/* <Viewer src={reactLogo} alt="React logo" /> */}
       <Tooltip message='This is a test'>
         <h1>Vite + React</h1>
       </Tooltip>

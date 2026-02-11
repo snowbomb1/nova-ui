@@ -1,15 +1,19 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      // This ensures that when you import the library, 
-      // it looks at the source files during development
-      '@nova-ui/core': path.resolve(__dirname, '../../packages/core/src/index.ts'),
+      '@nova-ui/core': path.resolve(__dirname, '../packages/core/src/index.ts'),
+      '@nova-ui/core/styles': path.resolve(__dirname, '../packages/core/src/index.css')
     },
+  },
+  optimizeDeps: {
+    rolldownOptions: {} 
   },
   server: {
     port: 3000,

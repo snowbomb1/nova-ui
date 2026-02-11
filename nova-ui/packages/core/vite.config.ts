@@ -15,6 +15,9 @@ export default defineConfig({
       generateScopedName: '[name]__[local]___[hash:base64:5]'
     }
   },
+  optimizeDeps: {
+    rolldownOptions: {} 
+  },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),

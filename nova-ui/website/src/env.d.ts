@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="../../packages/core/src/env.d.ts" />
 
 declare module "*.module.css" {
   const classes: { [key: string]: string };

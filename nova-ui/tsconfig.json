@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
     "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
+    "skipLibCheck": true,
     "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
-    "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
-      "@nova-ui/core": ["packages/core/src/index.ts"]
-    }
+      "@nova-ui/core": ["./packages/core/src/index.ts"],
+      "@nova-ui/core/styles": ["./packages/core/src/index.css"]
+    },
+    "typeRoots": ["./node_modules/@types"],
+    "ignoreDeprecations": "5.0"
   },
   "exclude": ["node_modules", "dist"]
 }
