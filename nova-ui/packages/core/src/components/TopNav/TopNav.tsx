@@ -18,12 +18,15 @@ export const TopNav = ({ header, logo, logoClick, search }: TopNavProps) => {
     const [isOpen, setIsOpen] = useState(true);
 
     useLayoutEffect(() => {
+        let lastIsMobile = window.innerWidth <= 768;
+
         const handleResize = () => {
-            if (window.innerWidth <= 768) {
+            const width = window.innerWidth;
+            const currentlyMobile = width <= 768;
+            if (currentlyMobile !== lastIsMobile) {
                 setIsOpen(false);
-                setIsMobile(true)
-            } else {
-                setIsMobile(false)
+                setIsOpen(!currentlyMobile);
+                lastIsMobile = currentlyMobile;
             }
         };
         handleResize();
