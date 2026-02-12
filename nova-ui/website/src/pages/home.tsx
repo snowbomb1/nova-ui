@@ -1,4 +1,4 @@
-import { Box, Header } from "@nova-ui/core";
+import { Box, Header, Stepper } from "@nova-ui/core";
 import styles from '../App.module.css';
 
 const HomePage = () => {
@@ -19,6 +19,7 @@ const HomePage = () => {
                     <li>Viewer</li>
                 </ul>
             </Box>
+            <Stepper value={1} onChange={() => null} />
         </div>
     )
 }

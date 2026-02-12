@@ -1,0 +1,18 @@
+.stepperInput {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 4px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  max-width: 8rem;
+  transition: border-color 0.2s ease;
+}
+
+/* Focus state for the whole component */
+.stepperInput:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--glow-primary);
+}

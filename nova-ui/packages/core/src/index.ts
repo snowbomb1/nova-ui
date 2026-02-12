@@ -6,6 +6,7 @@ export * from './components/Header';
 export * from './components/Input';
 export * from './components/Modal';
 export * from './components/Select';
+export * from './components/Stepper';
 export * from './components/Toggle';
 export * from './components/Tooltip';
 export * from './components/TopNav';

@@ -59,7 +59,9 @@ export const TopNav = ({ header, logo, logoClick, search }: TopNavProps) => {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                     >
-                        <div className={styles.searchWrapper}>
+                        <div className={styles.searchWrapper}
+                            onClick={(e) => e.stopPropagation()}
+                        >
                             {search}
                         </div>
                         

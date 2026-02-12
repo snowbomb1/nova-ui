@@ -5,13 +5,14 @@ import styles from './styles.module.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string | undefined;
-    onChange: (newValue: string) => void;
+    onChange?: (newValue: string) => void;
     autoComplete?: "on" | "off";
     disabled?: boolean;
     suggestions?: string[]
+    hideClear?: boolean;
 }
 
-export const Input = ({ value, onChange, autoComplete = "off", disabled=false, suggestions = [], placeholder, ...props }: InputProps) => {
+export const Input = ({ value, onChange, autoComplete = "off", disabled=false, suggestions = [], placeholder, hideClear = false, ...props }: InputProps) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     const filtered = useMemo(() => {
@@ -27,14 +28,14 @@ export const Input = ({ value, onChange, autoComplete = "off", disabled=false, s
             whileFocus={{ scale: 1.02 }}
             value={value}
             disabled={disabled}
-            onChange={({ target }) => onChange(target.value)}
+            onChange={({ target }) => onChange?.(target.value)}
             placeholder={placeholder}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
             {...props as HTMLMotionProps<"input">}
         />
         <div className={styles.clearButton}>
-            {value && <IClose width="20" onClick={() => onChange("")} />}
+            {!hideClear && value && <IClose width="20" onClick={() => onChange?.("")} />}
         </div>
         <AnimatePresence>
                 {showSuggestions && filtered.length > 0 && (
@@ -50,7 +51,7 @@ export const Input = ({ value, onChange, autoComplete = "off", disabled=false, s
                                 key={suggestion}
                                 className={styles.suggestionItem}
                                 onClick={() => {
-                                    onChange(suggestion);
+                                    onChange?.(suggestion);
                                     setShowSuggestions(false);
                                 }}
                             >

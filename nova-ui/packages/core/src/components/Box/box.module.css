@@ -1,17 +1,27 @@
 .box {
     display: flex;
-    flex-direction: column;
     width: 100%;
+    gap: 1rem;
+    transition: all 0.2s ease; /* Optional: smooths the transition between states */
 }
 
-.box[data-position = "center"] {
-    align-items: center;
+/* --- VERTICAL LOGIC --- */
+.box[data-direction="vertical"] {
+    flex-direction: column;
 }
+/* In column, horizontal placement is controlled by align-items */
+.box[data-direction="vertical"][data-position="left"]   { align-items: flex-start; }
+.box[data-direction="vertical"][data-position="center"] { align-items: center; }
+.box[data-direction="vertical"][data-position="right"]  { align-items: flex-end; }
 
-.box[data-position = "left"] {
-    align-items: flex-start;
-}
 
-.box[data-position = "right"] {
-    align-items: flex-end;
+/* --- HORIZONTAL LOGIC --- */
+.box[data-direction="horizontal"] {
+    flex-direction: row;
+    /* Usually, you want items vertically centered in a row */
+    align-items: center; 
 }
+/* In row, horizontal placement is controlled by justify-content */
+.box[data-direction="horizontal"][data-position="left"]   { justify-content: flex-start; }
+.box[data-direction="horizontal"][data-position="center"] { justify-content: center; }
+.box[data-direction="horizontal"][data-position="right"]  { justify-content: flex-end; }
