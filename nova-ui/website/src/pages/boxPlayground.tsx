@@ -2,7 +2,6 @@ import { useState } from "react";
 import Playground from "../playground/Playground";
 import { Box, BoxPosition, FormField, Option, Select } from "@nova-ui/core";
 
-
 const BoxPlayground = () => {
     const [position, setPosition] = useState<Option>({ label: "Center", value: "center" });
     return (

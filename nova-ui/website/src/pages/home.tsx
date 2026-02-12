@@ -1,43 +1,25 @@
-import { useState } from 'react'
+import { Box, Header } from "@nova-ui/core";
 import styles from '../App.module.css';
-import image from '../assets/PXL_20210711_131653816.PORTRAIT.jpg';
-import { Button, Viewer, Header, Input, FormField, Modal, Box, Tooltip } from '@nova-ui/core'
-import ViewerPlayground from './viewerPlayground';
-
 
 const HomePage = () => {
-      const [count, setCount] = useState(0)
-      const [string, setString] = useState<string>();
-      const [isVisible, setIsVisible] = useState<boolean>(false);
+ 
     return (
-        <>
-            <div className={styles.appWrapper}>
-            <Viewer src={image} alt="React logo" thumbnailWidth='200px' />
-            <Tooltip message='This is a test'>
-                <h1>Vite + React</h1>
-            </Tooltip>
-                <Button onClick={() => {
-                setCount(prev => prev + 1)
-                setIsVisible(true)
-                }}>
-                count is {count}
-                </Button>
-                <FormField label="This is a form" description='You have to fill it out'>
-                <Input value={string} onChange={setString} />
-                </FormField>
-            </div>
-            <Modal
-            size="l"
-            isVisible={isVisible}
-            onClose={() => setIsVisible(false)}
-            header={<Header variant='h2'>Modal Header</Header>}
-            footer={<Box position='center'>
-                <Button variant='primary' onClick={() => setIsVisible(false)}>Close</Button>
-            </Box>}
-            >
-            <ViewerPlayground />
-            </Modal>
-        </>
+        <div className={styles.appWrapper}>
+            <Box position='center'>
+                <Header variant='h1'>Welcome to Nova UI</Header>
+                <br/>
+                <p>Use the search bar above to view components</p>
+                <p>Current available components playgrounds:</p>
+                <ul>
+                    <li>Box</li>
+                    <li>Button</li>
+                    <li>Toggle</li>
+                    <li>Tooltip</li>
+                    <li>TopNav</li>
+                    <li>Viewer</li>
+                </ul>
+            </Box>
+        </div>
     )
 }
 

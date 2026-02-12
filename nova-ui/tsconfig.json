@@ -12,7 +12,8 @@
     "strict": true,
     "paths": {
       "@nova-ui/core": ["./packages/core/src/index.ts"],
-      "@nova-ui/core/styles": ["./packages/core/src/index.css"]
+      "@nova-ui/core/styles": ["./packages/core/src/index.css"],
+      "@nova-ui/core/*": ["./packages/core/src/components/*/index.ts"]
     },
     "typeRoots": ["./node_modules/@types"],
     "ignoreDeprecations": "5.0"

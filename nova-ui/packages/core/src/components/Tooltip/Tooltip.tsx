@@ -11,7 +11,7 @@ export interface TooltipProps {
     position?: TooltipPosition;
 }
 
-const Tooltip = ({ children, message = undefined,  position = 'top' }: TooltipProps) => {
+export const Tooltip = ({ children, message = undefined,  position = 'top' }: TooltipProps) => {
     const [visible, setVisible] = useState(false);
     const triggerRef = useRef<HTMLDivElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
@@ -95,5 +95,3 @@ const Tooltip = ({ children, message = undefined,  position = 'top' }: TooltipPr
         </>
     )
 }
-
-export default Tooltip;

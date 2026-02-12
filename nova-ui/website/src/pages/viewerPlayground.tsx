@@ -44,7 +44,7 @@ const ViewerPlayground = () => {
                             <Toggle
                                 key={key}
                                 label={key}
-                                enabled={videoOptions[key as keyof typeof videoOptions] || false}
+                                state={videoOptions[key as keyof typeof videoOptions] || false}
                                 onChange={() => toggleVideoSetting(key as keyof typeof videoOptions)}
                             />
                         ))}

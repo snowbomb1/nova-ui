@@ -1,16 +1,17 @@
 .box {
     display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
 .box[data-position = "center"] {
-    justify-content: center;
+    align-items: center;
 }
 
 .box[data-position = "left"] {
-    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .box[data-position = "right"] {
-    justify-content: flex-end;
+    align-items: flex-end;
 }

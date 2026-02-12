@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { MdClose } from "react-icons/md";
+import { IClose } from '../../icons/close';
 import styles from './modal.module.css';
 
 export interface ModalProps {
@@ -12,9 +12,7 @@ export interface ModalProps {
 }
 
 
-const Modal = ({ isVisible, onClose, size="m", header, footer, children}: ModalProps) => {
-
-
+export const Modal = ({ isVisible, onClose, size="m", header, footer, children}: ModalProps) => {
     return (
         <AnimatePresence>
             {isVisible && (
@@ -36,14 +34,9 @@ const Modal = ({ isVisible, onClose, size="m", header, footer, children}: ModalP
                             onClick={(event) => event.stopPropagation()}
                         >
                             {header}
-                            <motion.div
-                                className={styles.close}
-                                initial={{ scale: 1 }}
-                                whileHover={{ scale: 1.1, rotate: 90 }}
-                                whileTap={{ scale: 0.9 }}
-                            >
-                                <MdClose size={30} onClick={onClose} />
-                            </motion.div>
+                            <div className={styles.close}>
+                                <IClose width="30" onClick={onClose} />
+                            </div>
                         </motion.div>
                         <motion.div id="content" className={styles.content}
                             onClick={(event) => event.stopPropagation()}
@@ -63,5 +56,3 @@ const Modal = ({ isVisible, onClose, size="m", header, footer, children}: ModalP
         </AnimatePresence>
     )
 }
-
-export default Modal;

@@ -8,7 +8,7 @@ export interface BoxProps {
     position: 'left' | 'right' | 'center'
 }
 
-const Box = ({ children, position }: BoxProps) => {
+export const Box = ({ children, position }: BoxProps) => {
     return (
         <motion.div
             className={styles.box}
@@ -18,5 +18,3 @@ const Box = ({ children, position }: BoxProps) => {
         </motion.div>
     )
 }
-
-export default Box;

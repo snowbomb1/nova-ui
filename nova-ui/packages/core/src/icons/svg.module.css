@@ -1,0 +1,15 @@
+.icon {
+    height: auto;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon:hover {
+    color: var(--color-primary);
+}

@@ -9,7 +9,7 @@ export function SupernovaLogo({ size = 28, color = "var(--color-primary)" }) {
       initial={{ rotate: 0, scale: 0.1 }}
       animate={{ rotate: 2880, scale: 1 }}
       transition={{ duration: 3 }}
-      style={{ color }}
+      style={{ color, cursor: "pointer" }}
     >
       <motion.path
         initial={{ opacity: 0 }}

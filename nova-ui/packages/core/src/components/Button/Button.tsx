@@ -1,17 +1,19 @@
 import { motion, type HTMLMotionProps } from "motion/react";
-import Tooltip from "../Tooltip/Tooltip";
+import { Tooltip, TooltipPosition } from "../Tooltip/Tooltip";
 import styles from "./button.module.css";
+
+export type ButtonVariant = 'primary' | 'secondary' | 'icon';
 
 export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
     children: React.ReactNode;
     onClick?: (event: React.MouseEvent) => void;
-    variant?: 'primary' | 'secondary' | 'icon';
+    variant?: ButtonVariant;
     disabled?: boolean;
     disabledMessage?: string;
-    tooltipPosition?: 'top' | 'bottom' | 'left' | 'right';
+    tooltipPosition?: TooltipPosition;
 }
 
-const Button = ({ children, onClick, variant = 'primary', disabled = false, disabledMessage, tooltipPosition = 'top', ...props }: ButtonProps) => {
+export const Button = ({ children, onClick, variant = 'primary', disabled = false, disabledMessage, tooltipPosition = 'top', ...props }: ButtonProps) => {
     const variantClass = {
         primary: 'buttonPrimary',
         secondary: 'buttonSecondary',
@@ -33,5 +35,3 @@ const Button = ({ children, onClick, variant = 'primary', disabled = false, disa
         </Tooltip>
     )
 }
-
-export default Button;

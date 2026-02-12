@@ -43,17 +43,14 @@
 
 /* Accessibility for disabled state */
 .input:disabled {
-    background-color: var(--color-disabled);
-    cursor: not-allowed;
     opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
 }
 
 .clearButton {
     position: absolute;
     right: 0.8rem;
-    cursor: pointer;
-    color: var(--color-text-secondary);
-    transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .clearButton:hover {

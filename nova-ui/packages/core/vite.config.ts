@@ -6,7 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    dts({ rollupTypes: true }) // Merges all your types into one clean file
+    dts({ rollupTypes: false, insertTypesEntry: true, include: ['src'] }),
   ],
   css: {
     modules: {
@@ -20,13 +20,22 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        Box: resolve(__dirname, 'src/components/Box/index.ts')
+      },
       name: 'NovaUI',
       fileName: 'nova-ui',
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'motion'],
       output: {
+        entryFileNames: (chunkInfo) => {
+          if (chunkInfo.name === 'index') return '[name].js';
+          return 'components/[name]/index.js';
+        },
+        chunkFileNames: 'chunks/[name]-[hash].js',
+        assetFileNames: '[name][extname]',
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',

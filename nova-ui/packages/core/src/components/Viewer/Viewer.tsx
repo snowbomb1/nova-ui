@@ -19,7 +19,7 @@ export interface ViewerProps {
     onError?: (error: Error) => void;
 }
 
-const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPlay: true, muted: true }, thumbnailWidth = "300px", onError }: ViewerProps) => {
+export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPlay: true, muted: true }, thumbnailWidth = "300px", onError }: ViewerProps) => {
     const { isLoading, hasError, isVideo, reload } = useMediaLoader({ src, onError });
     const [isOpen, setIsOpen] = useState(false);
     const thumbnailRef = useRef<HTMLDivElement>(null);
@@ -129,5 +129,3 @@ const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPlay: true
         </>
     );
 };
-
-export default Viewer;

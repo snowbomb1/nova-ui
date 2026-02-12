@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
         '@nova-ui/core/styles': path.resolve(__dirname, '../packages/core/src/index.css'),
-        '@nova-ui/core': path.resolve(__dirname, '../packages/core/src/index.ts')
+        '@nova-ui/core': path.resolve(__dirname, '../packages/core/src/index.ts'),
     },
   },
   optimizeDeps: {

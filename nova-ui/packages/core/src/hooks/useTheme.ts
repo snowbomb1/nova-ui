@@ -6,10 +6,13 @@ export const useTheme = () => {
     
     useLayoutEffect(() => {
         const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        setIsDark(isDarkMode)
-        if (isDarkMode) {
+        const hasDarkClass = document.documentElement.classList.contains('dark')
+        setIsDark(isDarkMode && hasDarkClass)
+        if (isDarkMode && hasDarkClass) {
+            document.documentElement.classList.remove('light')
             document.documentElement.classList.add('dark');
         } else {
+            document.documentElement.classList.remove('dark')
             document.documentElement.classList.add('light');
         }
     }, [])

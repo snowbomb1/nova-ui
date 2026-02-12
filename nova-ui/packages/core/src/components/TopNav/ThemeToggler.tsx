@@ -1,9 +1,9 @@
 import { useTheme } from "../../hooks/useTheme";
 import { FaSun, FaMoon } from "react-icons/fa";
-import Button from "../Button/Button";
+import { Button } from "../Button/Button";
 
 
-const ThemeToggler = () => {
+export const ThemeToggler = () => {
     const { isDark, isTransitioning, toggleTheme } = useTheme();
     return (
         <Button variant="icon" onClick={toggleTheme} disabled={isTransitioning}
@@ -12,5 +12,3 @@ const ThemeToggler = () => {
         </Button>
     )
 };
-
-export default ThemeToggler;

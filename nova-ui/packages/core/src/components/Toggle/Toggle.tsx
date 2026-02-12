@@ -4,28 +4,30 @@ import styles from './toggle.module.css'
 
 export interface ToggleProps {
     label: string;
-    enabled: boolean;
+    state: boolean;
     onChange: (enabaled: boolean) => void;
+    disabled?: boolean;
 }
 
 
-const Toggle = ({ label, enabled, onChange}: ToggleProps) => {
+export const Toggle = ({ label, state, onChange, disabled=false }: ToggleProps) => {
     const toggleRef = useRef<HTMLButtonElement>(null);
 
     useLayoutEffect(() => {
         if (!toggleRef.current) return;
-        if (enabled) toggleRef.current.style.setProperty('--toggle-direction', 'flex-end');
+        if (state) toggleRef.current.style.setProperty('--toggle-direction', 'flex-end');
         else toggleRef.current.style.setProperty('--toggle-direction', 'flex-start')
-    }, [enabled])
+    }, [state])
 
     return (
         <div className={styles.wrapper}>
             <span className={styles.label}>{label}</span>
             <motion.button
                 ref={toggleRef}
-                className={`${styles.switch} ${enabled ? styles.enabled : ""}`}
-                onClick={() => onChange(!enabled)}
-                whileHover={{ scale: 1.1 }}
+                className={`${styles.switch} ${state ? styles.enabled : ""}`}
+                onClick={() => onChange(!state)}
+                disabled={disabled}
+                {...(!disabled && { whileHover: { scale: 1.1 } })}
             >
                 <motion.div 
                     layout
@@ -38,5 +40,3 @@ const Toggle = ({ label, enabled, onChange}: ToggleProps) => {
         </div>
     )
 }
-
-export default Toggle;

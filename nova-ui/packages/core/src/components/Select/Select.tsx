@@ -1,7 +1,7 @@
 import { useMemo, useState, type SelectHTMLAttributes } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from './select.module.css';
-import Input from "../Input/Input";
+import { Input } from "../Input/Input";
 
 export type Option = { label: string, value: string | number };
 
@@ -15,7 +15,7 @@ export interface SelectProps<T> extends Omit<SelectHTMLAttributes<HTMLSelectElem
     disabled?: boolean;
 }
 
-const Select = <T extends Option | Option[]>({ 
+export const Select = <T extends Option | Option[]>({ 
     selectedOption, 
     selectType = "single", 
     autoFilter = false, 
@@ -171,5 +171,3 @@ const Select = <T extends Option | Option[]>({
         </div>
     );
 }
-
-export default Select;

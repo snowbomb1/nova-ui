@@ -38,7 +38,7 @@
 .disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    background: var(--color-surface);
+    filter: grayscale(0.3);
 }
 
 .disabled:hover {

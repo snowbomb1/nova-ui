@@ -9,7 +9,7 @@ export interface FormFieldProps extends LabelHTMLAttributes<HTMLLabelElement> {
 }
 
 
-const FormField = ({ label, description, children }: FormFieldProps) => {
+export const FormField = ({ label, description, children }: FormFieldProps) => {
     return (
         <div className={styles.container}>
             <motion.label className={styles.label}>
@@ -22,5 +22,3 @@ const FormField = ({ label, description, children }: FormFieldProps) => {
         </div>
     )
 }
-
-export default FormField;

@@ -1,16 +1,17 @@
 import { useMemo, useState } from "react";
 import { motion, type HTMLMotionProps, AnimatePresence } from "motion/react";
-import { MdClose } from "react-icons/md";
+import { IClose } from '../../icons/close';
 import styles from './styles.module.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string | undefined;
     onChange: (newValue: string) => void;
     autoComplete?: "on" | "off";
+    disabled?: boolean;
     suggestions?: string[]
 }
 
-const Input = ({ value, onChange, autoComplete = "off", suggestions = [], placeholder, ...props }: InputProps) => {
+export const Input = ({ value, onChange, autoComplete = "off", disabled=false, suggestions = [], placeholder, ...props }: InputProps) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     const filtered = useMemo(() => {
@@ -25,14 +26,16 @@ const Input = ({ value, onChange, autoComplete = "off", suggestions = [], placeh
             className={styles.input}
             whileFocus={{ scale: 1.02 }}
             value={value}
+            disabled={disabled}
             onChange={({ target }) => onChange(target.value)}
             placeholder={placeholder}
-            autoComplete={autoComplete}
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
             {...props as HTMLMotionProps<"input">}
         />
-        {value && <MdClose className={styles.clearButton} size={20} onClick={() => onChange("")} />}
+        <div className={styles.clearButton}>
+            {value && <IClose width="20" onClick={() => onChange("")} />}
+        </div>
         <AnimatePresence>
                 {showSuggestions && filtered.length > 0 && (
                     <motion.ul 
@@ -60,5 +63,3 @@ const Input = ({ value, onChange, autoComplete = "off", suggestions = [], placeh
         </div>
     )
 }
-
-export default Input;

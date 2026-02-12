@@ -1,18 +1,19 @@
 import { AnimatePresence, motion } from "motion/react";
-import ThemeToggler from "./ThemeToggler";
+import { ThemeToggler } from "./ThemeToggler";
 import styles from './topnav.module.css';
 import { useState, useLayoutEffect } from "react";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { MdClose } from "react-icons/md";
-import Button from "../Button/Button";
+import { IClose } from '../../icons/close';
+import { Button } from "../Button/Button";
+import { IHamburger } from "../../icons/hamburger";
 
 export interface TopNavProps {
     header: React.ReactNode;
     logo?: React.ReactNode;
+    logoClick?: () => void;
     search?: React.ReactNode;
 }
 
-const TopNav = ({ header, logo, search }: TopNavProps) => {
+export const TopNav = ({ header, logo, logoClick, search }: TopNavProps) => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState(true);
 
@@ -34,14 +35,18 @@ const TopNav = ({ header, logo, search }: TopNavProps) => {
         <motion.nav className={styles.topnavContainer}>
             <div className={styles.topRow}>
                 <div className={styles.header}>
-                    {logo}
-                    {header}
+                    <>
+                        <div onClick={logoClick}>
+                            {logo}
+                        </div>
+                        {header}
+                    </>
                 </div>
                 
                 {/* Only show hamburger on mobile */}
                 {isMobile && (
                     <Button variant="icon" onClick={() => setIsOpen(!isOpen)}>
-                        {isOpen ? <MdClose /> : <RxHamburgerMenu />}
+                        {isOpen ? <IClose width="20" /> : <IHamburger width="20" />}
                     </Button>
                 )}
             </div>
@@ -59,12 +64,7 @@ const TopNav = ({ header, logo, search }: TopNavProps) => {
                         </div>
                         
                         {/* Desktop Theme: Pushed right via flex */}
-                        <div className={styles.desktopTheme}>
-                            <ThemeToggler />
-                        </div>
-
-                        {/* Mobile Theme: Centered below search */}
-                        <div className={styles.mobileTheme}>
+                        <div className={styles.themeWrapper}>
                             <ThemeToggler />
                         </div>
                     </motion.div>
@@ -73,5 +73,3 @@ const TopNav = ({ header, logo, search }: TopNavProps) => {
         </motion.nav>
     )
 }
-
-export default TopNav;
