@@ -9,6 +9,9 @@
   "scripts": {
     "dev": "pnpm -C website dev",
     "build:core": "pnpm -C packages/core build",
+    "build:website": "pnpm -C website build",
+    "build": "pnpm build:core && pnpm build:website",
+    "preview": "pnpm -C website preview",
     "test": "pnpm -C packages/core test"
   },
   "devDependencies": {
