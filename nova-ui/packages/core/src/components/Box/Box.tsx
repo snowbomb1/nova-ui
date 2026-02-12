@@ -1,6 +1,8 @@
 import { motion } from "motion/react";
 import styles from './box.module.css'
 
+export type BoxPosition = 'left' | 'right' | 'center'
+
 export interface BoxProps {
     children: React.ReactNode;
     position: 'left' | 'right' | 'center'

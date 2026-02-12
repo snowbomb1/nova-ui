@@ -3,6 +3,7 @@ import { Viewer, Input, FormField, ViewerProps, Select, Option, Toggle } from "@
 import Playground from '../playground/Playground';
 import image from '../assets/PXL_20210711_131653816.PORTRAIT.jpg';
 import video from '../assets/20230622_065810.mp4';
+import { formattedObject } from '../utils/stringFormatter';
 
 const ViewerPlayground = () => {
     const [mediaType, setMediaType] = useState<Option>({ label: "image", value: "image"})
@@ -52,11 +53,23 @@ const ViewerPlayground = () => {
             }
             component={
                 <Viewer
-                    src={mediaType?.value === "image" ? image : video }
+                    src={mediaType?.value === "image" ? image : video}
                     alt={mediaType?.value === "image" ? 'Nova Portrait' : "Nova Running"}
                     thumbnailWidth={width}
                     video={videoOptions}
+                    onError={(e) => console.error(e)}
                 />
+            }
+            code={
+                `
+<Viewer
+    src={src}
+    alt={alt}
+    thumbnailWidth={"${width}"}
+    video={${formattedObject(videoOptions)}}
+    onError={(e) => console.error(e)}
+/>
+`
             }
         />
     )
