@@ -1,18 +1,96 @@
-.stepperInput {
-  display: inline-flex;
-  align-items: center;
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 12px;
-  padding: 4px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  max-width: 8rem;
-  transition: border-color 0.2s ease;
+.stepper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--color-background);
+    border: 3px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+    width: 100%;
 }
 
-/* Focus state for the whole component */
-.stepperInput:focus-within {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--glow-primary);
+/* Size variants */
+.sm {
+    max-width: 6rem;
+    padding: 0.25rem;
+    gap: 0.25rem;
+}
+
+.md {
+    max-width: 8rem;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.lg {
+    max-width: 10rem;
+    padding: 0.75rem;
+    gap: 0.75rem;
+}
+
+/* Hover state */
+.stepper:hover:not(.disabled) {
+    border-color: var(--color-primary);
+}
+
+/* Focus state */
+.stepper:focus-within {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(90, 185, 255, 0.3);
+    outline: none;
+}
+
+/* Disabled state */
+.stepper.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
+}
+
+.stepper :global(svg) {
+    flex-shrink: 0; /* Prevents the icon from being squashed to 0px */
+}
+
+/* Input in the middle */
+.input {
+    flex: 1 1 min-content;
+    flex-grow: 1;
+    text-align: center;
+    justify-content: center;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0.25rem !important;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--color-text);
+    min-width: 0;
+    width: 100%;
+}
+
+.input:focus {
+    outline: none;
+}
+
+/* Remove number input spinners */
+.input input[type="number"]::-webkit-inner-spin-button,
+.input input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input input[type="number"] {
+    -moz-appearance: textfield;
+    text-align: center;
+}
+
+/* Dark mode focus glow */
+@media (prefers-color-scheme: dark) {
+    .stepper:focus-within {
+        box-shadow: 0 0 0 3px rgba(255, 110, 64, 0.3);
+    }
 }
