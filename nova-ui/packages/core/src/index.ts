@@ -1,4 +1,5 @@
 // Components and Types
+export * from './components/AppLayout';
 export * from './components/Box';
 export * from './components/Button';
 export * from './components/Form field';
@@ -6,7 +7,9 @@ export * from './components/Header';
 export * from './components/Input';
 export * from './components/Modal';
 export * from './components/Select';
+export * from './components/SideNav';
 export * from './components/Stepper';
+export * from './components/Toast';
 export * from './components/Toggle';
 export * from './components/Tooltip';
 export * from './components/TopNav';

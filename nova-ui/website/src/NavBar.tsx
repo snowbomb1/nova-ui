@@ -9,7 +9,7 @@ const suggestions: string[] = routes.map(r => r?.path!)
 
 const NavBar = () => {
     const navigate = useNavigate();
-    const [string, setString] = useState<string>("")
+    const [string, setString] = useState<string>("/")
 
     const navigateHome = () => {
         navigate('/')
@@ -20,9 +20,10 @@ const NavBar = () => {
         const matchingRoute = routes.find((route) => route.path === value);
         if (matchingRoute) {
             navigate(value)
+            setString("")
         }
     }
-    
+
     return (
         <TopNav
             header={
@@ -32,7 +33,7 @@ const NavBar = () => {
             }
             logo={<SupernovaLogo />}
             logoClick={navigateHome}
-            search={<Input value={string} autoComplete='on' suggestions={suggestions} onChange={(value) => handleChange(value)} placeholder='Search for a component...' />}
+            search={<Input value={string} suggestions={suggestions} onChange={(value) => handleChange(value)} placeholder='Search for a component...' />}
         />
     )
 }

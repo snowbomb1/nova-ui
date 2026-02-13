@@ -35,7 +35,7 @@ const StepperPlayground = () => {
                             ]}
                         />
                     </FormField>
-                    <Toggle label="Disabled" state={disable} onChange={setDisable} />
+                    <Toggle label="Disabled" value={disable} onChange={setDisable} />
                 </>
             }
             component={

@@ -5,63 +5,79 @@ import { Input } from "../Input/Input";
 
 export type Option = { label: string, value: string | number };
 
-export interface SelectProps<T> extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value'> {
-    selectedOption?: T;
-    selectType?: "multi" | "single";
-    autoFilter?: boolean;
+interface SharedProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value'> {
     options: Option[];
-    onChange: (option: T) => void;
+    autoFilter?: boolean;
     placeholder?: string;
     disabled?: boolean;
 }
 
-export const Select = <T extends Option | Option[]>({ 
-    selectedOption, 
-    selectType = "single", 
-    autoFilter = false, 
-    options, 
-    onChange,
-    placeholder = "Select...",
-    disabled = false,
-    className = "",
-    name,
-    id,
-    required,
-    ...htmlProps
-}: SelectProps<T>) => {
+interface SingleSelectProps extends SharedProps {
+    selectType?: 'single';
+    selectedOption?: Option;
+    onChange: (option: Option) => void;
+}
+
+interface MultiSelectProps extends SharedProps {
+    selectType: 'multi';
+    selectedOption?: Option[];
+    onChange: (options: Option[]) => void;
+}
+
+export type SelectProps = SingleSelectProps | MultiSelectProps;
+
+export const Select = (props: SelectProps) => {
+    const {
+        selectedOption,
+        selectType = "single",
+        autoFilter = false,
+        options,
+        onChange,
+        placeholder = "Select...",
+        disabled = false,
+        className = "",
+        name,
+        id,
+        required,
+        ...htmlProps
+    } = props;
+
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
 
     const handleSelect = (option: Option) => {
         if (disabled) return;
-        
+
         if (selectType === "multi") {
             const current = Array.isArray(selectedOption) ? selectedOption : [];
             const exists = current.find(o => o.value === option.value);
-            const next = exists 
-                ? current.filter(o => o.value !== option.value) 
+            const next = exists
+                ? current.filter(o => o.value !== option.value)
                 : [...current, option];
-            onChange(next as T);
+            
+            (onChange as (options: Option[]) => void)(next);
         } else {
-            onChange(option as T);
+            (onChange as (option: Option | undefined) => void)(option);
             setIsOpen(false);
         }
         setQuery("");
     };
 
     const handleToggle = () => {
-        if (!disabled) {
-            setIsOpen(!isOpen);
-        }
+        if (!disabled) setIsOpen(!isOpen);
     };
 
     const filteredOptions = useMemo(() => {
-        return options.filter(o => o.label.toLowerCase().includes(query.toLowerCase()));
+        return options.filter(o => 
+            o.label.toLowerCase().includes(query.toLowerCase())
+        );
     }, [options, query]);
 
     const label = useMemo(() => {
         if (selectType === "multi" && Array.isArray(selectedOption)) {
-            return selectedOption.length > 0 ? selectedOption.map(o => o.label).join(", ") : placeholder;
+            return selectedOption.length > 0 
+                ? selectedOption.map(o => o.label).join(", ") 
+                : placeholder;
         }
         return (selectedOption as Option)?.label || placeholder;
     }, [selectedOption, selectType, placeholder]);
@@ -75,13 +91,17 @@ export const Select = <T extends Option | Option[]>({
 
     return (
         <div className={`${styles.container} ${className}`}>
-            {/* Hidden native select for form compatibility */}
             <select
                 name={name}
                 id={id}
                 required={required}
                 disabled={disabled}
-                value={selectType === "single" && selectedOption ? (selectedOption as Option).value : undefined}
+                multiple={selectType === "multi"}
+                value={
+                    selectType === "multi" 
+                        ? (selectedOption as Option[])?.map(o => String(o.value)) // Force values to strings
+                        : (selectedOption as Option)?.value?.toString() || ""     // Force value to string
+                }
                 className={styles.hiddenSelect}
                 tabIndex={-1}
                 aria-hidden="true"
@@ -92,7 +112,6 @@ export const Select = <T extends Option | Option[]>({
                 ))}
             </select>
 
-            {/* Custom styled control */}
             <motion.div 
                 className={`${styles.control} ${disabled ? styles.disabled : ''}`}
                 onClick={handleToggle}
@@ -147,7 +166,10 @@ export const Select = <T extends Option | Option[]>({
                                     <motion.div 
                                         key={opt.value} 
                                         className={`${styles.item} ${isSelected(opt) ? styles.selected : ''}`}
-                                        onClick={() => handleSelect(opt)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleSelect(opt);
+                                        }}
                                         whileHover={{ backgroundColor: 'var(--color-primary)', color: 'white' }}
                                         transition={{ duration: 0.15 }}
                                         role="option"
@@ -170,4 +192,4 @@ export const Select = <T extends Option | Option[]>({
             </AnimatePresence>
         </div>
     );
-}
+};

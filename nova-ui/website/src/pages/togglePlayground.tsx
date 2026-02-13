@@ -29,7 +29,7 @@ const TogglePlayground = () => {
             component={
                 <Toggle
                     label={label}
-                    state={toggleState}
+                    value={toggleState}
                     onChange={setToggleState}
                     disabled={disableState.value === 'true'}
                 />
@@ -38,7 +38,7 @@ const TogglePlayground = () => {
                 `
 <Toggle
     label={label}
-    state={toggleState}
+    value={toggleState}
     onChange={setToggleState}
     disabled={disableState}
 />            

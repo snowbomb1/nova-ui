@@ -8,16 +8,7 @@ const HomePage = () => {
             <Box position='center'>
                 <Header variant='h1'>Welcome to Nova UI</Header>
                 <br/>
-                <p>Use the search bar above to view components</p>
-                <p>Current available components playgrounds:</p>
-                <ul>
-                    <li>Box</li>
-                    <li>Button</li>
-                    <li>Toggle</li>
-                    <li>Tooltip</li>
-                    <li>TopNav</li>
-                    <li>Viewer</li>
-                </ul>
+                <p>Use the search bar above or SideNav to view components</p>
             </Box>
         </div>
     )

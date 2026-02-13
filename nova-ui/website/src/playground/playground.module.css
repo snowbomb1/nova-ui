@@ -1,4 +1,5 @@
 .container {
+    height: 100%;
     display: flex;
     flex-direction: row;
     gap: 2rem;
@@ -30,7 +31,9 @@
 
 .component {
     width: 100%;
+    contain: content;
     height: auto;
+    min-height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;

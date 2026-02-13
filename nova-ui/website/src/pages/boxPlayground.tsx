@@ -32,7 +32,7 @@ const BoxPlayground = () => {
                         />
                     </FormField>
                     <FormField label="Total Children">
-                        <Stepper size="md" min={0} value={children} onChange={setChildren} />
+                        <Stepper size="md" min={1} value={children} onChange={setChildren} />
                     </FormField>
                 </>
             }

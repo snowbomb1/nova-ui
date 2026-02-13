@@ -17,6 +17,19 @@
     --shadow-md: 0 4px 12px rgba(90, 185, 255, 0.25);
     --shadow-lg: 0 8px 24px rgba(90, 185, 255, 0.35);
     --glow-primary: rgba(90, 185, 255, 0.6);
+
+    /* Status Colors - Light Mode */
+    --color-success: #10B981;
+    --color-warning: #F59E0B;
+    --color-error: #EF4444;
+    --color-info: #3B82F6;
+
+    /* Toast Backgrounds - Light Mode */
+    --toast-bg-success: rgba(16, 185, 129, 0.1);
+    --toast-bg-warning: rgba(245, 158, 11, 0.1);
+    --toast-bg-error: rgba(239, 68, 68, 0.1);
+    --toast-bg-info: rgba(59, 130, 246, 0.1);
+
 }
 
 /* Dark mode - Supernova explosion */
@@ -38,6 +51,18 @@
     --shadow-lg: 0 8px 24px rgba(255, 110, 64, 0.4);
     --glow-primary: rgba(255, 61, 0, 0.7);
     --glow-secondary: rgba(255, 184, 77, 0.7);
+
+    /* Status Colors - Dark Mode (More Vibrant) */
+    --color-success: #34D399;  /* Brighter green */
+    --color-warning: #FBBF24;  /* Brighter amber */
+    --color-error: #F87171;    /* Brighter red */
+    --color-info: #60A5FA;     /* Brighter blue */
+
+    /* Toast Backgrounds - Dark Mode (More Visible) */
+    --toast-bg-success: rgba(52, 211, 153, 0.15);
+    --toast-bg-warning: rgba(251, 191, 36, 0.15);
+    --toast-bg-error: rgba(248, 113, 113, 0.15);
+    --toast-bg-info: rgba(96, 165, 250, 0.15);
 }
 
 /* Also support system preference */
@@ -59,6 +84,18 @@
         --shadow-lg: 0 8px 24px rgba(255, 110, 64, 0.4);
         --glow-primary: rgba(255, 61, 0, 0.7);
         --glow-secondary: rgba(255, 184, 77, 0.7);
+
+        /* Status Colors - Dark Mode (More Vibrant) */
+        --color-success: #34D399;  /* Brighter green */
+        --color-warning: #FBBF24;  /* Brighter amber */
+        --color-error: #F87171;    /* Brighter red */
+        --color-info: #60A5FA;     /* Brighter blue */
+
+        /* Toast Backgrounds - Dark Mode (More Visible) */
+        --toast-bg-success: rgba(52, 211, 153, 0.15);
+        --toast-bg-warning: rgba(251, 191, 36, 0.15);
+        --toast-bg-error: rgba(248, 113, 113, 0.15);
+        --toast-bg-info: rgba(96, 165, 250, 0.15);
     }
 }
 

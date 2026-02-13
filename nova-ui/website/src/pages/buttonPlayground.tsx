@@ -25,7 +25,7 @@ const ButtonPlayground = () => {
                             ]}
                         />
                     </FormField>
-                    <Toggle label="Disabled" state={disabled} onChange={setDisabled} />
+                    <Toggle label="Disabled" value={disabled} onChange={setDisabled} />
                     <FormField label="Disabled Mesage">
                         <Input value={disabledMesssage} onChange={setDisabledMessage} />
                     </FormField>

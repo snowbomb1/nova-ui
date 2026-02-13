@@ -1,4 +1,3 @@
-/* --- Base Container --- */
 .topnavContainer {
     position: sticky;
     top: 0;
@@ -13,7 +12,6 @@
     transition: background-color 0.3s ease;
 }
 
-/* --- Top Row (Always Visible) --- */
 .topRow {
     display: flex;
     justify-content: space-between;
@@ -50,7 +48,7 @@
         flex-direction: row;
         align-items: center;
         padding: 0 2rem;
-        height: 72px;
+        height: 4rem;
         gap: 2rem;
         display: flex;
     }

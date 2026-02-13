@@ -6,19 +6,18 @@ import styles from './styles.module.css';
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string | undefined;
     onChange?: (newValue: string) => void;
-    autoComplete?: "on" | "off";
     disabled?: boolean;
     suggestions?: string[]
     hideClear?: boolean;
 }
 
-export const Input = ({ value, onChange, autoComplete = "off", disabled=false, suggestions = [], placeholder, hideClear = false, ...props }: InputProps) => {
+export const Input = ({ value, onChange, disabled=false, suggestions = [], placeholder, hideClear = false, ...props }: InputProps) => {
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     const filtered = useMemo(() => {
-        if (autoComplete === "off" || suggestions.length === 0 || !value) return [];
+        if (suggestions.length === 0 || !value) return [];
         return suggestions.filter((s) => s.toLowerCase().includes(value.toLowerCase()))
-    }, [autoComplete, suggestions, value])
+    }, [suggestions, value])
 
     return (
         <div className={styles.inputContainer}>

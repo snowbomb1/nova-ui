@@ -1,0 +1,122 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+}
+
+.sidenav {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.sidenav.left {
+    left: 0;
+    border-right: 2px solid var(--color-border);
+}
+
+.sidenav.right {
+    right: 0;
+    border-left: 2px solid var(--color-border);
+}
+
+/* When collapsed, center everything */
+.sidenav.collapsed .header {
+    justify-content: center;
+}
+
+.sidenav.collapsed .item {
+    justify-content: center;
+    padding: 1rem 0.5rem;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    height: 4rem;
+}
+
+.toggleButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text);
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.items {
+    flex: 1;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: transparent;
+    border: 2px solid var(--color-border);
+    border-radius: 0.5rem;
+    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.item:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.itemIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    width: 24px;
+}
+
+/* Custom scrollbar */
+.items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.items::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.items::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+}
+
+.items::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}

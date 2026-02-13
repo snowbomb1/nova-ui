@@ -38,7 +38,7 @@ const TopNavPlayground = () => {
                             ]}
                         />
                     </FormField>
-                    <Toggle label="AutoComplete" state={autoComplete} onChange={setAutoComplete} />
+                    <Toggle label="AutoComplete" value={autoComplete} onChange={setAutoComplete} />
                 </>
             }
             component={
