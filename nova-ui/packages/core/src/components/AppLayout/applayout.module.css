@@ -1,0 +1,32 @@
+/* AppLayout.module.css */
+.layout {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--color-background);
+}
+
+.mainArea {
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.content {
+    flex: 1;
+    padding: 2rem;
+    max-width: 1400px; /* Optional: limit content width */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .mainArea {
+        margin-left: 0 !important; /* No margin on mobile */
+    }
+    
+    .content {
+        padding: 1rem;
+    }
+}

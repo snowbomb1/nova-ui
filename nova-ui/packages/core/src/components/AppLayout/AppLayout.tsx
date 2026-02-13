@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { motion } from 'motion/react';
-import styles from './AppLayout.module.css';
+import styles from './applayout.module.css';
 
 export interface AppLayoutProps {
     topNav?: ReactNode;
