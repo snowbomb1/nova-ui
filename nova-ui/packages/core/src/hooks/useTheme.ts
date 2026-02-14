@@ -1,21 +1,23 @@
 import { useLayoutEffect, useState, useCallback, type MouseEvent } from 'react';
 
+type Theme = 'light' | 'dark'
+
 export const useTheme = () => {
-    const [isDark, setIsDark] = useState<boolean>();
     const [isTransitioning, setIsTransitioning] = useState(false);
+    const [theme, setTheme] = useState<Theme>(() => {
+        const saved = localStorage.getItem('nova-ui-theme');
+        if (!saved) {
+            return window.matchMedia('(prefers-color-schmeme: dark)').media ? 'dark' : 'light';
+        } else {
+            return saved as Theme;
+        }
+    });
     
     useLayoutEffect(() => {
-        const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const hasDarkClass = document.documentElement.classList.contains('dark')
-        setIsDark(isDarkMode && hasDarkClass)
-        if (isDarkMode && hasDarkClass) {
-            document.documentElement.classList.remove('light')
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark')
-            document.documentElement.classList.add('light');
-        }
-    }, [])
+        document.documentElement.classList.remove('light', 'dark');
+        document.documentElement.classList.add(theme);
+        localStorage.setItem('nova-ui-theme', theme);
+    }, [theme])
 
     const toggleTheme = useCallback((event: MouseEvent) => {
         if (isTransitioning) return;
@@ -25,33 +27,20 @@ export const useTheme = () => {
 
         document.documentElement.style.setProperty('--x', `${x}px`)
         document.documentElement.style.setProperty('--y', `${y}px`)
-        const isDarkNow = document.documentElement.classList.contains('dark');
-        setIsDark(!isDarkNow)
+        
+        const applyTheme = () => {
+            setTheme(prev => prev === 'dark' ? 'light' : 'dark')
+        };
         if (!document.startViewTransition) {
-            if (isDarkNow) {
-                document.documentElement.classList.remove('dark')
-                document.documentElement.classList.add('light')
-            } else {
-                document.documentElement.classList.remove('light')
-                document.documentElement.classList.add('dark')
-            }
+            applyTheme();
             return;
         }
         setIsTransitioning(true);
-        const transition = document.startViewTransition(() => {
-            if (isDarkNow) {
-                document.documentElement.classList.remove('dark');
-                document.documentElement.classList.add('light');
-            } else {
-                document.documentElement.classList.remove('light');
-                document.documentElement.classList.add('dark');
-            }
-            return;
-        });
+        const transition  = document.startViewTransition(applyTheme);
         transition.finished.finally(() => {
             setIsTransitioning(false);
         })
     }, [isTransitioning]);
 
-    return { isDark, isTransitioning, toggleTheme }
+    return { theme, isTransitioning, toggleTheme }
 }
