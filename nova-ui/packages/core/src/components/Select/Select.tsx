@@ -1,4 +1,4 @@
-import { useMemo, useState, type SelectHTMLAttributes } from "react";
+import { useMemo, useState, type SelectHTMLAttributes, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from './select.module.css';
 import { Input } from "../Input/Input";
@@ -44,6 +44,47 @@ export const Select = (props: SelectProps) => {
 
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
+    const [highlightedIndex, setHighlightedIndex] = useState(0);
+
+    const filteredOptions = useMemo(() => {
+        return options.filter(o => 
+            o.label.toLowerCase().includes(query.toLowerCase())
+        );
+    }, [options, query]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            switch (e.key) {
+                case 'ArrowDown':
+                    e.preventDefault();
+                    setHighlightedIndex(prev => 
+                        prev < filteredOptions.length - 1 ? prev + 1 : 0
+                    );
+                    break;
+                case 'ArrowUp':
+                    e.preventDefault();
+                    setHighlightedIndex(prev => 
+                        prev > 0 ? prev - 1 : filteredOptions.length - 1
+                    );
+                    break;
+                case 'Enter':
+                    e.preventDefault();
+                    if (filteredOptions[highlightedIndex]) {
+                        handleSelect(filteredOptions[highlightedIndex]);
+                    }
+                    break;
+                case 'Escape':
+                    e.preventDefault();
+                    setIsOpen(false);
+                    break;
+            }
+        };
+
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [isOpen, filteredOptions, highlightedIndex]);
 
     const handleSelect = (option: Option) => {
         if (disabled) return;
@@ -66,12 +107,6 @@ export const Select = (props: SelectProps) => {
     const handleToggle = () => {
         if (!disabled) setIsOpen(!isOpen);
     };
-
-    const filteredOptions = useMemo(() => {
-        return options.filter(o => 
-            o.label.toLowerCase().includes(query.toLowerCase())
-        );
-    }, [options, query]);
 
     const label = useMemo(() => {
         if (selectType === "multi" && Array.isArray(selectedOption)) {
@@ -162,10 +197,10 @@ export const Select = (props: SelectProps) => {
                         )}
                         <div className={styles.list}>
                             {filteredOptions.length > 0 ? (
-                                filteredOptions.map((opt) => (
+                                filteredOptions.map((opt, index) => (
                                     <motion.div 
                                         key={opt.value} 
-                                        className={`${styles.item} ${isSelected(opt) ? styles.selected : ''}`}
+                                        className={`${styles.item} ${isSelected(opt) ? styles.selected : ''} ${index === highlightedIndex ? styles.highlighted : ''}`}
                                         onClick={(e) => {
                                             e.stopPropagation();
                                             handleSelect(opt);

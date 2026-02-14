@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { motion } from "motion/react";
 import styles from './sidenav.module.css';
 import { IHamburger } from "../../icons/hamburger";
@@ -27,6 +27,11 @@ export const SideNav = ({
     expandedWidth = "280px", 
     position = 'left' 
 }: SideNavProps) => {
+    const [active, setActive] = useState<string>(() => {
+        const url = window.location.pathname;
+        const path = url.slice(1);
+        return path || ""
+    })
     const collapsedWidth = "50px";
 
     useLayoutEffect(() => {
@@ -95,10 +100,14 @@ export const SideNav = ({
                         .map((item) => (
                             <button
                                 key={item.label}
-                                className={styles.item}
+                                className={`${styles.item} ${item.label.toLowerCase() === active ? styles.active : ''}`}
+                                aria-current={item.label === active ? 'page' : undefined}
                                 onClick={() => {
+                                    setActive(item.label.toLowerCase())
                                     item.onClick();
-                                    onToggle();
+                                    if (isOpen) {
+                                        onToggle();
+                                    }
                                 }}
                                 title={!isOpen ? item.label : undefined}
                             >

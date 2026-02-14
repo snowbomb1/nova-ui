@@ -55,6 +55,9 @@ export const Toast = ({
                         exit={{ opacity: 0, scale: 0.8, x: 100 }}
                         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                         className={`${styles.toast} ${styles[status]}`}
+                        role={status === 'error' ? 'alert' : 'status'}
+                        aria-live={status === 'error' ? 'assertive' : 'polite'}
+                        aria-atomic="true"
                     >
                         <div className={styles.glow} />
                         

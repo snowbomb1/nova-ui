@@ -34,6 +34,8 @@
 
 .close {
     margin-left: auto;
+    background: none;
+    border: none;
 }
 
 .content {

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { motion, type HTMLMotionProps, AnimatePresence } from "motion/react";
 import { IClose } from '../../icons/close';
-import styles from './styles.module.css';
+import styles from './input.module.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string | undefined;
@@ -33,9 +33,16 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [], place
             onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
             {...props as HTMLMotionProps<"input">}
         />
-        <div className={styles.clearButton}>
-            {!hideClear && value && <IClose width="20" onClick={() => onChange?.("")} />}
-        </div>
+        {!hideClear && (
+            <button
+                className={styles.clearButton}
+                onClick={() => onChange?.("")}
+                aria-label="Clear input"
+                type="button"
+            >
+                <IClose width="20" />
+            </button>
+        )}
         <AnimatePresence>
                 {showSuggestions && filtered.length > 0 && (
                     <motion.ul 

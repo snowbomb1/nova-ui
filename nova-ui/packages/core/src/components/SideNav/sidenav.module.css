@@ -94,6 +94,12 @@
     color: white;
 }
 
+.active {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
 .itemIcon {
     display: flex;
     align-items: center;

@@ -49,6 +49,8 @@
 }
 
 .clearButton {
+    background: transparent;
+    border: none;
     position: absolute;
     right: 0.8rem;
 }
@@ -81,6 +83,9 @@
     border-radius: 0.3rem;
     cursor: pointer;
     transition: all 0.2s ease;
+    align-content: center;
+    min-height: 44px;
+    min-width: 44px;
 }
 
 .suggestionItem:hover {

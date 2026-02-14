@@ -54,17 +54,15 @@ export const Stepper = ({
     };
 
     return (
-        <motion.div 
-            className={`${styles.stepper} ${styles[size]} ${disabled ? styles.disabled : ''}`}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.2 }}
-        >
-            <IMinus 
-                disable={decreaseDisabled} 
-                width={iconSize[size]} 
-                onClick={handleDecrease} 
-            />
+        <motion.div className={`${styles.container} ${styles[size]}`}>
+            <motion.button
+                className={`${styles.stepper} ${disabled ? styles.disabled : ''}`}
+                onClick={handleDecrease}
+                aria-label="Clear input"
+                type="button"
+            >
+                <IMinus width={iconSize[size]} />
+            </motion.button>
             
             <Input 
                 className={styles.input}
@@ -77,12 +75,14 @@ export const Stepper = ({
                 max={max}
                 step={step}
             />
-            
-            <IPlus 
-                disable={increaseDisabled} 
-                width={iconSize[size]} 
-                onClick={handleIncrease} 
-            />
+            <motion.button
+                className={`${styles.stepper} ${disabled ? styles.disabled : ''}`}
+                onClick={handleIncrease}
+                aria-label="Clear input"
+                type="button"
+            >
+                <IPlus width={iconSize[size]} />
+            </motion.button>
         </motion.div>
     );
 };

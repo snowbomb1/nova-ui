@@ -1,12 +1,17 @@
 .icon {
-    height: auto;
+    aspect-ratio: 1/1;
     cursor: pointer;
-    color: var(--color-text);
-    background: transparent;
-    border: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--color-text);
+    filter: drop-shadow(--shadow-sm);
+    appearance: none;
+    overflow: visible; 
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    z-index: 2;
+    
 }
 
 .icon:hover {
