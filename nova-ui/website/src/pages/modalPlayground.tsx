@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Modal, ModalSize, Header, Box, BoxPosition, FormField, Select, Option, Viewer, Button } from "@nova-ui/core";
 import Playground from "../playground/Playground";
-import image from '../assets/PXL_20210711_131653816.PORTRAIT.jpg';
 
+const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"
 
 const ModalPlayground = () => {
     const [visible, setVisible] = useState<boolean>(false);
@@ -57,7 +57,7 @@ const ModalPlayground = () => {
                         }
                     >
                         <Box position="center">
-                            <Viewer src={image} alt="Nova Image" />
+                            <Viewer src={imageUrl} alt="Nova Image" />
                         </Box>
                     </Modal>
                 </div>

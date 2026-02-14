@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Viewer, Input, FormField, ViewerProps, Select, Option, Toggle } from "@nova-ui/core";
 import Playground from '../playground/Playground';
-import image from '../assets/PXL_20210711_131653816.PORTRAIT.jpg';
-import video from '../assets/20230622_065810.mp4';
 import { formattedObject } from '../utils/stringFormatter';
+
+const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"
+const videoUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-running.mp4"
 
 const ViewerPlayground = () => {
     const [mediaType, setMediaType] = useState<Option>({ label: "image", value: "image"})
@@ -53,7 +54,7 @@ const ViewerPlayground = () => {
             }
             component={
                 <Viewer
-                    src={mediaType?.value === "image" ? image : video}
+                    src={mediaType?.value === "image" ? imageUrl : videoUrl}
                     alt={mediaType?.value === "image" ? 'Nova Portrait' : "Nova Running"}
                     thumbnailWidth={width}
                     video={videoOptions}

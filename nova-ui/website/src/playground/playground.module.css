@@ -31,7 +31,6 @@
 
 .component {
     width: 100%;
-    contain: content;
     height: auto;
     min-height: 300px;
     display: flex;
