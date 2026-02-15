@@ -24,6 +24,7 @@ export const Toggle = ({ label, value, onChange, disabled=false }: ToggleProps) 
             <span className={styles.label}>{label}</span>
             <motion.button
                 ref={toggleRef}
+                aria-label={`Toggle ${label}`}
                 className={`${styles.switch} ${value ? styles.enabled : ""}`}
                 onClick={() => onChange(!value)}
                 disabled={disabled}

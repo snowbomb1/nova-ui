@@ -16,7 +16,6 @@ export const useMediaLoader = ({ src, onError }: UseMediaLoaderProps ) => {
     }, [])
 
     useEffect(() => {
-        console.log('src', src)
         if (!src.length) return;
         setIsLoading(true);
         setHasError(false);

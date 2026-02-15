@@ -6,11 +6,11 @@ export type FlexDirection = 'horizontal' | 'vertical';
 
 export interface BoxProps {
     children: React.ReactNode;
-    position: BoxPosition;
+    position?: BoxPosition;
     direction?: FlexDirection;
 }
 
-export const Box = ({ children, position, direction = "vertical" }: BoxProps) => {
+export const Box = ({ children, position="center", direction = "vertical" }: BoxProps) => {
     return (
         <motion.div
             className={styles.box}

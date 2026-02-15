@@ -3,9 +3,11 @@ import { RouteProps } from 'react-router-dom';
 import HomePage from './pages/home';
 
 // Playgrounds
-// import ApplayoutPlayground from './pages/applayoutPlayground';
+import AccordianPlayground from './pages/accordianPlayground';
 import BoxPlayground from './pages/boxPlayground';
 import ButtonPlayground from './pages/buttonPlayground';
+import CheckboxPlayground from './pages/checkboxPlayground';
+import ContainerPlayground from './pages/containerPlayground';
 import FormFieldPlayground from './pages/formFieldPlayground';
 import HeaderPlayground from './pages/headerPlayground';
 import InputPlayground from './pages/inputPlayground';
@@ -22,9 +24,11 @@ import ViewerPlayground from './pages/viewerPlayground';
 
 export const routes: RouteProps[] = [
     { path: '/', Component: HomePage },
-    // { path: '/appLayout', Component: ApplayoutPlayground },
+    { path: '/accordion', Component: AccordianPlayground },
     { path: '/box', Component: BoxPlayground },
     { path: '/button', Component: ButtonPlayground },
+    { path: '/checkbox', Component: CheckboxPlayground },
+    { path: '/container', Component: ContainerPlayground },
     { path: '/formField', Component: FormFieldPlayground },
     { path: '/header', Component: HeaderPlayground },
     { path: '/input', Component: InputPlayground },
