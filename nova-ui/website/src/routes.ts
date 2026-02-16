@@ -4,6 +4,8 @@ import HomePage from './pages/home';
 
 // Playgrounds
 import AccordianPlayground from './pages/accordianPlayground';
+import ActionSheetPlayground from './pages/actionSheetPlayground';
+import AlertPlayground from './pages/alertPlayground';
 import BoxPlayground from './pages/boxPlayground';
 import ButtonPlayground from './pages/buttonPlayground';
 import CheckboxPlayground from './pages/checkboxPlayground';
@@ -25,6 +27,8 @@ import ViewerPlayground from './pages/viewerPlayground';
 export const routes: RouteProps[] = [
     { path: '/', Component: HomePage },
     { path: '/accordion', Component: AccordianPlayground },
+    { path: '/actionSheet', Component: ActionSheetPlayground },
+    { path: '/alert', Component: AlertPlayground },
     { path: '/box', Component: BoxPlayground },
     { path: '/button', Component: ButtonPlayground },
     { path: '/checkbox', Component: CheckboxPlayground },

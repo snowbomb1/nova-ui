@@ -1,0 +1,116 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 9998;
+}
+
+.sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-radius: 1rem 1rem 0 0;
+    z-index: 9999;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.handle {
+    display: flex;
+    justify-content: center;
+    padding: 0.75rem;
+}
+
+.handleBar {
+    width: 36px;
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+}
+
+.header {
+    padding: 1rem 1.5rem;
+    text-align: center;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 0.25rem;
+}
+
+.message {
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.actions {
+    overflow-y: auto;
+    max-height: 60vh;
+}
+
+.action {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.15s;
+    min-height: 56px;
+}
+
+.action:active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.action:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.action.destructive {
+    color: var(--color-error);
+}
+
+.actionIcon {
+    font-size: 1.5rem;
+    width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionLabel {
+    flex: 1;
+    text-align: left;
+}
+
+.cancel {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: none;
+    color: var(--color-primary);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.cancel:active {
+    opacity: 0.7;
+}
