@@ -9,7 +9,6 @@
 .utils {
     width: 320px;
     height: fit-content;
-    position: sticky;
     top: 2rem;
     
     display: flex;
