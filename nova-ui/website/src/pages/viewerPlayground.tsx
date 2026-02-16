@@ -38,14 +38,16 @@ const ViewerPlayground = () => {
                     />
                     <Input label="Thumbnail Width" helperText="Width in Pixels" value={width} onChange={setWidth} />
                     <FormField label="Video Options">
-                        {Object.keys(videoOptions as Array<keyof typeof videoOptions>).map((key) => (
-                            <Toggle
-                                key={key}
-                                label={key}
-                                value={videoOptions[key as keyof typeof videoOptions] || false}
-                                onChange={() => toggleVideoSetting(key as keyof typeof videoOptions)}
-                            />
-                        ))}
+                        <>
+                            {Object.keys(videoOptions as Array<keyof typeof videoOptions>).map((key) => (
+                                <Toggle
+                                    key={key}
+                                    label={key}
+                                    value={videoOptions[key as keyof typeof videoOptions] || false}
+                                    onChange={() => toggleVideoSetting(key as keyof typeof videoOptions)}
+                                />
+                            ))}
+                        </>
                     </FormField>
                 </>
             }
