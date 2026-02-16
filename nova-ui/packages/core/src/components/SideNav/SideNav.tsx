@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import styles from './sidenav.module.css';
 import { IHamburger } from "../../icons/hamburger";
 import { IClose } from "../../icons/close";
+import { ActionSheet } from "../ActionSheet";
 
 export type NavItem = {
     label: string;
@@ -16,23 +17,32 @@ export interface SideNavProps {
     isOpen: boolean;
     onToggle: () => void;
     items: NavItem[];
+    /*
+    * @default "280px"
+    */
     expandedWidth?: string;
+    /*
+    * @default "50px"
+    */
+    collapsedWidth?: string;
     position?: NavPosition;
 }
 
-export const SideNav = ({ 
-    isOpen, 
-    items, 
-    onToggle, 
-    expandedWidth = "280px", 
-    position = 'left' 
-}: SideNavProps) => {
+export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px", 
+    collapsedWidth="50px", position = 'left' }: SideNavProps) => {
     const [active, setActive] = useState<string>(() => {
         const url = window.location.pathname;
         const path = url.slice(1);
         return path || ""
     })
-    const collapsedWidth = "50px";
+    const [isMobile, setIsMobile] = useState(false);
+
+    useLayoutEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useLayoutEffect(() => {
         if (isOpen) {
@@ -52,6 +62,23 @@ export const SideNav = ({
         document.addEventListener('keydown', handleEscape);
         return () => document.removeEventListener('keydown', handleEscape);
     }, [isOpen, onToggle]);
+
+    if (isMobile) {
+        return (
+            <ActionSheet
+                isOpen={isOpen}
+                onClose={onToggle}
+                title="Menu"
+                actions={items.map((item) => {
+                    return {
+                        label: item.label,
+                        icon: item.icon,
+                        onClick: item.onClick
+                    }
+                })}
+            />
+        )
+    }
 
     return (
         <>
@@ -96,7 +123,7 @@ export const SideNav = ({
                 {/* Nav items */}
                 <div className={styles.items}>
                     {items
-                        .filter(item => isOpen || item.icon) // Filter out items without icons when collapsed
+                        .filter(item => isOpen || item.icon)
                         .map((item) => (
                             <button
                                 key={item.label}

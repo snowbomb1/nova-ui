@@ -1,4 +1,4 @@
-import { useMemo, useState, type SelectHTMLAttributes, useEffect } from "react";
+import { useMemo, useState, type SelectHTMLAttributes, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from './select.module.css';
 import { Input } from "../Input/Input";
@@ -45,6 +45,7 @@ export const Select = (props: SelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [highlightedIndex, setHighlightedIndex] = useState(0);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     const filteredOptions = useMemo(() => {
         return options.filter(o => 
@@ -86,6 +87,19 @@ export const Select = (props: SelectProps) => {
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [isOpen, filteredOptions, highlightedIndex]);
 
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isOpen]);
+
     const handleSelect = (option: Option) => {
         if (disabled) return;
 
@@ -125,7 +139,7 @@ export const Select = (props: SelectProps) => {
     };
 
     return (
-        <div className={`${styles.container} ${className}`}>
+        <div ref={containerRef} className={`${styles.container} ${className}`}>
             <select
                 name={name}
                 id={id}

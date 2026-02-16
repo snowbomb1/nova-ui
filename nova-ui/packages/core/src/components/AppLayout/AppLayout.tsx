@@ -1,16 +1,29 @@
-import { type ReactNode } from 'react';
-import { motion } from 'motion/react';
+import { type ReactNode, useLayoutEffect, useRef, useState } from 'react';
+import { motion, useMotionValue, useTransform, PanInfo } from 'motion/react';
 import styles from './applayout.module.css';
+import { FloatingMenuButton } from '../FloatingMenuButton';
 
 export interface AppLayoutProps {
     topNav?: ReactNode;
     sideNav?: ReactNode;
     sideNavOpen?: boolean;
     sideNavExpandedWidth?: string;
+    sideNavCollapsedWidth?: string;
     children: ReactNode;
 }
 
-export const AppLayout = ({ topNav, sideNav, sideNavOpen = false, sideNavExpandedWidth = "280px", children }: AppLayoutProps) => {
+export const AppLayout = ({ topNav, sideNav, sideNavOpen = false, 
+    sideNavExpandedWidth = "280px", sideNavCollapsedWidth = "50px", children }: AppLayoutProps
+) => {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useLayoutEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
 
     return (
         <div className={styles.layout}>
@@ -20,7 +33,9 @@ export const AppLayout = ({ topNav, sideNav, sideNavOpen = false, sideNavExpande
             <motion.div
                 className={styles.mainArea}
                 animate={{
-                    marginLeft: sideNavOpen ? sideNavExpandedWidth : "30px"
+                    marginLeft: isMobile 
+                        ? '0px'
+                        : (sideNavOpen ? sideNavExpandedWidth : sideNavCollapsedWidth)
                 }}
                 transition={{
                     type: 'spring',

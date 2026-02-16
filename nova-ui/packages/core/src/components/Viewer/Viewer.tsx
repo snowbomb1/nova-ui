@@ -2,24 +2,33 @@ import { useState, useLayoutEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ViewerLoader } from "./ViewerLoader";
 import { useMediaLoader } from "../../hooks/useMediaLoader";
-import styles from "./styles.module.css";
+import styles from "./viewer.module.css"
 
-interface VideoProps {
+export interface VideoProps {
     controls?: boolean;
     loop?: boolean;
     autoPlay?: boolean;
     muted?: boolean;
 }
 
+export type ViewerAspectRatio = '16/9' | '9/16' | '1/1' | '4/3' | '3/2' | '21/19'
+
 export interface ViewerProps {
     src: string;
     alt?: string;
     video?: VideoProps;
+    /*
+    * @default '300px'
+    */
     thumbnailWidth?: string;
+    /*
+    * @default '9/16'
+    */
+    aspectRatio?: ViewerAspectRatio;
     onError?: (error: Error) => void;
 }
 
-export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPlay: true, muted: true }, thumbnailWidth = "300px", onError }: ViewerProps) => {
+export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPlay: true, muted: true }, thumbnailWidth = "300px", onError, aspectRatio='9/16' }: ViewerProps) => {
     const { isLoading, hasError, isVideo, reload } = useMediaLoader({ src, onError });
     const [isOpen, setIsOpen] = useState(false);
     const thumbnailRef = useRef<HTMLDivElement>(null);
@@ -45,7 +54,7 @@ export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPla
     }, [isOpen]);
 
     if (isLoading) {
-        return <ViewerLoader divRef={thumbnailRef} />;
+        return <ViewerLoader divRef={thumbnailRef} aspectRatio={aspectRatio} width={thumbnailWidth} />;
     }
 
     if (hasError) {
@@ -66,6 +75,7 @@ export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPla
                         className={styles.thumbnail}
                         src={src}
                         muted
+                        preload="none"
                         autoPlay={video.autoPlay}
                         loop={video.loop}
                         disablePictureInPicture
@@ -118,7 +128,7 @@ export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPla
                             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                         >
                             {isVideo ? (
-                                <video className={styles.lightboxMedia} src={src} controls={video.controls} loop={video.loop} autoPlay={video.autoPlay} muted={video.muted} />
+                                <video preload="none" className={styles.lightboxMedia} src={src} controls={video.controls} loop={video.loop} autoPlay={video.autoPlay} muted={video.muted} />
                             ) : (
                                 <img className={styles.lightboxMedia} src={src} alt={alt} />
                             )}

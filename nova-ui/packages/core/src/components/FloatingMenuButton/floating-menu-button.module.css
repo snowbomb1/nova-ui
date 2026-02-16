@@ -1,0 +1,29 @@
+.floatingButton {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 998;
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.2s;
+}
+
+.floatingButton:hover {
+    background: var(--color-primary-dark);
+    box-shadow: var(--shadow-xl);
+}
+
+@media (min-width: 769px) {
+    .floatingButton {
+        display: none;
+    }
+}

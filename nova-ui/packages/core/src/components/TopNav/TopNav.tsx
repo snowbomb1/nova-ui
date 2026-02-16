@@ -14,67 +14,27 @@ export interface TopNavProps {
 }
 
 export const TopNav = ({ header, logo, logoClick, search }: TopNavProps) => {
-    const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [isOpen, setIsOpen] = useState(true);
-
-    useLayoutEffect(() => {
-        let lastIsMobile = window.innerWidth <= 768;
-
-        const handleResize = () => {
-            const width = window.innerWidth;
-            const currentlyMobile = width <= 768;
-            if (currentlyMobile !== lastIsMobile) {
-                setIsOpen(false);
-                setIsOpen(!currentlyMobile);
-                lastIsMobile = currentlyMobile;
-            }
-        };
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
     return (
         <motion.nav className={styles.topnavContainer}>
             <div className={styles.topRow}>
                 <div className={styles.header}>
-                    <>
-                        <div onClick={logoClick}>
-                            {logo}
-                        </div>
-                        {header}
-                    </>
+                    <div onClick={logoClick} style={{ cursor: logoClick ? 'pointer' : 'default' }}>
+                        {logo}
+                    </div>
+                    {header}
                 </div>
-                
-                {/* Only show hamburger on mobile */}
-                {isMobile && (
-                    <Button variant="icon" onClick={() => setIsOpen(!isOpen)}>
-                        {isOpen ? <IClose width="20" /> : <IHamburger width="20" />}
-                    </Button>
-                )}
             </div>
 
-            <AnimatePresence>
-                {(isOpen || !isMobile) && (
-                    <motion.div 
-                        className={styles.collapsibleContent}
-                        initial={isMobile ? { height: 0, opacity: 0 } : false}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                    >
-                        <div className={styles.searchWrapper}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            {search}
-                        </div>
-                        
-                        {/* Desktop Theme: Pushed right via flex */}
-                        <div className={styles.themeWrapper}>
-                            <ThemeToggler />
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            <div className={styles.collapsibleContent}>
+                <div className={styles.searchWrapper}>
+                    {search}
+                </div>
+                
+                <div className={styles.themeWrapper}>
+                    <ThemeToggler />
+                </div>
+            </div>
         </motion.nav>
-    )
+    );
 }
