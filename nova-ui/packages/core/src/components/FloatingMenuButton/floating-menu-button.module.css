@@ -1,7 +1,7 @@
 .floatingButton {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: calc(2rem + env(safe-area-inset-bottom, 0));
+    right: calc(2rem + env(safe-area-inset-right, 0));
     z-index: 998;
     background: var(--color-primary);
     color: white;

@@ -16,7 +16,7 @@ export interface TopNavProps {
 export const TopNav = ({ header, logo, logoClick, search }: TopNavProps) => {
 
     return (
-        <motion.nav className={styles.topnavContainer}>
+        <motion.nav className={styles.topnavContainer} aria-label="Main navigation">
             <div className={styles.topRow}>
                 <div className={styles.header}>
                     <div onClick={logoClick} style={{ cursor: logoClick ? 'pointer' : 'default' }}>

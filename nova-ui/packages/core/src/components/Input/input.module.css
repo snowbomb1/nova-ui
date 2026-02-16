@@ -1,7 +1,31 @@
-.inputContainer {
-    position: relative;
+.inputWrapper {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    flex-shrink: 0;
+}
+
+.required {
+    color: var(--color-error);
+    margin-left: 0.25rem;
+}
+
+.inputContainer {
+    position: relative;  /* Changed from display: flex */
     width: 100%;
 }
 
@@ -10,17 +34,25 @@
     padding: 0.8rem 2.5rem 0.8rem 1.2rem;
     font-size: 0.75rem;
     border-radius: 0.5rem;
-    
-    /* Colors */
     background-color: var(--color-surface);
     color: var(--color-text);
     border: 2px solid var(--color-text-secondary);
     opacity: 0.9;
     outline: none;
-    
-    /* Default Glow/Shadow */
     box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
+}
+
+.inputError {
+    border-color: var(--color-error);
+    background-color: var(--toast-bg-error);
+}
+
+.inputError:hover {
+    border-color: var(--color-error);
+    box-shadow: 
+        var(--shadow-md),
+        0 0 0 3px rgba(255, 0, 0, 0.1);
 }
 
 .input::placeholder {
@@ -38,10 +70,9 @@
     border-color: var(--color-primary);
     box-shadow: 
         var(--shadow-lg),
-        0 0 15px var(--glow-primary); /* Intense supernova glow */
+        0 0 15px var(--glow-primary);
 }
 
-/* Accessibility for disabled state */
 .input:disabled {
     opacity: 0.5;
     cursor: not-allowed;
@@ -49,15 +80,44 @@
 }
 
 .clearButton {
-    background: transparent;
-    border: none;
     position: absolute;
     right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
 }
 
 .clearButton:hover {
     color: var(--color-primary);
-    transform: scale(1.1);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.helperText {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    flex-shrink: 1;
+}
+
+.errorText {
+    font-size: 0.75rem;
+    color: var(--color-error);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.errorText::before {
+    content: '⚠';
+    font-size: 1rem;
 }
 
 .suggestionsList {
@@ -70,6 +130,7 @@
     border-radius: 0.5rem;
     list-style: none;
     padding: 0.4rem;
+    margin: 0;
     z-index: 1000;
     box-shadow: var(--shadow-lg);
     max-height: 200px;
@@ -83,18 +144,17 @@
     border-radius: 0.3rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    align-content: center;
     min-height: 44px;
-    min-width: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .suggestionItem:hover {
     background-color: var(--color-primary);
-    color: white; /* Contrast against the primary supernova color */
+    color: white;
     box-shadow: 0 0 10px var(--glow-primary);
 }
 
-/* Custom scrollbar for the suggestions list */
 .suggestionsList::-webkit-scrollbar {
     width: 4px;
 }
@@ -102,4 +162,11 @@
 .suggestionsList::-webkit-scrollbar-thumb {
     background: var(--color-text-secondary);
     border-radius: 10px;
+}
+
+/* Mobile optimization */
+@media (max-width: 768px) {
+    .input {
+        font-size: 16px;
+    }
 }

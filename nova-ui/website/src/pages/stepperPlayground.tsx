@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Stepper, FormField, Toggle, Input, Option, StepperSize, Select } from "@nova-ui/core";
+import { Stepper, Toggle, Input, Option, StepperSize, Select } from "@nova-ui/core";
 import Playground from "../playground/Playground";
 
 
@@ -15,26 +15,19 @@ const StepperPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Min">
-                        <Input inputMode="numeric" value={min} onChange={setMin} />
-                    </FormField>
-                    <FormField label="Max">
-                        <Input inputMode="numeric" value={max} onChange={setMax} />
-                    </FormField>
-                    <FormField label="Step Amount">
-                        <Input inputMode="numeric" value={step} onChange={setStep} />
-                    </FormField>
-                    <FormField label="Stepper Size">
-                        <Select
-                            selectedOption={size}
-                            onChange={setSize}
-                            options={[
-                                { label: "Small", value: "sm" },
-                                { label: "Medium", value: "md" },
-                                { label: "Large", value: "lg" }
-                            ]}
-                        />
-                    </FormField>
+                    <Input label="Min" inputMode="numeric" value={min} onChange={setMin} />
+                    <Input label="Max" inputMode="numeric" value={max} onChange={setMax} />
+                    <Input label="Step Amount" inputMode="numeric" value={step} onChange={setStep} />
+                    <Select
+                        label="Stepper Size"
+                        selectedOption={size}
+                        onChange={setSize}
+                        options={[
+                            { label: "Small", value: "sm" },
+                            { label: "Medium", value: "md" },
+                            { label: "Large", value: "lg" }
+                        ]}
+                    />
                     <Toggle label="Disabled" value={disable} onChange={setDisable} />
                 </>
             }

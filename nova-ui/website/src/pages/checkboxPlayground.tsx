@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Checkbox, FormField, Input, Toggle } from "@nova-ui/core";
+import { Checkbox, Input, Toggle } from "@nova-ui/core";
 import Playground from "../playground/Playground";
 
 const CheckboxPlayground = () => {
@@ -11,9 +11,7 @@ const CheckboxPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Checkbox Label">
-                        <Input value={label} onChange={setLabel} />
-                    </FormField>
+                    <Input label="Label" value={label} onChange={setLabel} />
                     <Toggle value={indeterminate} onChange={setIndeterminate} label="Indeterminate" />
                     <Toggle value={disabled} onChange={setDisabled} label="Disabled" />
                 </>

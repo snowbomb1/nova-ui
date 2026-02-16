@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormField, Toggle, Input, Option, Select } from "@nova-ui/core";
+import { Toggle, Input, Option, Select } from "@nova-ui/core";
 import Playground from "../playground/Playground";
 
 const TogglePlayground = () => {
@@ -11,19 +11,16 @@ const TogglePlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Toggle label">
-                        <Input value={label} onChange={setLabel} />
-                    </FormField>
-                    <FormField label="Disabled State">
-                        <Select
-                            selectedOption={disableState}
-                            onChange={setDisabledState}
-                            options={[
-                                { label: 'Disabled', value: 'true' },
-                                { label: 'Not Disabled', value: 'off'}
-                            ]}
-                        />
-                    </FormField>
+                    <Input label="Toggle Label" value={label} onChange={setLabel} />
+                    <Select
+                        label="Disabled State"
+                        selectedOption={disableState}
+                        onChange={setDisabledState}
+                        options={[
+                            { label: 'Disabled', value: 'true' },
+                            { label: 'Enabled', value: 'off'}
+                        ]}
+                    />
                 </>
             }
             component={

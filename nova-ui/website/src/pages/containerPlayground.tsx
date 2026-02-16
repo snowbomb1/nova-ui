@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Container, ContainerVariant, ContainerPadding, Button, Option,
-    Select, Box, Viewer, FormField, 
-    Input,
-    Toggle,
-    Header} from "@nova-ui/core";
+    Select, Box, Viewer, Input, Toggle, Header} from "@nova-ui/core";
 import Playground from "../playground/Playground";
 
 const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"
@@ -19,36 +16,30 @@ const ContainerPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Header">
-                        <Input value={header} onChange={setHeader} />
-                    </FormField>
-                    <FormField label="Footer">
-                        <Input value={footer} onChange={setFooter} />
-                    </FormField>
-                    <FormField label="Variant">
-                        <Select
-                            selectedOption={variant}
-                            onChange={setVariant}
-                            options={[
-                                { label: "Default", value: "default" },
-                                { label: "Flat", value: "flat" },
-                                { label: "Outlined", value: "outlined" },
-                                { label: "Elevated", value: "elevated" }
-                            ]}
-                        />
-                    </FormField>
-                    <FormField label="Padding">
-                        <Select
-                            selectedOption={padding}
-                            onChange={setPadding}
-                            options={[
-                                { label: 'None', value: 'none' },
-                                { label: 'Small', value: 'sm' },
-                                { label: 'Medium', value: 'md' },
-                                { label: 'Large', value: 'lg' }
-                            ]}
-                        />
-                    </FormField>
+                    <Input label="Header" value={header} onChange={setHeader} />
+                    <Input label="Footer" value={footer} onChange={setFooter} />
+                    <Select
+                        label="Variant"
+                        selectedOption={variant}
+                        onChange={setVariant}
+                        options={[
+                            { label: "Default", value: "default" },
+                            { label: "Flat", value: "flat" },
+                            { label: "Outlined", value: "outlined" },
+                            { label: "Elevated", value: "elevated" }
+                        ]}
+                    />
+                    <Select
+                        label="Padding"
+                        selectedOption={padding}
+                        onChange={setPadding}
+                        options={[
+                            { label: 'None', value: 'none' },
+                            { label: 'Small', value: 'sm' },
+                            { label: 'Medium', value: 'md' },
+                            { label: 'Large', value: 'lg' }
+                        ]}
+                    />
                     <Toggle value={actions} onChange={setActions} label="Header Actions" />
                 </>
             }

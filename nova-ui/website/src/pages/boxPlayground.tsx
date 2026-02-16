@@ -10,27 +10,25 @@ const BoxPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Position">
-                        <Select
-                            selectedOption={position}
-                            onChange={setPosition}
-                            options={[
-                                { label: "Left", value: 'left' },
-                                { label: "Center", value: 'center' },
-                                { label: 'Right', value: 'right' }
-                            ]}
-                        />
-                    </FormField>
-                    <FormField label="Flex Direction">
-                        <Select
-                            selectedOption={direction}
-                            onChange={setDirection}
-                            options={[
-                                { label: 'Vertical', value: 'vertical' },
-                                { label: 'Horizontal', value: 'horizontal' }
-                            ]}
-                        />
-                    </FormField>
+                    <Select
+                        label="Position"
+                        selectedOption={position}
+                        onChange={setPosition}
+                        options={[
+                            { label: "Left", value: 'left' },
+                            { label: "Center", value: 'center' },
+                            { label: 'Right', value: 'right' }
+                        ]}
+                    />
+                    <Select
+                        label="Flex Direction"
+                        selectedOption={direction}
+                        onChange={setDirection}
+                        options={[
+                            { label: 'Vertical', value: 'vertical' },
+                            { label: 'Horizontal', value: 'horizontal' }
+                        ]}
+                    />
                     <FormField label="Total Children">
                         <Stepper size="md" min={1} value={children} onChange={setChildren} />
                     </FormField>

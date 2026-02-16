@@ -10,6 +10,7 @@ export interface AccordionProps {
 
 export const Accordion = ({ title, children, defaultOpen=false }: AccordionProps) => {
     const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
+    const contentId = `accordion-content-${Math.random().toString(36).substr(2, 9)}`;
 
     useLayoutEffect(() => {
         setIsOpen(defaultOpen)
@@ -21,12 +22,15 @@ export const Accordion = ({ title, children, defaultOpen=false }: AccordionProps
                 className={styles.header}
                 onClick={() => setIsOpen(!isOpen)}
                 aria-expanded={isOpen}
+                role="button"
+                aria-controls={contentId}
             >
                 <span>{title}</span>
                 <motion.span
                     className={styles.icon}
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
+                    aria-hidden={true}
                 >
                     ▼
                 </motion.span>
@@ -34,7 +38,9 @@ export const Accordion = ({ title, children, defaultOpen=false }: AccordionProps
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
+                        id={contentId}
                         layout
+                        role='region'
                         className={styles.content}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}

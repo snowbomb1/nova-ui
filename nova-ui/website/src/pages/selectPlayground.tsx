@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Playground from "../playground/Playground";
-import { Select, Option, Toggle, FormField, Input } from '@nova-ui/core';
+import { Select, Option, Toggle, Input } from '@nova-ui/core';
 
 
 const SelectPlayground = () => {
@@ -26,9 +26,7 @@ const SelectPlayground = () => {
                             }
                         }}
                     />
-                    <FormField label="PlaceHolder">
-                        <Input value={placeholder} onChange={setPlaceHolder} />
-                    </FormField>
+                    <Input label="Placeholder" value={placeholder} onChange={setPlaceHolder} />
                 </>
             }
             component={

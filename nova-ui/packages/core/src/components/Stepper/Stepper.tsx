@@ -58,7 +58,7 @@ export const Stepper = ({
             <motion.button
                 className={`${styles.stepper} ${disabled ? styles.disabled : ''}`}
                 onClick={handleDecrease}
-                aria-label="Clear input"
+                aria-label="Decrease value"
                 type="button"
             >
                 <IMinus width={iconSize[size]} />
@@ -78,7 +78,7 @@ export const Stepper = ({
             <motion.button
                 className={`${styles.stepper} ${disabled ? styles.disabled : ''}`}
                 onClick={handleIncrease}
-                aria-label="Clear input"
+                aria-label="Increase value"
                 type="button"
             >
                 <IPlus width={iconSize[size]} />

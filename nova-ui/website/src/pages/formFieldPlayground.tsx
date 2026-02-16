@@ -1,38 +1,35 @@
 import { useState } from "react";
 import Playground from "../playground/Playground";
-import { FormField, Option, Select, Input } from "@nova-ui/core";
+import { FormField, Input, Toggle } from "@nova-ui/core";
 
 
 const FormFieldPlayground = () => {
-    const [label, setLabel] = useState<string>("This field is required")
-    const [description, setDescription] = useState<string>("This will scale when hovered")
-    const [selected, setSelected] = useState<Option | undefined>(undefined);
+    const [label, setLabel] = useState<string>("Settings")
+    const [description, setDescription] = useState<string>("Example Description")
+    const [required, setRequired] = useState<boolean>(true);
+    const [error, setError] = useState<string>("");
     return (
         <Playground
             utils={
                 <>
-                <FormField label="Label">
-                    <Input value={label} onChange={setLabel} />
-                </FormField>
-                <FormField label="Description">
-                    <Input value={description} onChange={setDescription} />
-                </FormField>
+                    <Input label="Label" required value={label} onChange={setLabel} />
+                    <Input label="Description" value={description} onChange={setDescription} />
+                    <Input label="Error State" value={error} onChange={setError} />
+                    <Toggle label="Required" value={required} onChange={setRequired} />
                 </>
             }
             component={
                 <FormField
                     label={label}
                     description={description}
+                    required={required}
+                    error={error}
                 >
-                    <Select
-                        selectedOption={selected}
-                        onChange={setSelected}
-                        options={[
-                            { label: "Option 1", value: "opt1" },
-                            { label: "Option 2", value: "opt2" },
-                            { label: "Option 3", value: "opt3" }
-                        ]}
-                    />
+                    <>
+                        <Toggle label="Setting 1" value={true} onChange={() => null} />
+                        <Toggle label="Setting 2" value={true} onChange={() => null} />
+                        <Toggle label="Setting 3" value={true} onChange={() => null} />
+                    </>
                 </FormField>
             }
             code={
@@ -40,17 +37,15 @@ const FormFieldPlayground = () => {
 <FormField
     label={label}
     description={description}
+    required={${required}}
+    error={${error}}
 >
-    <Select
-        selectedOption={selected}
-        onChange={setSelected}
-        options={[
-            { label: "Option 1", value: "opt1" },
-            { label: "Option 2", value: "opt2" },
-            { label: "Option 3", value: "opt3" }
-        ]}
-    />
-</FormField>              
+     <>
+        <Toggle label="Setting 1" value={true} onChange={() => null} />
+        <Toggle label="Setting 2" value={true} onChange={() => null} />
+        <Toggle label="Setting 3" value={true} onChange={() => null} />
+    </>
+</FormField>             
 `
             }
         />

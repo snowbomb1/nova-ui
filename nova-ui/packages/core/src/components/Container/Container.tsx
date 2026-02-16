@@ -33,7 +33,12 @@ export const Container = ({ children, header, headerActions, footer, variant='de
     const hasHeader = header || headerActions;
 
     return (
-        <div className={`${styles.container} ${styles[variant]} ${styles[`padding-${padding}`]}`}>
+        <div
+            className={`${styles.container} ${styles[variant]} ${styles[`padding-${padding}`]}`}
+            role={header ? "region" : undefined}
+            aria-labelledby={header ? "container-header" : undefined}
+        
+        >
             {hasHeader && (
                 <div className={styles.header}>
                     <div className={styles.headerContent}>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, ModalSize, Header, Box, BoxPosition, FormField, Select, Option, Viewer, Button } from "@nova-ui/core";
+import { Modal, ModalSize, Header, Box, BoxPosition, Select, Option, Viewer, Button } from "@nova-ui/core";
 import Playground from "../playground/Playground";
 
 const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"
@@ -13,29 +13,27 @@ const ModalPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Size">
-                        <Select
-                            selectedOption={size}
-                            onChange={setSize}
-                            options={[
-                                { label: 'Small', value: 's' },
-                                { label: 'Medium', value: 'm' },
-                                { label: 'Large', value: 'l' },
-                                { label: 'X-Large', value: 'xl' }
-                            ]}
-                        />
-                    </FormField>
-                    <FormField label="Footer Position">
-                        <Select
-                            selectedOption={footerPosition}
-                            onChange={setFooterPosition}
-                            options={[
-                                { label: "Left", value: 'left' },
-                                { label: "Center", value: 'center' },
-                                { label: 'Right', value: 'right' }
-                            ]}
-                        />
-                    </FormField>
+                    <Select
+                        label="Size"
+                        selectedOption={size}
+                        onChange={setSize}
+                        options={[
+                            { label: 'Small', value: 's' },
+                            { label: 'Medium', value: 'm' },
+                            { label: 'Large', value: 'l' },
+                            { label: 'X-Large', value: 'xl' }
+                        ]}
+                    />
+                    <Select
+                        label="Footer Position"
+                        selectedOption={footerPosition}
+                        onChange={setFooterPosition}
+                        options={[
+                            { label: "Left", value: 'left' },
+                            { label: "Center", value: 'center' },
+                            { label: 'Right', value: 'right' }
+                        ]}
+                    />
                 </>
             }
             component={

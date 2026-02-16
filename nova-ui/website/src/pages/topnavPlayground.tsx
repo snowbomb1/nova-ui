@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FormField, Header, Input, TopNav, Option, Select, HeaderVariant, Toggle } from '@nova-ui/core';
+import { Header, Input, TopNav, Option, Select, HeaderVariant, Toggle } from '@nova-ui/core';
 import { SupernovaLogo } from '../logo/Logo'
 import Playground from "../playground/Playground";
 
@@ -23,21 +23,18 @@ const TopNavPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Header">
-                        <Input value={header} onChange={setHeader} />
-                    </FormField>
-                    <FormField label="Header variant">
-                        <Select
-                            selectedOption={variant}
-                            onChange={setVariant}
-                            options={[
-                                { label: "H1", value: "h1" },
-                                { label: "H2", value: "h2" },
-                                { label: "H3", value: "h3" },
-                                { label: "H4", value: "h4" }
-                            ]}
-                        />
-                    </FormField>
+                    <Input label="Header" value={header} onChange={setHeader} />
+                    <Select
+                        label="Header Variant"
+                        selectedOption={variant}
+                        onChange={setVariant}
+                        options={[
+                            { label: "H1", value: "h1" },
+                            { label: "H2", value: "h2" },
+                            { label: "H3", value: "h3" },
+                            { label: "H4", value: "h4" }
+                        ]}
+                    />
                     <Toggle label="AutoComplete" value={autoComplete} onChange={setAutoComplete} />
                 </>
             }

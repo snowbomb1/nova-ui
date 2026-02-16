@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toast, ToastPosition, ToastStatus, Button, FormField, Select, Option, Input, Toggle } from '@nova-ui/core';
+import { Toast, ToastPosition, ToastStatus, Button, Select, Option, Input, Toggle } from '@nova-ui/core';
 import Playground from "../playground/Playground";
 
 
@@ -14,31 +14,27 @@ const ToastPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label='Status'>
-                        <Select
-                            selectedOption={status}
-                            onChange={setStatus}
-                            options={[
-                                { label: "Info", value: "info" },
-                                { label: "Success", value: "success" },
-                                { label: "Warning", value: "warning" },
-                                { label: "Error", value: "error" }
-                            ]}
-                        />
-                    </FormField>
-                    <FormField label="Toast Location">
-                        <Select
-                            selectedOption={location}
-                            onChange={setLocation}
-                            options={[
-                                { label: 'Top', value: 'top' },
-                                { label: 'Bottom', value: 'bottom' }
-                            ]}
-                        />
-                    </FormField>
-                    <FormField label="Timeout">
-                        <Input value={timeOut} onChange={setTimeout} />
-                    </FormField>
+                    <Select
+                        label="Status"
+                        selectedOption={status}
+                        onChange={setStatus}
+                        options={[
+                            { label: "Info", value: "info" },
+                            { label: "Success", value: "success" },
+                            { label: "Warning", value: "warning" },
+                            { label: "Error", value: "error" }
+                        ]}
+                    />
+                    <Select
+                        label="Toast Location"
+                        selectedOption={location}
+                        onChange={setLocation}
+                        options={[
+                            { label: 'Top', value: 'top' },
+                            { label: 'Bottom', value: 'bottom' }
+                        ]}
+                    />
+                    <Input label="Timeout" inputMode="numeric" value={timeOut} onChange={setTimeout} />
                     <Toggle label="Dismissible" value={dismissible} onChange={setDismissible} />
                 </>
             }

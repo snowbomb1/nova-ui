@@ -15,7 +15,7 @@ export type ViewerAspectRatio = '16/9' | '9/16' | '1/1' | '4/3' | '3/2' | '21/19
 
 export interface ViewerProps {
     src: string;
-    alt?: string;
+    alt: string;
     video?: VideoProps;
     /*
     * @default '300px'

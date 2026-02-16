@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Header, HeaderVariant, Option, Select, FormField, Input } from '@nova-ui/core';
+import { Header, HeaderVariant, Option, Select, Input } from '@nova-ui/core';
 import Playground from "../playground/Playground";
 
 
@@ -10,21 +10,18 @@ const HeaderPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Header">
-                        <Input value={string} onChange={setString} />
-                    </FormField>
-                    <FormField label="Header variant">
-                        <Select
-                            selectedOption={variant}
-                            onChange={setVariant}
-                            options={[
-                                { label: "H1", value: "h1" },
-                                { label: "H2", value: "h2" },
-                                { label: "H3", value: "h3" },
-                                { label: "H4", value: "h4" }
-                            ]}
-                        />
-                    </FormField>
+                    <Input label="Header" required value={string} onChange={setString} />
+                    <Select
+                        label="Header Variant"
+                        selectedOption={variant}
+                        onChange={setVariant}
+                        options={[
+                            { label: "H1", value: "h1" },
+                            { label: "H2", value: "h2" },
+                            { label: "H3", value: "h3" },
+                            { label: "H4", value: "h4" }
+                        ]}
+                    />
                 </>
             }
             component={

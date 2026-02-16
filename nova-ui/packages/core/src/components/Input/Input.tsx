@@ -9,9 +9,16 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
     disabled?: boolean;
     suggestions?: string[]
     hideClear?: boolean;
+    required?: boolean;
+    label?: string;
+    error?: string;
+    helperText?: string;
 }
 
-export const Input = ({ value, onChange, disabled=false, suggestions = [], placeholder, hideClear = false, ...props }: InputProps) => {
+export const Input = ({ value, onChange, disabled=false, suggestions = [], 
+    placeholder, hideClear=false, label, error, required=false, helperText, ...props }: InputProps
+) => {
+    const inputId = props.id || `input-${Math.random().toString(36).substring(2, 9)}`
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     const filtered = useMemo(() => {
@@ -20,53 +27,84 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [], place
     }, [suggestions, value])
 
     return (
-        <div className={styles.inputContainer}>
-        <motion.input
-            id="input"
-            className={styles.input}
-            whileFocus={{ scale: 1.02 }}
-            value={value}
-            disabled={disabled}
-            onChange={({ target }) => onChange?.(target.value)}
-            placeholder={placeholder}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-            {...props as HTMLMotionProps<"input">}
-        />
-        {!hideClear && (
-            <button
-                className={styles.clearButton}
-                onClick={() => onChange?.("")}
-                aria-label="Clear input"
-                type="button"
-            >
-                <IClose width="20" />
-            </button>
-        )}
-        <AnimatePresence>
-                {showSuggestions && filtered.length > 0 && (
-                    <motion.ul 
-                        className={styles.suggestionsList}
-                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
+        <div className={styles.inputWrapper}>
+            {(label || helperText) && (
+                <div className={styles.labelRow}>
+                    {label && (
+                        <label htmlFor={inputId} className={styles.label}>
+                            {label}
+                            {required && <span className={styles.required} aria-label="required">*</span>}
+                        </label>
+                    )}
+                    {helperText && (
+                        <span id={`${inputId}-helper`} className={styles.helperText}>
+                            {helperText}
+                        </span>
+                    )}
+                </div>
+            )}
+            
+            <div className={styles.inputContainer}>
+                <motion.input
+                    id={inputId}
+                    className={`${styles.input} ${error ? styles.inputError : ''}`}
+                    whileFocus={{ scale: 1.02 }}
+                    value={value}
+                    disabled={disabled}
+                    onChange={({ target }) => onChange?.(target.value)}
+                    placeholder={placeholder}
+                    required={required}
+                    aria-invalid={error ? "true" : "false"}
+                    aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
+                    onFocus={() => setShowSuggestions(true)}
+                    onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                    {...props as HTMLMotionProps<"input">}
+                />
+                {!hideClear && value && (
+                    <button
+                        className={styles.clearButton}
+                        onClick={() => onChange?.("")}
+                        aria-label="Clear input"
+                        type="button"
                     >
-                        {filtered.map((suggestion) => (
-                            <li 
-                                key={suggestion}
-                                className={styles.suggestionItem}
-                                onClick={() => {
-                                    onChange?.(suggestion);
-                                    setShowSuggestions(false);
-                                }}
-                            >
-                                {suggestion}
-                            </li>
-                        ))}
-                    </motion.ul>
+                        <IClose width="20" />
+                    </button>
                 )}
-            </AnimatePresence>
+                
+                <AnimatePresence>
+                    {showSuggestions && filtered.length > 0 && (
+                        <motion.ul 
+                            className={styles.suggestionsList}
+                            role="listbox"
+                            aria-label="Suggestions"
+                            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            {filtered.map((suggestion) => (
+                                <li 
+                                    key={suggestion}
+                                    role="option"
+                                    className={styles.suggestionItem}
+                                    onClick={() => {
+                                        onChange?.(suggestion);
+                                        setShowSuggestions(false);
+                                    }}
+                                >
+                                    {suggestion}
+                                </li>
+                            ))}
+                        </motion.ul>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {error && (
+                <p id={`${inputId}-error`} className={styles.errorText} role="alert">
+                    {error}
+                </p>
+            )}
         </div>
     )
 }

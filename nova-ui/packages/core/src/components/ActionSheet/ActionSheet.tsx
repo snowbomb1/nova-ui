@@ -53,6 +53,9 @@ export const ActionSheet = ({ isOpen, onClose, title, message, actions, showCanc
                     {/* Sheet */}
                     <motion.div
                         className={styles.sheet}
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby={title ? "action-sheet-title" : undefined}
                         style={{ y }}
                         drag="y"
                         dragConstraints={{ top: 0, bottom: 0 }}
@@ -71,7 +74,7 @@ export const ActionSheet = ({ isOpen, onClose, title, message, actions, showCanc
                         {/* Header */}
                         {(title || message) && (
                             <div className={styles.header}>
-                                {title && <h3 className={styles.title}>{title}</h3>}
+                                {title && <h3 id="action-sheet-title" className={styles.title}>{title}</h3>}
                                 {message && <p className={styles.message}>{message}</p>}
                             </div>
                         )}

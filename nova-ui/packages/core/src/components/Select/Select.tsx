@@ -1,15 +1,21 @@
-import { useMemo, useState, type SelectHTMLAttributes, useEffect, useRef } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from './select.module.css';
 import { Input } from "../Input/Input";
 
 export type Option = { label: string, value: string | number };
 
-interface SharedProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'onChange' | 'value'> {
+interface SharedProps {
     options: Option[];
     autoFilter?: boolean;
     placeholder?: string;
     disabled?: boolean;
+    name?: string;
+    id?: string;
+    required?: boolean;
+    label?: string;
+    helperText?: string;
+    error?: string;
 }
 
 interface SingleSelectProps extends SharedProps {
@@ -35,13 +41,15 @@ export const Select = (props: SelectProps) => {
         onChange,
         placeholder = "Select...",
         disabled = false,
-        className = "",
         name,
         id,
         required,
-        ...htmlProps
+        label,
+        helperText,
+        error,
     } = props;
 
+    const selectId = id || `select-${Math.random().toString(36).substring(2, 9)}`;
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [highlightedIndex, setHighlightedIndex] = useState(0);
@@ -122,7 +130,7 @@ export const Select = (props: SelectProps) => {
         if (!disabled) setIsOpen(!isOpen);
     };
 
-    const label = useMemo(() => {
+    const displayLabel = useMemo(() => {
         if (selectType === "multi" && Array.isArray(selectedOption)) {
             return selectedOption.length > 0 
                 ? selectedOption.map(o => o.label).join(", ") 
@@ -139,106 +147,136 @@ export const Select = (props: SelectProps) => {
     };
 
     return (
-        <div ref={containerRef} className={`${styles.container} ${className}`}>
-            <select
-                name={name}
-                id={id}
-                required={required}
-                disabled={disabled}
-                multiple={selectType === "multi"}
-                value={
-                    selectType === "multi" 
-                        ? (selectedOption as Option[])?.map(o => String(o.value)) // Force values to strings
-                        : (selectedOption as Option)?.value?.toString() || ""     // Force value to string
-                }
-                className={styles.hiddenSelect}
-                tabIndex={-1}
-                aria-hidden="true"
-                {...htmlProps}
-            >
-                {options.map(opt => (
-                    <option key={opt.value} value={opt.value}>{opt.label}</option>
-                ))}
-            </select>
+        <div className={styles.selectWrapper}>
+            {(label || helperText) && (
+                <div className={styles.labelRow}>
+                    {label && (
+                        <label htmlFor={selectId} className={styles.label}>
+                            {label}
+                            {required && <span className={styles.required} aria-label="required">*</span>}
+                        </label>
+                    )}
+                    {helperText && (
+                        <span id={`${selectId}-helper`} className={styles.helperText}>
+                            {helperText}
+                        </span>
+                    )}
+                </div>
+            )}
 
-            <motion.div 
-                className={`${styles.control} ${disabled ? styles.disabled : ''}`}
-                onClick={handleToggle}
-                whileHover={!disabled ? { borderColor: 'var(--color-primary)' } : {}}
-                transition={{ duration: 0.2 }}
-                role="button"
-                aria-haspopup="listbox"
-                aria-expanded={isOpen}
-                tabIndex={disabled ? -1 : 0}
-                onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        handleToggle();
+            <div ref={containerRef} className={styles.container}>
+                <select
+                    name={name}
+                    id={selectId}
+                    required={required}
+                    disabled={disabled}
+                    multiple={selectType === "multi"}
+                    value={
+                        selectType === "multi" 
+                            ? (selectedOption as Option[])?.map(o => String(o.value))
+                            : (selectedOption as Option)?.value?.toString() || ""
                     }
-                }}
-            >
-                <span className={`${styles.value} ${!selectedOption ? styles.placeholder : ''}`}>
-                    {label}
-                </span>
-                <motion.span 
-                    className={styles.arrow}
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.2 }}
+                    className={styles.hiddenSelect}
+                    tabIndex={-1}
+                    aria-hidden="true"
                 >
-                    ▼
-                </motion.span>
-            </motion.div>
+                    {options.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                </select>
 
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div 
-                        className={styles.menu}
-                        initial={{ opacity: 0, y: -4, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -4, scale: 0.95 }}
-                        transition={{ duration: 0.15 }}
-                        role="listbox"
+                <motion.div 
+                    className={`${styles.control} ${disabled ? styles.disabled : ''} ${error ? styles.controlError : ''}`}
+                    onClick={handleToggle}
+                    whileHover={!disabled ? { borderColor: error ? 'var(--color-error)' : 'var(--color-primary)' } : {}}
+                    transition={{ duration: 0.2 }}
+                    role="button"
+                    aria-haspopup="listbox"
+                    aria-expanded={isOpen}
+                    aria-invalid={error ? "true" : "false"}
+                    aria-describedby={
+                        error ? `${selectId}-error` : 
+                        helperText ? `${selectId}-helper` : 
+                        undefined
+                    }
+                    tabIndex={disabled ? -1 : 0}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleToggle();
+                        }
+                    }}
+                >
+                    <span className={`${styles.value} ${!selectedOption ? styles.placeholder : ''}`}>
+                        {displayLabel}
+                    </span>
+                    <motion.span 
+                        className={styles.arrow}
+                        animate={{ rotate: isOpen ? 180 : 0 }}
+                        transition={{ duration: 0.2 }}
                     >
-                        {autoFilter && (
-                            <div className={styles.searchWrapper}>
-                                <Input 
-                                    value={query} 
-                                    onChange={setQuery} 
-                                    placeholder="Search..." 
-                                    autoFocus
-                                />
-                            </div>
-                        )}
-                        <div className={styles.list}>
-                            {filteredOptions.length > 0 ? (
-                                filteredOptions.map((opt, index) => (
-                                    <motion.div 
-                                        key={opt.value} 
-                                        className={`${styles.item} ${isSelected(opt) ? styles.selected : ''} ${index === highlightedIndex ? styles.highlighted : ''}`}
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            handleSelect(opt);
-                                        }}
-                                        whileHover={{ backgroundColor: 'var(--color-primary)', color: 'white' }}
-                                        transition={{ duration: 0.15 }}
-                                        role="option"
-                                        aria-selected={isSelected(opt)}
-                                    >
-                                        {selectType === "multi" && (
-                                            <span className={styles.checkbox}>
-                                                {isSelected(opt) ? '✓' : '○'}
-                                            </span>
-                                        )}
-                                        {opt.label}
-                                    </motion.div>
-                                ))
-                            ) : (
-                                <div className={styles.empty}>No options found</div>
+                        ▼
+                    </motion.span>
+                </motion.div>
+
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div 
+                            className={styles.menu}
+                            initial={{ opacity: 0, y: -4, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -4, scale: 0.95 }}
+                            transition={{ duration: 0.15 }}
+                            role="listbox"
+                        >
+                            {autoFilter && (
+                                <div className={styles.searchWrapper}>
+                                    <Input 
+                                        value={query} 
+                                        onChange={setQuery} 
+                                        placeholder="Search..." 
+                                        autoFocus
+                                        hideClear
+                                    />
+                                </div>
                             )}
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                            <div className={styles.list}>
+                                {filteredOptions.length > 0 ? (
+                                    filteredOptions.map((opt, index) => (
+                                        <motion.div 
+                                            key={opt.value} 
+                                            className={`${styles.item} ${isSelected(opt) ? styles.selected : ''} ${index === highlightedIndex ? styles.highlighted : ''}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleSelect(opt);
+                                            }}
+                                            whileHover={{ backgroundColor: 'var(--color-secondary)', color: 'white' }}
+                                            transition={{ duration: 0.15 }}
+                                            role="option"
+                                            aria-selected={isSelected(opt)}
+                                        >
+                                            {selectType === "multi" && (
+                                                <span className={styles.checkbox}>
+                                                    {isSelected(opt) ? '✓' : '○'}
+                                                </span>
+                                            )}
+                                            {opt.label}
+                                        </motion.div>
+                                    ))
+                                ) : (
+                                    <div className={styles.empty}>No options found</div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
+
+            {error && (
+                <p id={`${selectId}-error`} className={styles.errorText} role="alert">
+                    {error}
+                </p>
+            )}
         </div>
     );
 };

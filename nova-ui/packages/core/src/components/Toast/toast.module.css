@@ -9,6 +9,7 @@
     pointer-events: none;
     max-width: 500px;
     width: 90%;
+    bottom: calc(1rem + env(safe-area-inset-bottom, 0));
 }
 
 .top { top: 2rem; }

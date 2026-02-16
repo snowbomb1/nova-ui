@@ -24,10 +24,18 @@ export const Toggle = ({ label, value, onChange, disabled=false }: ToggleProps) 
             <span className={styles.label}>{label}</span>
             <motion.button
                 ref={toggleRef}
+                role="switch"
+                aria-checked={value}
                 aria-label={`Toggle ${label}`}
                 className={`${styles.switch} ${value ? styles.enabled : ""}`}
                 onClick={() => onChange(!value)}
                 disabled={disabled}
+                onKeyDown={(e) => {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                        e.preventDefault();
+                        onChange(!value);
+                    }
+                }}
                 {...(!disabled && { whileHover: { scale: 1.1 } })}
             >
                 <motion.div 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, ButtonVariant, TooltipPosition, Option, FormField, Select, Toggle, Input } from "@nova-ui/core";
+import { Button, ButtonVariant, TooltipPosition, Option, Select, Toggle, Input } from "@nova-ui/core";
 import Playground from "../playground/Playground";
 
 
@@ -14,33 +14,29 @@ const ButtonPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Variant">
-                        <Select
-                            selectedOption={variant}
-                            onChange={setVariant}
-                            options={[
-                                { label: "Primary", value: "primary" },
-                                { label: "Secondary", value: "secondary" },
-                                { label: "Icon", value: "icon" }
-                            ]}
-                        />
-                    </FormField>
+                    <Select
+                        label="Variant"
+                        selectedOption={variant}
+                        onChange={setVariant}
+                        options={[
+                            { label: "Primary", value: "primary" },
+                            { label: "Secondary", value: "secondary" },
+                            { label: "Icon", value: "icon" }
+                        ]}
+                    />
                     <Toggle label="Disabled" value={disabled} onChange={setDisabled} />
-                    <FormField label="Disabled Mesage">
-                        <Input value={disabledMesssage} onChange={setDisabledMessage} />
-                    </FormField>
-                    <FormField label="Tooltip Position">
-                        <Select
-                            selectedOption={position}
-                            onChange={setPosition}
-                            options={[
-                                { label: "Top", value: "top" },
-                                { label: "Bottom", value: "bottom" },
-                                { label: "Left", value: "left" },
-                                { label: "Right", value: "right" }
-                            ]}
-                        />
-                    </FormField>
+                    <Input label="Disabled Message" value={disabledMesssage} onChange={setDisabledMessage} />
+                    <Select
+                        label="Tooltip Position"
+                        selectedOption={position}
+                        onChange={setPosition}
+                        options={[
+                            { label: "Top", value: "top" },
+                            { label: "Bottom", value: "bottom" },
+                            { label: "Left", value: "left" },
+                            { label: "Right", value: "right" }
+                        ]}
+                    />
                 </>
             }
             component={

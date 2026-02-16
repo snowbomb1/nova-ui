@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Accordion, Box, FormField, Input, Toggle, Viewer } from "@nova-ui/core";
+import { Accordion, Box, Input, Toggle, Viewer } from "@nova-ui/core";
 import Playground from "../playground/Playground";
 
 const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"
@@ -11,9 +11,7 @@ const AccordionPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Title">
-                        <Input value={title} onChange={setTitle} />
-                    </FormField>
+                    <Input label="Title" required value={title} onChange={setTitle} />
                     <Toggle value={defaultOpen} onChange={setDefaultOpen} label="Default Open" />
                 </>
             }

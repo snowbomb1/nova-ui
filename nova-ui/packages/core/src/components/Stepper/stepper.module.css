@@ -96,3 +96,11 @@
 .input[type=number] {
   -moz-appearance: textfield;
 }
+
+@media (max-width: 768px) {
+    .button {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.75rem;
+    }
+}   

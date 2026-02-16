@@ -27,19 +27,16 @@ const ViewerPlayground = () => {
         <Playground
             utils={
                 <>
-                    <FormField label="Media Type">
-                        <Select selectType="single" 
-                            selectedOption={mediaType}
-                            onChange={(option) => setMediaType(option)}
-                            options={[
-                                { label: "image", value: "image" },
-                                { label: "video", value: "video"}
-                            ]}
-                        />
-                    </FormField>
-                    <FormField label="Thumbnail Width">
-                        <Input value={width} onChange={setWidth} />
-                    </FormField>
+                    <Select label="Media Type" helperText="Detected Automatically"
+                        selectType="single" 
+                        selectedOption={mediaType}
+                        onChange={(option) => setMediaType(option)}
+                        options={[
+                            { label: "image", value: "image" },
+                            { label: "video", value: "video"}
+                        ]}
+                    />
+                    <Input label="Thumbnail Width" helperText="Width in Pixels" value={width} onChange={setWidth} />
                     <FormField label="Video Options">
                         {Object.keys(videoOptions as Array<keyof typeof videoOptions>).map((key) => (
                             <Toggle

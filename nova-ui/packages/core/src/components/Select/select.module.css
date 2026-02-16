@@ -1,10 +1,55 @@
-.container {
-    position: relative;
-    min-width: 200px;
+.selectWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     width: 100%;
 }
 
-/* Hidden native select for form compatibility */
+.labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+}
+
+.label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    flex-shrink: 0;
+}
+
+.required {
+    color: var(--color-error);
+    margin-left: 0.25rem;
+}
+
+.helperText {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-align: right;
+    flex-shrink: 1;
+}
+
+.errorText {
+    font-size: 0.75rem;
+    color: var(--color-error);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.errorText::before {
+    content: '⚠';
+    font-size: 1rem;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+
 .hiddenSelect {
     position: absolute;
     opacity: 0;
@@ -24,6 +69,21 @@
     cursor: pointer;
     transition: all 0.2s ease;
     color: var(--color-text);
+}
+
+.controlError {
+    border-color: var(--color-error);
+    background-color: rgba(255, 0, 0, 0.05);
+}
+
+.controlError:hover {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+}
+
+.controlError:focus-visible {
+    outline-color: var(--color-error);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
 .control:hover {
@@ -88,7 +148,6 @@
     padding: 0.25rem;
 }
 
-/* Custom scrollbar */
 .list::-webkit-scrollbar {
     width: 8px;
 }
@@ -123,7 +182,8 @@
     background: var(--color-primary-dark);
     font-weight: 600;
 }
-.item:hover
+
+.item:hover,
 .highlighted {
     background: var(--color-secondary);
     color: white;
@@ -145,8 +205,17 @@
     font-size: 0.875rem;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
+    .labelRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+
+    .helperText {
+        text-align: left;
+    }
+
     .menu {
         max-height: 200px;
     }

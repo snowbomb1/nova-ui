@@ -10,7 +10,7 @@ export interface CheckboxProps {
 }
 
 export const Checkbox = ({ checked, onChange, label, disabled=false, indeterminate=false }: CheckboxProps) => {
-    const id = `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+    const id = `checkbox-${Math.random().toString(36).substring(2, 9)}`;
     return (
         <div className={`${styles.container} ${disabled ? styles.disabled : ''}`}>
             <input id={id} type="checkbox"
