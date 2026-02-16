@@ -1,5 +1,5 @@
 import { useLayoutEffect } from 'react';
-import { motion, useMotionValue, PanInfo } from 'motion/react';
+import { motion, useMotionValue, PanInfo, AnimatePresence } from 'motion/react';
 import styles from './action-sheet.module.css';
 
 export interface ActionSheetAction {
@@ -31,75 +31,78 @@ export const ActionSheet = ({ isOpen, onClose, title, message, actions, showCanc
     }, [isOpen]);
 
     const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-        if (info.offset.y > 150 || info.velocity.y > 500) {
+        if (info.offset.y > 250 || info.velocity.y > 500) {
             onClose();
         }
     };
 
-    if (!isOpen) return null;
-
     return (
-        <>
-            {/* Backdrop */}
-            <motion.div
-                className={styles.backdrop}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={onClose}
-            />
+        <AnimatePresence>
+            {isOpen && (
+                <>
+                    {/* Backdrop */}
+                    <motion.div
+                        className={styles.backdrop}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        onClick={onClose}
+                    />
 
-            {/* Sheet */}
-            <motion.div
-                className={styles.sheet}
-                style={{ y }}
-                drag="y"
-                dragConstraints={{ top: 0, bottom: 0 }}
-                dragElastic={{ top: 0, bottom: 0.5 }}
-                onDragEnd={handleDragEnd}
-                initial={{ y: '100%' }}
-                animate={{ y: 0 }}
-                exit={{ y: '100%' }}
-                transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            >
-                {/* Drag handle */}
-                <div className={styles.handle}>
-                    <div className={styles.handleBar} />
-                </div>
+                    {/* Sheet */}
+                    <motion.div
+                        className={styles.sheet}
+                        style={{ y }}
+                        drag="y"
+                        dragConstraints={{ top: 0, bottom: 0 }}
+                        dragElastic={{ top: 0, bottom: 0.5 }}
+                        onDragEnd={handleDragEnd}
+                        initial={{ y: '100%' }}
+                        animate={{ y: 0 }}
+                        exit={{ y: '100%' }}
+                        transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                    >
+                        {/* Drag handle */}
+                        <div className={styles.handle}>
+                            <div className={styles.handleBar} />
+                        </div>
 
-                {/* Header */}
-                {(title || message) && (
-                    <div className={styles.header}>
-                        {title && <h3 className={styles.title}>{title}</h3>}
-                        {message && <p className={styles.message}>{message}</p>}
-                    </div>
-                )}
+                        {/* Header */}
+                        {(title || message) && (
+                            <div className={styles.header}>
+                                {title && <h3 className={styles.title}>{title}</h3>}
+                                {message && <p className={styles.message}>{message}</p>}
+                            </div>
+                        )}
 
-                {/* Actions */}
-                <div className={styles.actions}>
-                    {actions.map((action, index) => (
-                        <button
-                            key={index}
-                            className={`${styles.action} ${action.destructive ? styles.destructive : ''}`}
-                            onClick={() => {
-                                action.onClick();
-                                onClose();
-                            }}
-                            disabled={action.disabled}
-                        >
-                            {action.icon && <span className={styles.actionIcon}>{action.icon}</span>}
-                            <span className={styles.actionLabel}>{action.label}</span>
-                        </button>
-                    ))}
-                </div>
+                        {/* Actions */}
+                        <div className={styles.actions}>
+                            {actions.map((action, index) => (
+                                <button
+                                    key={index}
+                                    className={`${styles.action} ${action.destructive ? styles.destructive : ''}`}
+                                    onClick={() => {
+                                        action.onClick();
+                                        onClose();
+                                    }}
+                                    disabled={action.disabled}
+                                >
+                                    {action.icon && <span className={styles.actionIcon}>{action.icon}</span>}
+                                    <span className={styles.actionLabel}>{action.label}</span>
+                                </button>
+                            ))}
+                        </div>
 
-                {/* Cancel button */}
-                {showCancel && (
-                    <button className={styles.cancel} onClick={onClose}>
-                        Cancel
-                    </button>
-                )}
-            </motion.div>
-        </>
+                        {/* Cancel button */}
+                        {showCancel && (
+                            <button className={styles.cancel} onClick={onClose}>
+                                Cancel
+                            </button>
+                        )}
+                    </motion.div>
+                </>
+            )}
+        </AnimatePresence>
     );
 }

@@ -57,3 +57,9 @@
     overflow-x: auto;
     box-shadow: var(--shadow-sm);
 }
+
+@media (max-width: 768px) {
+    .container{
+        flex-direction: column;
+    }
+}
