@@ -2,7 +2,6 @@
     display: flex;
     width: 100%;
     gap: 1rem;
-    transition: all 0.2s ease; /* Optional: smooths the transition between states */
 }
 
 /* --- VERTICAL LOGIC --- */

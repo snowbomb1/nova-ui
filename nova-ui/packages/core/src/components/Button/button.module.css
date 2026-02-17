@@ -1,12 +1,10 @@
 .button {   
     border: none;
-    margin: 1rem;
     border-radius: 0.75rem;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .button:disabled {
@@ -28,15 +26,9 @@
         var(--color-primary-dark) 100%
     );
     color: white;
-    box-shadow: 
-        var(--shadow-md),
-        0 0 2rem var(--glow-primary);
 }
 
 .buttonPrimary:hover:not(:disabled) {
-    box-shadow: 
-        var(--shadow-lg),
-        0 0 2.5rem var(--glow-primary);
     transform: translateY(-2px);
 }
 
@@ -48,15 +40,9 @@
         var(--color-secondary-dark) 100%
     );
     color: white;
-    box-shadow: 
-        var(--shadow-sm),
-        0 0 1rem var(--glow-secondary);
 }
 
 .buttonSecondary:hover:not(:disabled) {
-    box-shadow: 
-        var(--shadow-md),
-        0 0 1.5rem var(--glow-secondary);
     transform: translateY(-2px);
 }
 

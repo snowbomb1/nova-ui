@@ -1,0 +1,47 @@
+.container {
+    width: 100%;
+    height: fit-content;
+    border: 2px solid var(--color-primary);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    align-self: flex-start;
+}
+
+.accordion {
+    width: 100%;
+    background-color: var(--color-primary);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    text-align: left;
+    align-items: center;
+    border: none;
+}
+
+.icon {
+    margin-left: auto;
+}
+
+.content {
+    position: relative;
+    background-color: white;
+    transition: max-height 0.2s ease-out;
+    max-height: 0;
+}
+
+.content.open {
+    padding: 1rem;
+    max-height: 500px;
+}
+
+.accordion:hover {
+  background-color: var(--color-secondary);
+}
+
+.accordion:after {
+  font-size: 13px;
+  float: right;
+  margin-left: 5px;
+}

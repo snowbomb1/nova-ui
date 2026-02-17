@@ -5,15 +5,5 @@
     align-items: center;
     justify-content: center;
     color: var(--color-text);
-    filter: drop-shadow(--shadow-sm);
-    appearance: none;
-    overflow: visible; 
-    appearance: none;
-    -webkit-tap-highlight-color: transparent;
     z-index: 2;
-    
-}
-
-.icon:hover {
-    color: var(--color-primary);
 }

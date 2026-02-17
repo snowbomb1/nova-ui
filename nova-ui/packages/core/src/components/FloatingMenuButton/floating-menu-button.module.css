@@ -13,13 +13,6 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: var(--shadow-lg);
-    transition: all 0.2s;
-}
-
-.floatingButton:hover {
-    background: var(--color-primary-dark);
-    box-shadow: var(--shadow-xl);
 }
 
 @media (min-width: 769px) {

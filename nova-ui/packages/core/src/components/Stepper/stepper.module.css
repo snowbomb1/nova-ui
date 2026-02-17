@@ -9,8 +9,6 @@
     border-radius: 0.75rem;
     padding: 0.5rem;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.2s ease;
     gap: 0.5rem;
 }
 
@@ -53,7 +51,6 @@
 
 .container:focus-within {
     border-color: var(--color-primary);
-    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.2);
 }
 
 .stepper.disabled {
@@ -74,7 +71,6 @@
     justify-content: center;
     border: none !important;
     background: transparent !important;
-    box-shadow: none !important;
     padding: 0.25rem !important;
     font-weight: 600;
     font-size: 1rem;

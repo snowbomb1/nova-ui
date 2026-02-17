@@ -1,7 +1,6 @@
-import { type ReactNode, useLayoutEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useTransform, PanInfo } from 'motion/react';
+import { type ReactNode, useLayoutEffect, useState } from 'react';
+import { motion } from 'motion/react';
 import styles from './applayout.module.css';
-import { FloatingMenuButton } from '../FloatingMenuButton';
 
 export interface AppLayoutProps {
     topNav?: ReactNode;

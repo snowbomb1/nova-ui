@@ -1,21 +1,26 @@
-import { motion } from 'motion/react';
 import { IPlus } from '../../icons/plus';
+import { IHamburger } from '../../icons/hamburger';
 import styles from './floating-menu-button.module.css'
 
-interface FloatingMenuButtonProps {
+export type FloatingButtonVariant = 'menu' | 'action'
+
+export interface FloatingButtonProps {
+    variant: FloatingButtonVariant;
+    ariaLabel: string;
     onClick: () => void;
 }
 
-export const FloatingMenuButton = ({ onClick }: FloatingMenuButtonProps) => {
+export const FloatingButton = ({ onClick, variant, ariaLabel }: FloatingButtonProps) => {
     return (
-        <motion.button
+        <button
             className={styles.floatingButton}
             onClick={onClick}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            aria-label="Open menu"
+            aria-label={ariaLabel}
         >
-            <IPlus width="24" />
-        </motion.button>
+            {variant === "action" 
+                ? (<IPlus width="24" />)
+                : (<IHamburger width='24' />)
+            }
+        </button>
     );
 };

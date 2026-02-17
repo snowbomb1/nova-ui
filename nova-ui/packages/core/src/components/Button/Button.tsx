@@ -22,16 +22,14 @@ export const Button = ({ children, onClick, variant = 'primary', disabled = fals
 
     return (
         <Tooltip message={disabled ? disabledMessage : undefined} position={tooltipPosition}>
-            <motion.button
+            <button
                 className={`${styles.button} ${styles[variantClass[variant]]}`}
                 disabled={disabled}
                 onClick={onClick}
-                whileHover={disabled ? undefined : { scale: 1.05 }}
-                whileTap={disabled ? undefined : { scale: 0.95 }}
-                {...props as HTMLMotionProps<'button'>}
+                {...props}
             >
                 {children}
-            </motion.button>
+            </button>
         </Tooltip>
     )
 }

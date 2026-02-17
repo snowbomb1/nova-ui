@@ -12,8 +12,6 @@
     height: auto;
     border-radius: 0.5rem;
     object-fit: cover;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s ease;
     display: block;
     cursor: zoom-in;
 }
@@ -127,7 +125,6 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.875rem;
-    transition: all 0.2s ease;
 }
 
 .retryButton:hover {
@@ -191,7 +188,6 @@
     width: auto;
     height: auto;
     border-radius: 8px;
-    box-shadow: var(--shadow-lg);
 }
 
 /* Responsive */

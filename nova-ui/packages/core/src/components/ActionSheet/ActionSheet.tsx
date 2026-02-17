@@ -16,39 +16,27 @@ export interface ActionSheetProps {
     title?: string;
     message?: string;
     actions: ActionSheetAction[];
-    showCancel?: boolean;
 }
 
-export const ActionSheet = ({ isOpen, onClose, title, message, actions, showCancel=true }: ActionSheetProps) => {
+export const ActionSheet = ({ isOpen, onClose, title, message, actions }: ActionSheetProps) => {
     const y = useMotionValue(0);
-
-    useLayoutEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-    }, [isOpen]);
 
     const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
         if (info.offset.y > 250 || info.velocity.y > 500) {
-            onClose();
+            handleClose();
         }
     };
+
+    const handleClose = () => {
+        onClose();
+    }
 
     return (
         <AnimatePresence>
             {isOpen && (
                 <>
                     {/* Backdrop */}
-                    <motion.div
-                        className={styles.backdrop}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
-                        onClick={onClose}
-                    />
+                    <div className={styles.backdrop} onClick={handleClose} />
 
                     {/* Sheet */}
                     <motion.div
@@ -74,7 +62,7 @@ export const ActionSheet = ({ isOpen, onClose, title, message, actions, showCanc
                         {/* Header */}
                         {(title || message) && (
                             <div className={styles.header}>
-                                {title && <h3 id="action-sheet-title" className={styles.title}>{title}</h3>}
+                                {title && <h3 className={styles.title}>{title}</h3>}
                                 {message && <p className={styles.message}>{message}</p>}
                             </div>
                         )}
@@ -87,7 +75,7 @@ export const ActionSheet = ({ isOpen, onClose, title, message, actions, showCanc
                                     className={`${styles.action} ${action.destructive ? styles.destructive : ''}`}
                                     onClick={() => {
                                         action.onClick();
-                                        onClose();
+                                        handleClose();
                                     }}
                                     disabled={action.disabled}
                                 >
@@ -98,11 +86,9 @@ export const ActionSheet = ({ isOpen, onClose, title, message, actions, showCanc
                         </div>
 
                         {/* Cancel button */}
-                        {showCancel && (
-                            <button className={styles.cancel} onClick={onClose}>
-                                Cancel
-                            </button>
-                        )}
+                        <button className={styles.cancel} onClick={handleClose}>
+                            Cancel
+                        </button>
                     </motion.div>
                 </>
             )}

@@ -3,7 +3,7 @@ import { RouteProps } from 'react-router-dom';
 import HomePage from './pages/home';
 
 // Playgrounds
-import AccordianPlayground from './pages/accordianPlayground';
+import AccordionPlayground from './pages/accordionPlayground';
 import ActionSheetPlayground from './pages/actionSheetPlayground';
 import AlertPlayground from './pages/alertPlayground';
 import BoxPlayground from './pages/boxPlayground';
@@ -26,7 +26,7 @@ import ViewerPlayground from './pages/viewerPlayground';
 
 export const routes: RouteProps[] = [
     { path: '/', Component: HomePage },
-    { path: '/accordion', Component: AccordianPlayground },
+    { path: '/accordion', Component: AccordionPlayground },
     { path: '/actionSheet', Component: ActionSheetPlayground },
     { path: '/alert', Component: AlertPlayground },
     { path: '/box', Component: BoxPlayground },

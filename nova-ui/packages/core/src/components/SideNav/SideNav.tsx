@@ -45,14 +45,6 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
     }, []);
 
     useLayoutEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-    }, [isOpen]);
-
-    useLayoutEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && isOpen) {
                 onToggle();
@@ -84,14 +76,7 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
         <>
             {/* Overlay - only when expanded */}
             {isOpen && (
-                <motion.div
-                    className={styles.overlay}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    onClick={onToggle}
-                />
+                <div className={styles.overlay} onClick={onToggle} />
             )}
 
             {/* Sidenav */}

@@ -1,5 +1,5 @@
 // Components and Types
-export * from './components/Accordian';
+export * from './components/Accordion';
 export * from './components/ActionSheet';
 export * from './components/Alert';
 export * from './components/AppLayout';

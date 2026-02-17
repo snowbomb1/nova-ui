@@ -58,9 +58,7 @@ export const Toast = ({
                         role={status === 'error' ? 'alert' : 'status'}
                         aria-live={status === 'error' ? 'assertive' : 'polite'}
                         aria-atomic="true"
-                    >
-                        <div className={styles.glow} />
-                        
+                    >   
                         <div className={styles.iconWrapper}>
                             <span className={styles.statusIcon}>
                                 {statusIcons[status]}

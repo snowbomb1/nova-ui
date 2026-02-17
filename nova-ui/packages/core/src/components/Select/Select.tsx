@@ -243,15 +243,13 @@ export const Select = (props: SelectProps) => {
                             <div className={styles.list}>
                                 {filteredOptions.length > 0 ? (
                                     filteredOptions.map((opt, index) => (
-                                        <motion.div 
+                                        <div 
                                             key={opt.value} 
                                             className={`${styles.item} ${isSelected(opt) ? styles.selected : ''} ${index === highlightedIndex ? styles.highlighted : ''}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 handleSelect(opt);
                                             }}
-                                            whileHover={{ backgroundColor: 'var(--color-secondary)', color: 'white' }}
-                                            transition={{ duration: 0.15 }}
                                             role="option"
                                             aria-selected={isSelected(opt)}
                                         >
@@ -261,7 +259,7 @@ export const Select = (props: SelectProps) => {
                                                 </span>
                                             )}
                                             {opt.label}
-                                        </motion.div>
+                                        </div>
                                     ))
                                 ) : (
                                     <div className={styles.empty}>No options found</div>

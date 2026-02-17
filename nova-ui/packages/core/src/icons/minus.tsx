@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import styles from './svg.module.css';
 
 interface IMinusProps {
@@ -6,9 +5,9 @@ interface IMinusProps {
     disable?: boolean;
 }
 
-export const IMinus = ({ width, disable=false }: IMinusProps) => {
+export const IMinus = ({ width }: IMinusProps) => {
     return (
-        <motion.svg 
+        <svg 
             key="btn-enabled"
             className={styles.icon}
             style={{
@@ -20,12 +19,8 @@ export const IMinus = ({ width, disable=false }: IMinusProps) => {
             viewBox="0 0 24 24" fill="none" width={`${width}px`}
             stroke="currentColor"
             strokeWidth="3"
-            initial={{ scale: 1 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 200 }}
         >
             <line x1="5" y1="12" x2="19" y2="12"></line>
-        </motion.svg>
+        </svg>
     )
 }

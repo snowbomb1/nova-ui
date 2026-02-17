@@ -24,7 +24,7 @@
     padding: 3px;
     cursor: pointer;
     border: 1px solid var(--color-border);
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease;
     outline: none;
     justify-content: var(--toggle-direction);
 }
@@ -38,7 +38,6 @@
 /* Enabled state using your Supernova colors */
 .switch.enabled {
     background-color: var(--color-primary);
-    box-shadow: 0 0 10px var(--glow-primary);
 }
 
 .handle {
@@ -46,7 +45,6 @@
     height: 1rem;
     background-color: var(--color-surface);
     border-radius: 50%;
-    box-shadow: var(--shadow-sm);
 }
 
 /* Interactive feedback */
