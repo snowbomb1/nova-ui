@@ -1,6 +1,5 @@
 .container {
     width: 100%;
-    height: fit-content;
     border: 2px solid var(--color-primary);
     border-radius: 0.5rem;
     overflow: hidden;
@@ -18,6 +17,12 @@
     text-align: left;
     align-items: center;
     border: none;
+}
+
+.header {
+    font-size: medium;
+    font-weight: 600;
+    color: var(--color-text)
 }
 
 .icon {
@@ -38,10 +43,4 @@
 
 .accordion:hover {
   background-color: var(--color-secondary);
-}
-
-.accordion:after {
-  font-size: 13px;
-  float: right;
-  margin-left: 5px;
 }

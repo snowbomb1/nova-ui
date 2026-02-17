@@ -21,11 +21,11 @@ export const Accordion = ({ title, children, defaultOpen=false }: AccordionProps
         <div className={styles.container}>
             <button
                 id={id}
-                role="button"
                 onClick={() => setIsOpen(!isOpen)}
                 className={styles.accordion}
+                aria-expanded={isOpen}
             >
-                {title}
+                <span className={styles.header}>{title}</span>
                 <span className={styles.icon}>
                     {isOpen ? <IMinus width='24' /> : <IPlus width='24' />}
                 </span>
