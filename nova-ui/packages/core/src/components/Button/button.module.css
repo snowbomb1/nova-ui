@@ -5,6 +5,11 @@
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+    color: var(--color-text)
+}
+
+.button:active {
+    opacity: 0.8;
 }
 
 .button:disabled {
@@ -18,42 +23,33 @@
     outline-offset: 2px;
 }
 
-/* PRIMARY BUTTON */
-.buttonPrimary {
+/* Button Variants */
+.primary {
     background: linear-gradient(
         135deg,
         var(--color-primary) 0%,
         var(--color-primary-dark) 100%
     );
-    color: white;
 }
 
-.buttonPrimary:hover:not(:disabled) {
-    transform: translateY(-2px);
-}
-
-/* SECONDARY BUTTON */
-.buttonSecondary {
+.secondary {
     background: linear-gradient(
         135deg,
         var(--color-secondary) 0%,
         var(--color-secondary-dark) 100%
     );
-    color: white;
 }
 
-.buttonSecondary:hover:not(:disabled) {
-    transform: translateY(-2px);
-}
-
-.buttonIcon {
+.icon {
     padding: 0.75rem;
     border-radius: 0.5rem;
     background: transparent;
-    color: var(--color-primary);
     object-fit: cover;
 }
 
+/* Hover actions */
+.buttonPrimary:hover:not(:disabled),
+.buttonSecondary:hover:not(:disabled),
 .buttonIcon:hover:not(:disabled) {
-    color: var(--color-accent);
+    background: var(--color-accent);
 }

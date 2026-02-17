@@ -1,29 +1,24 @@
-import { motion, type HTMLMotionProps } from "motion/react";
 import { Tooltip, TooltipPosition } from "../Tooltip/Tooltip";
 import styles from "./button.module.css";
 
 export type ButtonVariant = 'primary' | 'secondary' | 'icon';
 
-export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'onChange'> {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
-    onClick?: (event: React.MouseEvent) => void;
     variant?: ButtonVariant;
     disabled?: boolean;
     disabledMessage?: string;
     tooltipPosition?: TooltipPosition;
 }
 
-export const Button = ({ children, onClick, variant = 'primary', disabled = false, disabledMessage, tooltipPosition = 'top', ...props }: ButtonProps) => {
-    const variantClass = {
-        primary: 'buttonPrimary',
-        secondary: 'buttonSecondary',
-        icon: 'buttonIcon',
-    }
+export const Button = ({ children, onClick, variant='primary', 
+    disabled=false, disabledMessage, tooltipPosition='top', ...props }: ButtonProps
+) => {
 
     return (
         <Tooltip message={disabled ? disabledMessage : undefined} position={tooltipPosition}>
             <button
-                className={`${styles.button} ${styles[variantClass[variant]]}`}
+                className={`${styles.button} ${styles[variant]}`}
                 disabled={disabled}
                 onClick={onClick}
                 {...props}
