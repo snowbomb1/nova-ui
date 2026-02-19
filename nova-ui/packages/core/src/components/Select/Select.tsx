@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useRef } from "react";
+import { useMemo, useState, useEffect, useRef, useId } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from './select.module.css';
 import { Input } from "../Input/Input";
@@ -11,7 +11,6 @@ interface SharedProps {
     placeholder?: string;
     disabled?: boolean;
     name?: string;
-    id?: string;
     required?: boolean;
     label?: string;
     helperText?: string;
@@ -42,18 +41,35 @@ export const Select = (props: SelectProps) => {
         placeholder = "Select...",
         disabled = false,
         name,
-        id,
         required,
         label,
         helperText,
         error,
     } = props;
 
-    const selectId = id || `select-${Math.random().toString(36).substring(2, 9)}`;
+    const selectId = useId();
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
-    const [highlightedIndex, setHighlightedIndex] = useState(0);
+    const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    const handleSelect = (option: Option) => {
+        if (disabled) return;
+
+        if (selectType === "multi") {
+            const current = Array.isArray(selectedOption) ? selectedOption : [];
+            const exists = current.find(o => o.value === option.value);
+            const next = exists
+                ? current.filter(o => o.value !== option.value)
+                : [...current, option];
+            
+            (onChange as (options: Option[]) => void)(next);
+        } else {
+            (onChange as (option: Option | undefined) => void)(option);
+            setIsOpen(false);
+        }
+        setQuery("");
+    };
 
     const filteredOptions = useMemo(() => {
         return options.filter(o => 
@@ -68,19 +84,23 @@ export const Select = (props: SelectProps) => {
             switch (e.key) {
                 case 'ArrowDown':
                     e.preventDefault();
-                    setHighlightedIndex(prev => 
-                        prev < filteredOptions.length - 1 ? prev + 1 : 0
+                    setHighlightedIndex(prev => {
+                        const last = prev || 0
+                        return last < filteredOptions.length - 1 ? last + 1 : 0
+                    }
                     );
                     break;
                 case 'ArrowUp':
                     e.preventDefault();
-                    setHighlightedIndex(prev => 
-                        prev > 0 ? prev - 1 : filteredOptions.length - 1
+                    setHighlightedIndex(prev => {
+                        const last = prev || 0
+                        return last > 0 ? last - 1 : filteredOptions.length - 1
+                    }
                     );
                     break;
                 case 'Enter':
                     e.preventDefault();
-                    if (filteredOptions[highlightedIndex]) {
+                    if (highlightedIndex && filteredOptions && filteredOptions[highlightedIndex]) {
                         handleSelect(filteredOptions[highlightedIndex]);
                     }
                     break;
@@ -107,24 +127,6 @@ export const Select = (props: SelectProps) => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isOpen]);
-
-    const handleSelect = (option: Option) => {
-        if (disabled) return;
-
-        if (selectType === "multi") {
-            const current = Array.isArray(selectedOption) ? selectedOption : [];
-            const exists = current.find(o => o.value === option.value);
-            const next = exists
-                ? current.filter(o => o.value !== option.value)
-                : [...current, option];
-            
-            (onChange as (options: Option[]) => void)(next);
-        } else {
-            (onChange as (option: Option | undefined) => void)(option);
-            setIsOpen(false);
-        }
-        setQuery("");
-    };
 
     const handleToggle = () => {
         if (!disabled) setIsOpen(!isOpen);
@@ -185,15 +187,12 @@ export const Select = (props: SelectProps) => {
                     ))}
                 </select>
 
-                <motion.div 
+                <div 
                     className={`${styles.control} ${disabled ? styles.disabled : ''} ${error ? styles.controlError : ''}`}
                     onClick={handleToggle}
-                    whileHover={!disabled ? { borderColor: error ? 'var(--color-error)' : 'var(--color-primary)' } : {}}
-                    transition={{ duration: 0.2 }}
                     role="button"
                     aria-haspopup="listbox"
                     aria-expanded={isOpen}
-                    aria-invalid={error ? "true" : "false"}
                     aria-describedby={
                         error ? `${selectId}-error` : 
                         helperText ? `${selectId}-helper` : 
@@ -217,7 +216,7 @@ export const Select = (props: SelectProps) => {
                     >
                         ▼
                     </motion.span>
-                </motion.div>
+                </div>
 
                 <AnimatePresence>
                     {isOpen && (
@@ -235,36 +234,48 @@ export const Select = (props: SelectProps) => {
                                         value={query} 
                                         onChange={setQuery} 
                                         placeholder="Search..." 
-                                        autoFocus
                                         hideClear
                                     />
                                 </div>
                             )}
-                            <div className={styles.list}>
+                            <div className={styles.list} role="listbox" aria-label="Select an option">
                                 {filteredOptions.length > 0 ? (
-                                    filteredOptions.map((opt, index) => (
-                                        <div 
-                                            key={opt.value} 
-                                            className={`${styles.item} ${isSelected(opt) ? styles.selected : ''} ${index === highlightedIndex ? styles.highlighted : ''}`}
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-                                                handleSelect(opt);
-                                            }}
-                                            role="option"
-                                            aria-selected={isSelected(opt)}
-                                        >
-                                            {selectType === "multi" && (
-                                                <span className={styles.checkbox}>
-                                                    {isSelected(opt) ? '✓' : '○'}
-                                                </span>
-                                            )}
-                                            {opt.label}
-                                        </div>
-                                    ))
-                                ) : (
-                                    <div className={styles.empty}>No options found</div>
-                                )}
-                            </div>
+                                    filteredOptions.map((opt, index) => {
+                                        const selected = isSelected(opt);
+                                        const highlighted = index === highlightedIndex;
+                                        return (
+                                            <div 
+                                                key={opt.value} 
+                                                className={`${styles.item} ${selected ? styles.selected : ''} ${index === highlightedIndex ? styles.highlighted : ''}`}
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    handleSelect(opt);
+                                                }}
+                                                tabIndex={highlighted ? 0 : -1}
+                                                onKeyDown={(event) => {
+                                                    if (event.key === 'Enter' || event.key === ' ') {
+                                                        event.preventDefault();
+                                                        handleSelect(opt);
+                                                    }
+                                                }}
+                                                role="option"
+                                                aria-selected={selected}
+                                                onFocus={() => {
+                                                    if (highlighted) handleSelect(opt);
+                                                }}
+                                            >
+                                                {selectType === "multi" && (
+                                                    <span className={styles.checkbox} aria-hidden>
+                                                        {selected ? '✓' : '○'}
+                                                    </span>
+                                                )}
+                                                {opt.label}
+                                            </div>
+                                        )})
+                                    ) : (
+                                        <div className={styles.empty}>No options found</div>
+                                    )}
+                                </div>
                         </motion.div>
                     )}
                 </AnimatePresence>

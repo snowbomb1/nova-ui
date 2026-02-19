@@ -1,15 +1,15 @@
 import { motion } from "motion/react";
 
-export function SupernovaLogo({ size = 28, color = "var(--color-primary)" }) {
+export function SupernovaLogo() {
   return (
     <motion.svg
       viewBox="0 0 128 128"
-      width={size}
-      height={size}
+      width={28}
+      height={28}
       initial={{ rotate: 0, scale: 0.1 }}
       animate={{ rotate: 2880, scale: 1 }}
       transition={{ duration: 3 }}
-      style={{ color, cursor: "pointer" }}
+      style={{ color: "var(--color-primary)", cursor: "pointer" }}
     >
       <motion.path
         initial={{ opacity: 0 }}

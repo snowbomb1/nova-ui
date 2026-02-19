@@ -1,6 +1,6 @@
 .container {
     width: 100%;
-    border: 2px solid var(--color-primary);
+    border: 2px solid var(--color-border);
     border-radius: 0.5rem;
     overflow: hidden;
     align-self: flex-start;
@@ -8,7 +8,7 @@
 
 .accordion {
     width: 100%;
-    background-color: var(--color-primary);
+    background-color: var(--color-surface);
     color: white;
     cursor: pointer;
     display: flex;
@@ -22,16 +22,17 @@
 .header {
     font-size: medium;
     font-weight: 600;
-    color: var(--color-text)
+    color: var(--color-text);
 }
 
 .icon {
     margin-left: auto;
+    color: var(--color-text)
 }
 
 .content {
     position: relative;
-    background-color: white;
+    background-color: var(--color-surface);
     transition: max-height 0.2s ease-out;
     max-height: 0;
 }
@@ -41,6 +42,6 @@
     max-height: 500px;
 }
 
-.accordion:hover {
-  background-color: var(--color-secondary);
+.container:hover:not(:has(.content.open)) {
+  border-color: var(--color-primary);
 }

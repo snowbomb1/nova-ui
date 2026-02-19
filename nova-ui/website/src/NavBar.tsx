@@ -5,11 +5,12 @@ import { routes } from './routes';
 import { SupernovaLogo } from './logo/Logo'
 
 const suggestions: {path: string, pageName: string}[] = routes.map((r) => {
+    if (!r.path) return null;
     return {
-        path: r.path!,
-        pageName: r.path?.charAt(1).toUpperCase() + r.path?.slice(2)!
+        path: r.path,
+        pageName: r.path.charAt(1).toUpperCase() + r.path.slice(2)
     }
-})
+}).filter((r): r is {path: string, pageName: string} => Boolean(r));
 
 
 const NavBar = () => {

@@ -126,7 +126,9 @@ export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPla
                             transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
                         >
                             {isVideo ? (
-                                <video preload="none" className={styles.lightboxMedia} src={src} controls={video.controls} loop={video.loop} autoPlay={video.autoPlay} muted={video.muted} />
+                                <video preload="none" className={styles.lightboxMedia} src={src} controls={video.controls} loop={video.loop} autoPlay={video.autoPlay} muted={video.muted}>
+                                    <track kind="captions" />
+                                </video>
                             ) : (
                                 <img className={styles.lightboxMedia} src={src} alt={alt} />
                             )}

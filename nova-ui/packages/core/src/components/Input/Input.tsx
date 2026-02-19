@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import { motion, type HTMLMotionProps, AnimatePresence } from "motion/react";
 import { IClose } from '../../icons/close';
 import styles from './input.module.css';
@@ -18,7 +18,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
 export const Input = ({ value, onChange, disabled=false, suggestions = [], 
     placeholder, hideClear=false, label, error, required=false, helperText, ...props }: InputProps
 ) => {
-    const inputId = props.id || `input-${Math.random().toString(36).substring(2, 9)}`
+    const inputId = useId();
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     const filtered = useMemo(() => {
@@ -86,6 +86,7 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                                 <li 
                                     key={suggestion}
                                     role="option"
+                                    aria-selected={value === suggestion}
                                     className={styles.suggestionItem}
                                     onClick={() => {
                                         onChange?.(suggestion);

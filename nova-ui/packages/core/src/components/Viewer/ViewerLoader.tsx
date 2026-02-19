@@ -1,5 +1,4 @@
 import { type RefObject } from "react";
-import { motion } from "motion/react";
 import styles from "./viewer.module.css"
 import { ViewerAspectRatio } from "./Viewer";
 
@@ -15,7 +14,8 @@ export const ViewerLoader = ({ divRef, width, aspectRatio }: ViewerLoderProps) =
         <div
             ref={divRef} 
             className={styles.thumbnailWrapper}
-            style={{ 
+            style={{
+                width: width,
                 aspectRatio: aspectRatio.toString(),
             }}
         >

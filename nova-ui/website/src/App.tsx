@@ -19,7 +19,7 @@ function App() {
         >    
         <Routes>
           {routes.map((r) => (
-            <Route path={r.path} Component={r.Component} />
+            <Route key={r.path} path={r.path} Component={r.Component} />
           ))}
         </Routes>
       <SpeedInsights />

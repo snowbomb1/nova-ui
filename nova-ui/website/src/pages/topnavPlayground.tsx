@@ -9,7 +9,7 @@ const TopNavPlayground = () => {
     const [header, setHeader] = useState<string>("Nova UI")
     const [variant, setVariant] = useState<Option>({ label: "h2", value: "h2" })
     const [autoComplete, setAutoComplete] = useState<boolean>(true);
-    const [suggestions, setSuggestions] = useState<string[]>(["Option 1", "Option 2", "Option 3"])
+    const suggestions = ["Option 1", "Option 2", "Option 3"]
     
     const handleChange = (value: string) => {
         setString(value)

@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import styles from './checkbox.module.css';
+import { useId } from "react";
 
 export interface CheckboxProps {
     checked: boolean;
@@ -10,7 +11,7 @@ export interface CheckboxProps {
 }
 
 export const Checkbox = ({ checked, onChange, label, disabled=false, indeterminate=false }: CheckboxProps) => {
-    const id = `checkbox-${Math.random().toString(36).substring(2, 9)}`;
+    const id = useId();
     return (
         <div className={`${styles.container} ${disabled ? styles.disabled : ''}`}>
             <input id={id} type="checkbox"

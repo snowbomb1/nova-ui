@@ -5,7 +5,7 @@ import Playground from "../playground/Playground";
 
 
 const ButtonPlayground = () => {
-    const [position, setPosition] = useState<Option>({ label: 'top', value: 'top' })
+    const [position, setPosition] = useState<Option>({ label: 'Top', value: 'top' })
     const [variant, setVariant] = useState<Option>({ label: 'Primary', value: 'primary' })
     const [disabled, setDisabled] = useState<boolean>(false);
     const [disabledMesssage, setDisabledMessage] = useState<string>("")

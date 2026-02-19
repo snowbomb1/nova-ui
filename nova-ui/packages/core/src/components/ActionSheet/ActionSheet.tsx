@@ -1,4 +1,3 @@
-import { useLayoutEffect } from 'react';
 import { motion, useMotionValue, PanInfo, AnimatePresence } from 'motion/react';
 import styles from './action-sheet.module.css';
 

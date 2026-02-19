@@ -19,8 +19,7 @@
 }
 
 .button:focus-visible {
-    outline: 3px solid var(--color-primary);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-accent);
 }
 
 /* Button Variants */
@@ -48,8 +47,8 @@
 }
 
 /* Hover actions */
-.buttonPrimary:hover:not(:disabled),
-.buttonSecondary:hover:not(:disabled),
-.buttonIcon:hover:not(:disabled) {
-    background: var(--color-accent);
+.primary:hover:not(:disabled),
+.secondary:hover:not(:disabled),
+.icon:hover:not(:disabled) {
+    outline: 2px solid var(--color-accent);
 }

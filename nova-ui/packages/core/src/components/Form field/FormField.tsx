@@ -1,5 +1,4 @@
-import { Children, cloneElement, isValidElement } from 'react';
-import { motion } from "motion/react";
+import { cloneElement, isValidElement, useId } from 'react';
 import styles from './styles.module.css';
 import type { LabelHTMLAttributes } from "react";
 
@@ -13,7 +12,7 @@ export interface FormFieldProps extends LabelHTMLAttributes<HTMLLabelElement> {
 
 
 export const FormField = ({ label, description, error, required, children }: FormFieldProps) => {
-    const fieldId = `field-${Math.random().toString(36).substring(2, 9)}`;
+    const fieldId = useId();
     const descriptionId = description ? `${fieldId}-description` : undefined;
     const errorId = error ? `${fieldId}-error` : undefined;
 
@@ -23,7 +22,7 @@ export const FormField = ({ label, description, error, required, children }: For
             'aria-describedby': [descriptionId, errorId].filter(Boolean).join(' ') || undefined,
             'aria-invalid': error ? 'true' : undefined,
             'aria-required': required ? 'true' : undefined,
-        } as any)
+        } as React.HTMLAttributes<HTMLElement>)
         : children;
 
      return (

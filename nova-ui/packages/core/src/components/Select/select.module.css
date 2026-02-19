@@ -179,7 +179,7 @@
 }
 
 .item:hover,
-.highlighted {
+.highlighted:not(.selected) {
     background: var(--color-secondary);
     color: white;
 }
