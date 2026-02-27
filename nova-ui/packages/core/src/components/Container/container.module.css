@@ -24,7 +24,7 @@
 }
 
 .padding-none {
-    /* Header and footer still get padding, content doesn't */
+    padding: none;
 }
 
 .padding-sm .content {

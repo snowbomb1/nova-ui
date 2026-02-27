@@ -1,6 +1,6 @@
-import { motion } from "motion/react";
 import styles from './checkbox.module.css';
 import { useId } from "react";
+import { MinusIcon, CheckIcon } from '@heroicons/react/24/solid';
 
 export interface CheckboxProps {
     checked: boolean;
@@ -21,38 +21,16 @@ export const Checkbox = ({ checked, onChange, label, disabled=false, indetermina
                 className={styles.hiddenInput}
                 aria-checked={indeterminate ? 'mixed' : checked}
             />
-            <motion.label htmlFor={id}
+            <label htmlFor={id}
                 className={styles.label}
-                whileTap={!disabled ? { scale: 0.95 }: {}}
+                onClick={(e) => e.stopPropagation()}
             >
                 <div className={`${styles.box} ${checked || indeterminate ? styles.checked : ''}`}>
-                    {checked && !indeterminate && (
-                        <motion.svg
-                            className={styles.checkmark}
-                            viewBox="0 0 24 24"
-                            initial={{ pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
-                            transition={{ duration: 0.2 }}
-                        >
-                            <path
-                                d="M5 13l4 4L19 7"
-                                fill="none"
-                                stroke="white"
-                                strokeWidth="3"
-                            />
-                        </motion.svg>
-                    )}
-                    {indeterminate && (
-                        <motion.div 
-                            className={styles.indeterminate}
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ duration: 0.2 }}
-                        />
-                    )}
+                    {checked && !indeterminate && <CheckIcon width="20" />}
+                    {indeterminate && <MinusIcon width="20" />}
                 </div>
-                {label && <span className={styles.labelText}>{label}</span>}
-            </motion.label>
+                {label && <span onClick={(e) => e.stopPropagation()} className={styles.labelText}>{label}</span>}
+            </label>
         </div>
     )
 }

@@ -1,6 +1,5 @@
-import { motion } from "motion/react";
 import styles from './alert.module.css';
-
+import { CheckIcon, XMarkIcon, InformationCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 
 export type AlertType = 'success' | 'warning' | 'error' | 'info';
 
@@ -10,10 +9,10 @@ export interface AlertProps {
 }
 
 const statusIcons = {
-    success: '✓',
-    warning: '⚠',
-    error: '✕',
-    info: 'ⓘ'
+    success: <CheckIcon width="20" />,
+    warning: <ExclamationTriangleIcon width="20" />,
+    error: <XMarkIcon width="20" />,
+    info: <InformationCircleIcon width="20" />
 };
 
 export const Alert = ({ type="info", children }: AlertProps) => {

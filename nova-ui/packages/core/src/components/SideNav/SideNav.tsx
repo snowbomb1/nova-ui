@@ -1,8 +1,7 @@
 import { useLayoutEffect, useState } from "react";
 import { motion } from "motion/react";
 import styles from './sidenav.module.css';
-import { IHamburger } from "../../icons/hamburger";
-import { IClose } from "../../icons/close";
+import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import { ActionSheet } from "../ActionSheet";
 
 export type NavItem = {
@@ -105,7 +104,7 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
                         whileTap={{ scale: 0.95 }}
                         aria-label={isOpen ? "Close menu" : "Open menu"}
                     >
-                        {isOpen ? <IClose width="20" /> : <IHamburger width="20" />}
+                        {isOpen ? <XMarkIcon width="24" /> : <Bars3Icon width="24" />}
                     </motion.button>
                 </div>
 

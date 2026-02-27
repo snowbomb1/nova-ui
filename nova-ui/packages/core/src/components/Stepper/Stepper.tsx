@@ -1,6 +1,5 @@
 import { motion } from "motion/react";
-import { IMinus } from "../../icons/minus";
-import { IPlus } from "../../icons/plus";
+import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
 import { Input } from "../Input";
 import styles from './stepper.module.css';
 
@@ -61,7 +60,7 @@ export const Stepper = ({
                 aria-label="Decrease value"
                 type="button"
             >
-                <IMinus width={iconSize[size]} />
+                <MinusIcon width={iconSize[size]} />
             </motion.button>
             
             <Input 
@@ -81,7 +80,7 @@ export const Stepper = ({
                 aria-label="Increase value"
                 type="button"
             >
-                <IPlus width={iconSize[size]} />
+                <PlusIcon width={iconSize[size]}/>
             </motion.button>
         </motion.div>
     );

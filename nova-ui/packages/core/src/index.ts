@@ -24,9 +24,3 @@ export * from './components/Viewer';
 // Hooks
 export { useMediaLoader } from './hooks/useMediaLoader';
 export { useTheme } from './hooks/useTheme';
-
-// Icons
-export { IMinus } from './icons/minus';
-export { IPlus } from './icons/plus';
-export { IClose } from './icons/close';
-export { IHamburger } from './icons/hamburger';

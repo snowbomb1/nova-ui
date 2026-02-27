@@ -1,7 +1,6 @@
 import { useState, useLayoutEffect, useId } from 'react';
 import styles from './accordion.module.css';
-import { IMinus } from '../../icons/minus';
-import { IPlus } from '../../icons/plus';
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid';
 
 export interface AccordionProps {
     title: string;
@@ -27,7 +26,7 @@ export const Accordion = ({ title, children, defaultOpen=false }: AccordionProps
             >
                 <span className={styles.header}>{title}</span>
                 <span className={styles.icon}>
-                    {isOpen ? <IMinus width='24' /> : <IPlus width='24' />}
+                    {isOpen ? <MinusIcon width="24" /> : <PlusIcon width="24" />}
                 </span>
             </button>
             <div role="region" aria-labelledby={id}

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { IClose } from "../../icons/close";
+import { XCircleIcon } from "@heroicons/react/24/solid";
 import styles from './toast.module.css';
 
 export type ToastPosition = 'top' | 'bottom';
@@ -77,7 +77,7 @@ export const Toast = ({
                                 whileTap={{ scale: 0.9 }}
                                 aria-label="Dismiss"
                             >
-                                <IClose width="16" />
+                                <XCircleIcon width="20" />
                             </motion.button>
                         )}
                     </motion.div>

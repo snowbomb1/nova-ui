@@ -38,18 +38,6 @@
     border-color: var(--color-primary);
 }
 
-.checkmark {
-    width: 16px;
-    height: 16px;
-}
-
-.indeterminate {
-    width: 12px;
-    height: 2px;
-    background-color: white;
-    border-radius: 1px;
-}
-
 .labelText {
     color: var(--color-text);
     font-size: 0.9375rem;

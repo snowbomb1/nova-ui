@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { IClose } from '../../icons/close';
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import styles from './modal.module.css';
 
 export type ModalSize = 's' | 'm' | 'l' | 'xl';
@@ -94,7 +94,7 @@ export const Modal = ({ isVisible, onClose, size="m", header, footer, children}:
                                 aria-label="Close Modal"
                                 type="button"
                             >
-                                 <IClose width="30" />
+                                 <XMarkIcon width="24" />
                             </motion.button>
                         </motion.div>
                         <motion.div id="content" className={styles.content}

@@ -1,5 +1,4 @@
-import { IPlus } from '../../icons/plus';
-import { IHamburger } from '../../icons/hamburger';
+import { PlusIcon, Bars3Icon } from '@heroicons/react/24/solid';
 import styles from './floating-menu-button.module.css'
 
 export type FloatingButtonVariant = 'menu' | 'action'
@@ -18,8 +17,8 @@ export const FloatingButton = ({ onClick, variant, ariaLabel }: FloatingButtonPr
             aria-label={ariaLabel}
         >
             {variant === "action" 
-                ? (<IPlus width="24" />)
-                : (<IHamburger width='24' />)
+                ? (<PlusIcon width="24" />)
+                : (<Bars3Icon width="24" />)
             }
         </button>
     );

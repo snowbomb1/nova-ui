@@ -17,7 +17,6 @@
 /* --- HORIZONTAL LOGIC --- */
 .box[data-direction="horizontal"] {
     flex-direction: row;
-    /* Usually, you want items vertically centered in a row */
     align-items: center; 
 }
 /* In row, horizontal placement is controlled by justify-content */

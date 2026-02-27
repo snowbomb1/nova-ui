@@ -1,6 +1,6 @@
 import { useId, useMemo, useState } from "react";
 import { motion, type HTMLMotionProps, AnimatePresence } from "motion/react";
-import { IClose } from '../../icons/close';
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import styles from './input.module.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
@@ -67,7 +67,7 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                         aria-label="Clear input"
                         type="button"
                     >
-                        <IClose width="20" />
+                        <XMarkIcon width="20" />
                     </button>
                 )}
                 

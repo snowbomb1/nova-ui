@@ -1,9 +1,0 @@
-.icon {
-    aspect-ratio: 1/1;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text);
-    z-index: 2;
-}
