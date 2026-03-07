@@ -7,7 +7,7 @@ export const useTheme = () => {
     const [theme, setTheme] = useState<Theme>(() => {
         const saved = localStorage.getItem('nova-ui-theme');
         if (!saved) {
-            return window.matchMedia('(prefers-color-schmeme: dark)').media ? 'dark' : 'light';
+            return window.matchMedia('(prefers-color-scheme: dark)').media ? 'dark' : 'light';
         } else {
             return saved as Theme;
         }

@@ -35,17 +35,21 @@ export const useMediaLoader = ({ src, onError }: UseMediaLoaderProps ) => {
             onError?.(error)
         }
         if (isVideo) {
-            (media as HTMLVideoElement).onloadeddata = () => setIsLoading(false);
-            clearTimeout(timeout)
+            (media as HTMLVideoElement).onloadeddata = () => {
+                clearTimeout(timeout);
+                setIsLoading(false);
+            };
         } else {
-            media.onload = () => setIsLoading(false);
-            clearTimeout(timeout)
+            media.onload = () => {
+                clearTimeout(timeout);
+                setIsLoading(false);
+            };
         }
         return () => {
             media.onload = null;
             (media as HTMLVideoElement).onloadeddata = null;
             media.onerror = null;
-            clearInterval(timeout)
+            clearTimeout(timeout)
         }
 
     }, [src, reloadTrigger])
