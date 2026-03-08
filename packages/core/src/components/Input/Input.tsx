@@ -1,13 +1,14 @@
 import { useId, useMemo, useState } from "react";
 import { motion, type HTMLMotionProps, AnimatePresence } from "motion/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { FormField } from "../Form field";
 import styles from './input.module.css';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
     value: string | undefined;
     onChange?: (newValue: string) => void;
     disabled?: boolean;
-    suggestions?: string[]
+    suggestions?: string[];
     hideClear?: boolean;
     required?: boolean;
     label?: string;
@@ -15,35 +16,24 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
     helperText?: string;
 }
 
-export const Input = ({ value, onChange, disabled=false, suggestions = [], 
+export const Input = ({ value, onChange, disabled=false, suggestions = [],
     placeholder, hideClear=false, label, error, required=false, helperText, ...props }: InputProps
 ) => {
     const inputId = useId();
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const [isFocused, setIsFocused] = useState(false);
     const { onBlur, ...rest } = props;
 
     const filtered = useMemo(() => {
         if (suggestions.length === 0 || !value) return [];
         return suggestions.filter((s) => s.toLowerCase().includes(value.toLowerCase()))
-    }, [suggestions, value])
+    }, [suggestions, value]);
 
     return (
-        <div className={styles.inputWrapper}>
+        <FormField label={label} required={required} disabled={disabled} helperText={helperText} error={error}>
             <div className={styles.inputContainer}>
-                {label && (
-                    <label
-                        htmlFor={inputId}
-                        className={`${styles.label} ${isFocused ? styles.labelFocused : ''} ${error ? styles.labelError : ''}`}
-                    >
-                        {label}
-                        {required && <span className={styles.required} aria-label="required">*</span>}
-                    </label>
-                )}
-
                 <motion.input
                     id={inputId}
-                    className={`${styles.input} ${error ? styles.inputError : ''}`}
+                    className={styles.input}
                     value={value}
                     disabled={disabled}
                     onChange={({ target }) => onChange?.(target.value)}
@@ -51,12 +41,8 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                     required={required}
                     aria-invalid={error ? "true" : "false"}
                     aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
-                    onFocus={() => {
-                        setIsFocused(true);
-                        setShowSuggestions(true);
-                    }}
+                    onFocus={() => setShowSuggestions(true)}
                     onBlur={(e) => {
-                        setIsFocused(false);
                         setTimeout(() => setShowSuggestions(false), 150);
                         onBlur?.(e);
                     }}
@@ -103,18 +89,6 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                     )}
                 </AnimatePresence>
             </div>
-
-            {helperText && (
-                <span id={`${inputId}-helper`} className={styles.helperText}>
-                    {helperText}
-                </span>
-            )}
-
-            {error && (
-                <p id={`${inputId}-error`} className={styles.errorText} role="alert">
-                    {error}
-                </p>
-            )}
-        </div>
-    )
-}
+        </FormField>
+    );
+};

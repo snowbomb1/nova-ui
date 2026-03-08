@@ -24,7 +24,6 @@ const ButtonPlayground = () => {
                             { label: "Icon", value: "icon" }
                         ]}
                     />
-                    <Toggle label="Disabled" value={disabled} onChange={setDisabled} />
                     <Input label="Disabled Message" value={disabledMesssage} onChange={setDisabledMessage} />
                     <Select
                         label="Tooltip Position"
@@ -37,6 +36,7 @@ const ButtonPlayground = () => {
                             { label: "Right", value: "right" }
                         ]}
                     />
+                    <Toggle label="Disabled" value={disabled} onChange={setDisabled} />
                 </>
             }
             component={

@@ -29,9 +29,7 @@ const BoxPlayground = () => {
                             { label: 'Horizontal', value: 'horizontal' }
                         ]}
                     />
-                    <FormField label="Total Children">
-                        <Stepper size="md" min={1} value={children} onChange={setChildren} />
-                    </FormField>
+                    <Stepper label="Total Children" min={1} value={children} onChange={setChildren} />
                 </>
             }
             component={

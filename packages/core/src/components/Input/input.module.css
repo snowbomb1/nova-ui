@@ -1,81 +1,22 @@
-.inputWrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    width: 100%;
-}
-
 .inputContainer {
     position: relative;
     width: 100%;
-    margin-top: 0.65rem; /* room for pill to overlap */
-}
-
-.label {
-    position: absolute;
-    top: -0.65rem;
-    left: 0.75rem;
-    background: var(--color-surface);
-    padding: 0.1rem 0.6rem;
-    border-radius: 999px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    border: 1.5px solid var(--color-border);
-    color: var(--color-text-secondary);
-    pointer-events: none;
-    transition: border-color 0.2s ease, color 0.2s ease;
-    white-space: nowrap;
-    z-index: 1;
-}
-
-.labelFocused {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-}
-
-.labelError {
-    border-color: var(--color-error);
-    color: var(--color-error);
-}
-
-.required {
-    color: var(--color-error);
-    margin-left: 0.25rem;
+    min-width: 250px;
 }
 
 .input {
     width: 100%;
     padding: 0.8rem 2.5rem 0.8rem 1.2rem;
     font-size: 0.875rem;
-    border-radius: 0.5rem;
-    background-color: var(--color-surface);
     color: var(--color-text);
-    border: 1.5px solid var(--color-border);
+    background: transparent;
+    border: none;
     outline: none;
-    transition: border-color 0.2s ease;
-}
-
-.inputError {
-    border-color: var(--color-error);
-    background-color: var(--toast-bg-error);
-}
-
-.inputError:hover {
-    border-color: var(--color-error);
 }
 
 .input::placeholder {
     color: var(--color-text-secondary);
     opacity: 0.6;
-}
-
-.input:hover:not(.input:disabled) {
-    border-color: var(--color-accent);
-}
-
-.input:focus {
-    border-color: var(--color-accent);
 }
 
 .input:disabled {
@@ -101,26 +42,6 @@
 .clearButton:hover {
     color: var(--color-primary);
     transform: translateY(-50%) scale(1.1);
-}
-
-.helperText {
-    font-size: 0.75rem;
-    color: var(--color-text-secondary);
-    margin: 0;
-}
-
-.errorText {
-    font-size: 0.75rem;
-    color: var(--color-error);
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
-
-.errorText::before {
-    content: '⚠';
-    font-size: 1rem;
 }
 
 .suggestionsList {

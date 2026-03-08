@@ -1,18 +1,7 @@
 .container {
     display: inline-flex;
     align-items: center;
-    background-color: var(--color-surface);
-    border: 1.5px solid var(--color-border);
-    border-radius: 0.75rem;
     width: 8rem;
-}
-
-.container:hover {
-    border-color: var(--color-accent);
-}
-
-.container:focus-within {
-    border-color: var(--color-accent);
 }
 
 .stepper {

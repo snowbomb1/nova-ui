@@ -1,51 +1,52 @@
-import { cloneElement, isValidElement, useId } from 'react';
+import { cloneElement, isValidElement, useId, useState } from 'react';
 import styles from './styles.module.css';
 import type { LabelHTMLAttributes } from "react";
 
 export interface FormFieldProps extends LabelHTMLAttributes<HTMLLabelElement> {
-    label: string;
-    description?: string;
+    label?: string;
+    helperText?: string;
     error?: string;
     required?: boolean;
-    children: React.ReactElement;
+    disabled?: boolean;
+    children: React.ReactNode;
 }
 
 
-export const FormField = ({ label, description, error, required, children }: FormFieldProps) => {
+export const FormField = ({ label, helperText, error, required, disabled, children }: FormFieldProps) => {
     const fieldId = useId();
-    const descriptionId = description ? `${fieldId}-description` : undefined;
-    const errorId = error ? `${fieldId}-error` : undefined;
-
-    const enhancedChild = isValidElement(children)
-        ? cloneElement(children, {
-            id: fieldId,
-            'aria-describedby': [descriptionId, errorId].filter(Boolean).join(' ') || undefined,
-            'aria-invalid': error ? 'true' : undefined,
-            'aria-required': required ? 'true' : undefined,
-        } as React.HTMLAttributes<HTMLElement>)
-        : children;
+    const [isFocused, setIsFocused] = useState(false);
 
      return (
-        <div className={styles.container}>
-            <div className={styles.labelrow}>
-                <label htmlFor={fieldId} className={styles.label}>
-                    {label}
-                    {required && <span className={styles.required} aria-label="required">*</span>}
-                </label>
-                
-                {description && (
-                    <span id={descriptionId} className={styles.description}>
-                        {description}
-                    </span>
+        <div className={`${styles.wrapper}`}>
+            <div className={`${styles.container} ${!label ? styles.containerNoLabel : ''}`}>
+                {label && (
+                    <label
+                        htmlFor={fieldId}
+                        className={`${styles.label} ${isFocused ? styles.labelFocused : ''} ${error ? styles.labelError : ''}`}
+                    >
+                        {label}
+                        {required && <span>*</span>}
+                    </label>
                 )}
+                 <div
+                    className={`
+                        ${styles.border}
+                        ${isFocused ? styles.borderFocused : ''}
+                        ${error ? styles.borderError : ''}
+                        ${disabled ? styles.borderDisabled : ''}
+                    `}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                >
+                    {children}
+                </div>
             </div>
-            
-            {enhancedChild}
-            
+            {helperText && (
+                <span className={styles.helperText}>{helperText}</span>
+            )}
+
             {error && (
-                <p id={errorId} className={styles.errorText} role="alert">
-                    {error}
-                </p>
+                <p className={styles.errorText} role="alert">{error}</p>
             )}
         </div>
     );
