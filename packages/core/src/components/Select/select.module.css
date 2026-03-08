@@ -84,11 +84,11 @@
 }
 
 .control:hover {
-    border-color: var(--color-primary);
+    border-color: var(--color-accent);
 }
 
 .control:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
 }
 
@@ -175,13 +175,14 @@
 
 .selected {
     background: var(--color-primary-dark);
+    color: var(--color-text-on-primary);
     font-weight: 600;
 }
 
 .item:hover,
 .highlighted:not(.selected) {
     background: var(--color-secondary);
-    color: white;
+    color: var(--color-text-on-secondary);
 }
 
 .checkbox {

@@ -181,6 +181,7 @@ export const Select = (props: SelectProps) => {
                     className={styles.hiddenSelect}
                     tabIndex={-1}
                     aria-hidden="true"
+                    onChange={() => {}}
                 >
                     {options.map(opt => (
                         <option key={opt.value} value={opt.value}>{opt.label}</option>

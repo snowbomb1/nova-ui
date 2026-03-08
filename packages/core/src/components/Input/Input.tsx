@@ -20,6 +20,8 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
 ) => {
     const inputId = useId();
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+    const { onBlur, ...rest } = props;
 
     const filtered = useMemo(() => {
         if (suggestions.length === 0 || !value) return [];
@@ -28,27 +30,20 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
 
     return (
         <div className={styles.inputWrapper}>
-            {(label || helperText) && (
-                <div className={styles.labelRow}>
-                    {label && (
-                        <label htmlFor={inputId} className={styles.label}>
-                            {label}
-                            {required && <span className={styles.required} aria-label="required">*</span>}
-                        </label>
-                    )}
-                    {helperText && (
-                        <span id={`${inputId}-helper`} className={styles.helperText}>
-                            {helperText}
-                        </span>
-                    )}
-                </div>
-            )}
-            
             <div className={styles.inputContainer}>
+                {label && (
+                    <label
+                        htmlFor={inputId}
+                        className={`${styles.label} ${isFocused ? styles.labelFocused : ''} ${error ? styles.labelError : ''}`}
+                    >
+                        {label}
+                        {required && <span className={styles.required} aria-label="required">*</span>}
+                    </label>
+                )}
+
                 <motion.input
                     id={inputId}
                     className={`${styles.input} ${error ? styles.inputError : ''}`}
-                    whileFocus={{ scale: 1.02 }}
                     value={value}
                     disabled={disabled}
                     onChange={({ target }) => onChange?.(target.value)}
@@ -56,10 +51,18 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                     required={required}
                     aria-invalid={error ? "true" : "false"}
                     aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}
-                    onFocus={() => setShowSuggestions(true)}
-                    onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-                    {...props as HTMLMotionProps<"input">}
+                    onFocus={() => {
+                        setIsFocused(true);
+                        setShowSuggestions(true);
+                    }}
+                    onBlur={(e) => {
+                        setIsFocused(false);
+                        setTimeout(() => setShowSuggestions(false), 150);
+                        onBlur?.(e);
+                    }}
+                    {...rest as HTMLMotionProps<"input">}
                 />
+
                 {!hideClear && value && (
                     <button
                         className={styles.clearButton}
@@ -67,13 +70,13 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                         aria-label="Clear input"
                         type="button"
                     >
-                        <XMarkIcon width="20" />
+                        <XMarkIcon width="20" strokeWidth={2.5} />
                     </button>
                 )}
-                
+
                 <AnimatePresence>
                     {showSuggestions && filtered.length > 0 && (
-                        <motion.ul 
+                        <motion.ul
                             className={styles.suggestionsList}
                             role="listbox"
                             aria-label="Suggestions"
@@ -83,7 +86,7 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                             transition={{ duration: 0.2 }}
                         >
                             {filtered.map((suggestion) => (
-                                <li 
+                                <li
                                     key={suggestion}
                                     role="option"
                                     aria-selected={value === suggestion}
@@ -100,6 +103,12 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                     )}
                 </AnimatePresence>
             </div>
+
+            {helperText && (
+                <span id={`${inputId}-helper`} className={styles.helperText}>
+                    {helperText}
+                </span>
+            )}
 
             {error && (
                 <p id={`${inputId}-error`} className={styles.errorText} role="alert">

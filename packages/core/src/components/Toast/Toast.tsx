@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { XCircleIcon } from "@heroicons/react/24/solid";
+import { XCircleIcon, CheckCircleIcon, InformationCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import styles from './toast.module.css';
 
 export type ToastPosition = 'top' | 'bottom';
@@ -19,14 +19,13 @@ export interface ToastProps {
 export const Toast = ({ 
     visible, 
     onDismiss, 
-    timeout = 5000,  // Changed to milliseconds
+    timeout = 5000,
     position = "top", 
     status = "info", 
     children,
     dismissible = true
 }: ToastProps) => {
     
-    // Auto dismiss after timeout
     useEffect(() => {
         if (!visible || !timeout) return;
         
@@ -38,10 +37,10 @@ export const Toast = ({
     }, [visible, timeout, onDismiss]);
 
     const statusIcons = {
-        success: '✓',
-        warning: '⚠',
-        error: '✕',
-        info: 'ⓘ'
+        success: <CheckCircleIcon width="20" />,
+        warning: <ExclamationTriangleIcon width="20" />,
+        error: <XCircleIcon width="20" />,
+        info: <InformationCircleIcon width="20" />
     };
 
     return (

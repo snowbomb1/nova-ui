@@ -29,6 +29,7 @@
         var(--color-primary) 0%,
         var(--color-primary-dark) 100%
     );
+    color: var(--color-text-on-primary);
 }
 
 .secondary {
@@ -37,6 +38,7 @@
         var(--color-secondary) 0%,
         var(--color-secondary-dark) 100%
     );
+    color: var(--color-text-on-secondary);
 }
 
 .icon {

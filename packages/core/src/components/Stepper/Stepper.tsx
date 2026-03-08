@@ -1,9 +1,6 @@
-import { motion } from "motion/react";
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
-import { Input } from "../Input";
 import styles from './stepper.module.css';
-
-export type StepperSize = 'sm' | 'md' | 'lg';
+import { useState } from "react";
 
 export interface StepperProps {
     value: number;
@@ -12,7 +9,6 @@ export interface StepperProps {
     max?: number;
     step?: number;
     disabled?: boolean;
-    size?: StepperSize;
 }
 
 export const Stepper = ({ 
@@ -22,66 +18,75 @@ export const Stepper = ({
     max, 
     step = 1,
     disabled = false,
-    size = 'md'
 }: StepperProps) => {
+    const [inputValue, setInputValue] = useState(value.toString());
     const decreaseDisabled = disabled || value <= min;
     const increaseDisabled = disabled || (max !== undefined && value >= max);
     
     const handleDecrease = () => {
         if (decreaseDisabled) return;
-        onChange(Math.max(min, value - step));
+        const newValue = Math.max(min, value - step);
+        onChange(newValue);
+        setInputValue(newValue.toString());
     };
 
     const handleIncrease = () => {
         if (increaseDisabled) return;
         const newValue = value + step;
-        onChange(max !== undefined ? Math.min(max, newValue) : newValue);
+        const clamped = max !== undefined ? Math.min(max, newValue) : newValue;
+        onChange(clamped);
+        setInputValue(clamped.toString());
     };
 
     const handleInputChange = (val: string) => {
-        const numValue = parseInt(val) || min;
-        const clampedValue = max !== undefined 
-            ? Math.min(max, Math.max(min, numValue))
-            : Math.max(min, numValue);
-        onChange(clampedValue);
+        setInputValue(val);
     };
 
-    const iconSize = {
-        sm: "16",
-        md: "20",
-        lg: "24"
+    const handleBlur = () => {
+        const numValue = parseInt(inputValue);
+        if (isNaN(numValue)) {
+            setInputValue(value.toString());
+            return;
+        }
+        const clamped = max !== undefined
+            ? Math.min(max, Math.max(min, numValue))
+            : Math.max(min, numValue);
+        onChange(clamped);
+        setInputValue(clamped.toString());
     };
 
     return (
-        <motion.div className={`${styles.container} ${styles[size]}`}>
-            <motion.button
+        <div className={`${styles.container}`}>
+            <button
                 className={`${styles.stepper} ${disabled ? styles.disabled : ''}`}
+                disabled={disabled}
                 onClick={handleDecrease}
                 aria-label="Decrease value"
                 type="button"
             >
-                <MinusIcon width={iconSize[size]} />
-            </motion.button>
+                <MinusIcon width="20" strokeWidth={2.5} />
+            </button>
             
-            <Input 
+            <input
                 className={styles.input}
-                value={value.toString()} 
-                onChange={handleInputChange}
-                hideClear 
+                value={inputValue}
+                onChange={(e) => handleInputChange(e.target.value)}
+                onBlur={handleBlur}
                 disabled={disabled}
-                type="number"
-                min={min}
-                max={max}
-                step={step}
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                aria-label="Value"
             />
-            <motion.button
+            <button
                 className={`${styles.stepper} ${disabled ? styles.disabled : ''}`}
+                disabled={disabled}
                 onClick={handleIncrease}
                 aria-label="Increase value"
                 type="button"
             >
-                <PlusIcon width={iconSize[size]}/>
-            </motion.button>
-        </motion.div>
+                <PlusIcon width="20" strokeWidth={2.5} />
+            </button>
+        </div>
     );
 };

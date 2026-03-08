@@ -1,5 +1,5 @@
 import styles from './alert.module.css';
-import { CheckIcon, XMarkIcon, InformationCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
+import { InformationCircleIcon, ExclamationTriangleIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
 export type AlertType = 'success' | 'warning' | 'error' | 'info';
 
@@ -8,14 +8,15 @@ export interface AlertProps {
     children: React.ReactNode;
 }
 
-const statusIcons = {
-    success: <CheckIcon width="20" />,
-    warning: <ExclamationTriangleIcon width="20" />,
-    error: <XMarkIcon width="20" />,
-    info: <InformationCircleIcon width="20" />
-};
-
 export const Alert = ({ type="info", children }: AlertProps) => {
+
+    const statusIcons = {
+        success: <CheckCircleIcon width="20" />,
+        warning: <ExclamationTriangleIcon width="20" />,
+        error: <XCircleIcon width="20" />,
+        info: <InformationCircleIcon width="20" />
+    };
+
     return (
         <div
             className={`${styles.alert} ${styles[type]}`}
