@@ -70,7 +70,7 @@
     opacity: 0.6;
 }
 
-.input:hover {
+.input:hover:not(.input:disabled) {
     border-color: var(--color-accent);
 }
 
