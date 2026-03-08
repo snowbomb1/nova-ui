@@ -2,10 +2,6 @@
   "name": "nova-ui-monorepo",
   "private": true,
   "type": "module",
-  "workspaces": [
-    "packages/*",
-    "website"
-  ],
   "scripts": {
     "dev": "pnpm -C website dev",
     "build:core": "pnpm -C packages/core build",
