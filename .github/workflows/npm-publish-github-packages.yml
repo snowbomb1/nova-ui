@@ -37,6 +37,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @nova-ui/core build
-      - run: pnpm --filter @nova-ui/core publish --no-git-checks
+      - run: pnpm --filter @nova-ui/core publish --no-git-checks --force
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
