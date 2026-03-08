@@ -1,22 +1,21 @@
 {
   "name": "@nova-ui/core",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "private": true,
   "files": [
     "dist"
   ],
-  "main": "./dist/nova-ui.umd.cjs",
-  "module": "./dist/nova-ui.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/nova-ui.js",
-      "require": "./dist/nova-ui.umd.cjs"
+      "import": "./dist/index.js"
     },
-    "./styles": "./dist/style.css"
-},
+    "./styles": "./dist/nova-ui.css"
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "restricted"
