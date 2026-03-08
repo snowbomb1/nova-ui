@@ -15,14 +15,10 @@ export default defineConfig({
       generateScopedName: '[name]__[local]___[hash:base64:5]'
     }
   },
-  optimizeDeps: {
-    rolldownOptions: {} 
-  },
   build: {
     lib: {
       entry: {
         index: resolve(__dirname, 'src/index.ts'),
-        Box: resolve(__dirname, 'src/components/Box/index.ts')
       },
       name: 'NovaUI',
       fileName: 'nova-ui',

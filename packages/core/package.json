@@ -17,8 +17,7 @@
     "./styles": "./dist/nova-ui.css"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   },
   "scripts": {
     "build": "tsc -b && vite build",
