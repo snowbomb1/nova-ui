@@ -1,6 +1,6 @@
 {
   "name": "@nova-ui/core",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "type": "module",
   "private": true,
   "files": [
