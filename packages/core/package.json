@@ -2,6 +2,7 @@
   "name": "@nova-ui/core",
   "version": "0.0.1",
   "type": "module",
+  "private": true,
   "files": [
     "dist"
   ],
@@ -10,18 +11,15 @@
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "import": "./dist/nova-ui.js",
       "require": "./dist/nova-ui.umd.cjs"
     },
-    "./styles": "./dist/style.css",
-    "./*": {
-      "development": "./src/components/*/index.ts",
-      "types": "./dist/components/*/index.d.ts",
-      "import": "./dist/components/*/index.mjs",
-      "require": "./dist/components/*/index.js"
-    }
+    "./styles": "./dist/style.css"
+},
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
   },
   "scripts": {
     "build": "tsc -b && vite build",
@@ -48,7 +46,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "typescript": "~5.9.3",
-    "vite": "npm:rolldown-vite@7.2.5",
+    "vite": "^6.3.5",
     "vite-plugin-dts": "^4.0.0",
     "vitest": "^4.0.18"
   }
