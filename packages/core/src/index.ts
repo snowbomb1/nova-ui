@@ -24,3 +24,6 @@ export * from './components/Viewer';
 // Hooks
 export { useMediaLoader } from './hooks/useMediaLoader';
 export { useTheme } from './hooks/useTheme';
+
+// Theme
+import './index.css';

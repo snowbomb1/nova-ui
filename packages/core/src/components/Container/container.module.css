@@ -64,17 +64,17 @@
     background: var(--color-background);
 }
 
-.padding-none .header, .padding-none .footer { padding: 0.75rem 0; }
-.padding-none .content { padding: 0; }
+.paddingNone .header, .paddingNone .footer { padding: 0.75rem 0; }
+.paddingNone .content { padding: 0; }
 
-.padding-sm .header, .padding-sm .footer  { padding: 0.75rem 1rem; }
-.padding-sm .content { padding: 1rem; }
+.paddingSm .header, .paddingSm .footer  { padding: 0.75rem 1rem; }
+.paddingSm .content { padding: 1rem; }
 
-.padding-md .header, .padding-md .footer  { padding: 1rem 1.5rem; }
-.padding-md .content { padding: 1.5rem; }
+.paddingMd .header, .paddingMd .footer  { padding: 1rem 1.5rem; }
+.paddingMd .content { padding: 1.5rem; }
 
-.padding-lg .header, .padding-lg .footer  { padding: 1.25rem 2rem; }
-.padding-lg .content { padding: 2rem; }
+.paddingLg .header, .paddingLg .footer  { padding: 1.25rem 2rem; }
+.paddingLg .content { padding: 2rem; }
 
 @media (max-width: 768px) {
     .header {
@@ -88,8 +88,8 @@
         justify-content: flex-start;
     }
 
-    .padding-md .content,
-    .padding-lg .content {
+    .paddingMd .content,
+    .paddingLg .content {
         padding: 1rem;
     }
 }

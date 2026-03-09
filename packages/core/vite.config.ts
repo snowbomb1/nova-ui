@@ -6,7 +6,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [
     react(),
-    dts({ rollupTypes: false, insertTypesEntry: true, include: ['src'] }),
+    dts({ rollupTypes: true, insertTypesEntry: true, include: ['src'] }),
   ],
   css: {
     modules: {

@@ -34,9 +34,16 @@ export const Container = ({ children, header, headerActions, footer, variant='de
     const hasHeader = header || headerActions;
     const labeledBy = useId();
 
+    const paddingString = {
+        'sm': 'Sm',
+        'md': 'Md',
+        'lg': 'Lg',
+        'none': 'None'
+    }
+
     return (
         <div
-            className={`${styles.container} ${styles[variant]} ${styles[`padding-${padding}`]} ${fullWidth ? styles.fullWidth : undefined}`}
+            className={`${styles.container} ${styles[variant]} ${styles[`padding${paddingString[padding]}`]} ${fullWidth ? styles.fullWidth : ''}`}
             role={header ? "region" : undefined}
             aria-labelledby={header ? labeledBy : undefined}
         

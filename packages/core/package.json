@@ -1,6 +1,6 @@
 {
   "name": "@snowbomb1/nova-ui",
-  "version": "1.0.9",
+  "version": "1.0.14",
   "type": "module",
   "private": false,
   "files": [
@@ -23,7 +23,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && cp src/styles.d.ts dist/styles.d.ts",
     "test": "vitest run --passWithNoTests",
     "lint": "eslint"
   },
