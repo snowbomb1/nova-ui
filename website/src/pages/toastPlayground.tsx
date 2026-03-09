@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toast, ToastPosition, ToastStatus, Button, Select, Option, Input, Toggle } from '@nova-ui/core';
+import { Toast, ToastPosition, ToastStatus, Button, Select, Option, Input, Toggle } from '@snowbomb1/nova-ui';
 import Playground from "../playground/Playground";
 
 

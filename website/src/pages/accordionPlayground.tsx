@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Accordion, Box, Input, Toggle, Viewer } from "@nova-ui/core";
+import { Accordion, Box, Input, Toggle, Viewer } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"

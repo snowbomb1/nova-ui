@@ -1,6 +1,7 @@
 .triggerWrapper {
     display: inline-block;
     width: fit-content;
+    text-decoration: underline dashed var(--color-accent);
 }
 
 .tooltip {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Viewer, Input, FormField, ViewerProps, Select, Option, Toggle } from "@nova-ui/core";
+import { Viewer, Input, FormField, ViewerProps, Select, Option, Toggle } from "@snowbomb1/nova-ui";
 import Playground from '../playground/Playground';
 import { formattedObject } from '../utils/stringFormatter';
 

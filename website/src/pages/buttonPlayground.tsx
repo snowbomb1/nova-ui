@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, ButtonVariant, TooltipPosition, Option, Select, Toggle, Input } from "@nova-ui/core";
+import { Button, ButtonVariant, TooltipPosition, Option, Select, Toggle, Input } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 

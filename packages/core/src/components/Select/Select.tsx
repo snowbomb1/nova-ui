@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useRef, useId } from "react";
+import { useMemo, useState, useEffect, useRef, useId, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import styles from './select.module.css';
 import { Input } from "../Input/Input";
@@ -33,28 +33,18 @@ interface MultiSelectProps extends SharedProps {
 export type SelectProps = SingleSelectProps | MultiSelectProps;
 
 export const Select = (props: SelectProps) => {
-    const {
-        selectedOption,
-        selectType = "single",
-        autoFilter = false,
-        options,
-        onChange,
-        placeholder = "Select...",
-        disabled = false,
-        name,
-        required,
-        label,
-        helperText,
-        error,
-    } = props;
+    const { selectedOption, selectType = "single", autoFilter = false,
+        options, onChange, placeholder = "Select...", disabled = false,
+        name, required, label, helperText,  error } = props;
 
     const selectId = useId();
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
+    const controlRef = useRef<HTMLDivElement>(null);
 
-    const handleSelect = (option: Option) => {
+    const handleSelect = useCallback((option: Option) => {
         if (disabled) return;
         if (selectType === "multi") {
             const current = Array.isArray(selectedOption) ? selectedOption : [];
@@ -63,12 +53,14 @@ export const Select = (props: SelectProps) => {
                 ? current.filter(o => o.value !== option.value)
                 : [...current, option];
             (onChange as (options: Option[]) => void)(next);
+            controlRef.current?.focus();
         } else {
             (onChange as (option: Option) => void)(option);
             setIsOpen(false);
+            controlRef.current?.blur();
         }
         setQuery("");
-    };
+    }, [disabled, selectType, selectedOption, onChange]);
 
     const filteredOptions = useMemo(() => {
         return options.filter(o =>
@@ -77,13 +69,16 @@ export const Select = (props: SelectProps) => {
     }, [options, query]);
 
     useEffect(() => {
-        if (!isOpen) return;
+        if (!isOpen) {
+            setHighlightedIndex(null);
+            return;
+        }
         const handleKeyDown = (e: KeyboardEvent) => {
             switch (e.key) {
                 case 'ArrowDown':
                     e.preventDefault();
                     setHighlightedIndex(prev => {
-                        const last = prev ?? 0;
+                        const last = prev ?? -1;
                         return last < filteredOptions.length - 1 ? last + 1 : 0;
                     });
                     break;
@@ -103,18 +98,20 @@ export const Select = (props: SelectProps) => {
                 case 'Escape':
                     e.preventDefault();
                     setIsOpen(false);
+                    controlRef.current?.blur();
                     break;
             }
         };
         document.addEventListener('keydown', handleKeyDown);
         return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, filteredOptions, highlightedIndex]);
+    }, [isOpen, filteredOptions, highlightedIndex, handleSelect]);
 
     useEffect(() => {
         if (!isOpen) return;
         const handleClickOutside = (event: MouseEvent) => {
             if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
+                controlRef.current?.blur();
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -134,6 +131,10 @@ export const Select = (props: SelectProps) => {
         }
         return (selectedOption as Option)?.label || placeholder;
     }, [selectedOption, selectType, placeholder]);
+
+    const isEmpty = selectType === 'multi'
+        ? !Array.isArray(selectedOption) || selectedOption.length === 0
+        : !selectedOption;
 
     const isSelected = (opt: Option) => {
         if (selectType === "multi" && Array.isArray(selectedOption)) {
@@ -167,20 +168,22 @@ export const Select = (props: SelectProps) => {
                 </select>
 
                 <div
+                    ref={controlRef}
                     className={`${styles.control} ${disabled ? styles.disabled : ''}`}
                     onClick={handleToggle}
-                    role="button"
+                    role="combobox"
                     aria-haspopup="listbox"
                     aria-expanded={isOpen}
+                    aria-controls={`${selectId}-listbox`}
                     tabIndex={disabled ? -1 : 0}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
-                            handleToggle();
+                            if (!isOpen) handleToggle();
                         }
                     }}
                 >
-                    <span className={`${styles.value} ${!selectedOption ? styles.placeholder : ''}`}>
+                    <span className={`${styles.value} ${isEmpty ? styles.placeholder : ''}`}>
                         {displayLabel}
                     </span>
                     <motion.span
@@ -195,12 +198,15 @@ export const Select = (props: SelectProps) => {
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
+                            id={`${selectId}-listbox`}
                             className={styles.menu}
                             initial={{ opacity: 0, y: -4, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -4, scale: 0.95 }}
                             transition={{ duration: 0.15 }}
                             role="listbox"
+                            aria-label={label || "Select an option"}
+                            aria-multiselectable={selectType === "multi"}
                         >
                             {autoFilter && (
                                 <div className={styles.searchWrapper}>
@@ -212,7 +218,7 @@ export const Select = (props: SelectProps) => {
                                     />
                                 </div>
                             )}
-                            <div className={styles.list} aria-label="Select an option">
+                            <div className={styles.list}>
                                 {filteredOptions.length > 0 ? (
                                     filteredOptions.map((opt, index) => {
                                         const selected = isSelected(opt);

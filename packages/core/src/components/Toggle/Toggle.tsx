@@ -1,17 +1,18 @@
-import { useLayoutEffect, useRef } from "react";
+import { useId, useLayoutEffect, useRef } from "react";
 import { motion } from "motion/react";
 import styles from './toggle.module.css'
 
 export interface ToggleProps {
     label: string;
     value: boolean;
-    onChange: (enabaled: boolean) => void;
+    onChange: (enabled: boolean) => void;
     disabled?: boolean;
 }
 
 
 export const Toggle = ({ label, value, onChange, disabled=false }: ToggleProps) => {
     const toggleRef = useRef<HTMLButtonElement>(null);
+    const labelId = useId();
 
     useLayoutEffect(() => {
         if (!toggleRef.current) return;
@@ -26,7 +27,7 @@ export const Toggle = ({ label, value, onChange, disabled=false }: ToggleProps) 
                 ref={toggleRef}
                 role="switch"
                 aria-checked={value}
-                aria-label={`Toggle ${label}`}
+                aria-labelledby={labelId}
                 className={`${styles.switch} ${value ? styles.enabled : ""}`}
                 onClick={() => onChange(!value)}
                 disabled={disabled}

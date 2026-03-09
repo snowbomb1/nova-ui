@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SideNav } from "@nova-ui/core";
+import { SideNav } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 

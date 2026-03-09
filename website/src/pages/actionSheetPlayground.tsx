@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ActionSheet, Button } from "@nova-ui/core";
+import { ActionSheet, Button } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 

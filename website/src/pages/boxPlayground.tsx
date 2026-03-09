@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Playground from "../playground/Playground";
-import { Box, BoxPosition, FlexDirection, FormField, Option, Select, Stepper } from "@nova-ui/core";
+import { Box, BoxPosition, FlexDirection, FormField, Option, Select, Stepper } from "@snowbomb1/nova-ui";
 
 const BoxPlayground = () => {
     const [children, setChildren] = useState<number>(3);

@@ -1,4 +1,4 @@
-import { Box, Header } from "@nova-ui/core";
+import { Box, Header } from "@snowbomb1/nova-ui";
 import styles from '../App.module.css';
 
 const HomePage = () => {

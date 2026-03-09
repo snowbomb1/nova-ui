@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import  { SpeedInsights } from "@vercel/speed-insights/react";
 import { routes } from './routes';
 import NavBar from './NavBar';
-import { AppLayout, FloatingButton } from '@nova-ui/core'
+import { AppLayout, FloatingButton } from '@snowbomb1/nova-ui'
 import { useState } from 'react';
 import { SideNavBar } from './SideNavBar';
 

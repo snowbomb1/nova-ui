@@ -7,4 +7,4 @@ declare module "*.module.css" {
 
 declare module "*.css";
 
-declare module "@nova-ui/core/styles";
+declare module "@snowbomb1/nova-ui/styles";

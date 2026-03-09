@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Header, Input, TopNav, Option, Select, HeaderVariant, Toggle } from '@nova-ui/core';
+import { Header, Input, TopNav, Option, Select, HeaderVariant, Toggle } from '@snowbomb1/nova-ui';
 import { SupernovaLogo } from '../logo/Logo'
 import Playground from "../playground/Playground";
 

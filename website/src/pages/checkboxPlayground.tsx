@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Checkbox, Input, Toggle } from "@nova-ui/core";
+import { Checkbox, Input, Toggle } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 const CheckboxPlayground = () => {

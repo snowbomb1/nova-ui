@@ -1,6 +1,6 @@
 {
   "name": "@snowbomb1/nova-ui",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "type": "module",
   "private": false,
   "files": [
@@ -14,7 +14,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles": "./dist/nova-ui.css"
+    "./styles": {
+      "types": "./dist/styles.d.ts",
+      "default": "./dist/nova-ui.css"
+    }
   },
   "publishConfig": {
     "access": "public"
@@ -36,11 +39,9 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
-    "@vitest/browser-playwright": "^4.0.18",
     "babel-plugin-react-compiler": "^1.0.0",
     "globals": "^17.3.0",
     "motion": "^12.33.0",
-    "playwright": "^1.58.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "typescript": "~5.9.3",

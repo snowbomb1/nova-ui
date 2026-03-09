@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Playground from "../playground/Playground";
-import { AppLayout, Header, SideNav, TopNav } from "@nova-ui/core";
+import { AppLayout, Header, SideNav, TopNav } from "@snowbomb1/nova-ui";
 import { SupernovaLogo } from '../logo/Logo';
 
 const ApplayoutPlayground = () => {

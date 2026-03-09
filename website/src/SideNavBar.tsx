@@ -1,4 +1,4 @@
-import { SideNav } from "@nova-ui/core";
+import { SideNav } from "@snowbomb1/nova-ui";
 import { useNavigate } from "react-router-dom";
 import { routes } from "./routes";
 

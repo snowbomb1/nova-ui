@@ -63,9 +63,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^5.1.1
         version: 5.1.4(vite@6.4.1(@types/node@25.2.3)(lightningcss@1.31.1))
-      '@vitest/browser-playwright':
-        specifier: ^4.0.18
-        version: 4.0.18(playwright@1.58.2)(vite@6.4.1(@types/node@25.2.3)(lightningcss@1.31.1))(vitest@4.0.18)
       babel-plugin-react-compiler:
         specifier: ^1.0.0
         version: 1.0.0
@@ -75,9 +72,6 @@ importers:
       motion:
         specifier: ^12.33.0
         version: 12.34.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      playwright:
-        specifier: ^1.58.2
-        version: 1.58.2
       react:
         specifier: ^19.2.0
         version: 19.2.4
@@ -99,7 +93,7 @@ importers:
 
   website:
     dependencies:
-      '@nova-ui/core':
+      '@snowbomb1/nova-ui':
         specifier: workspace:*
         version: link:../packages/core
       '@vercel/speed-insights':
@@ -3071,7 +3065,8 @@ snapshots:
 
   '@oxc-project/types@0.97.0': {}
 
-  '@polka/url@1.0.0-next.29': {}
+  '@polka/url@1.0.0-next.29':
+    optional: true
 
   '@rolldown/binding-android-arm64@1.0.0-beta.50':
     optional: true
@@ -3427,6 +3422,7 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
+    optional: true
 
   '@vitest/browser@4.0.18(vite@6.4.1(@types/node@25.2.3)(lightningcss@1.31.1))(vitest@4.0.18)':
     dependencies:
@@ -3444,6 +3440,7 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
+    optional: true
 
   '@vitest/expect@4.0.18':
     dependencies:
@@ -4528,7 +4525,8 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  mrmime@2.0.1: {}
+  mrmime@2.0.1:
+    optional: true
 
   ms@2.1.3: {}
 
@@ -4629,6 +4627,7 @@ snapshots:
   pixelmatch@7.1.0:
     dependencies:
       pngjs: 7.0.0
+    optional: true
 
   pkg-types@1.3.1:
     dependencies:
@@ -4642,15 +4641,18 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
-  playwright-core@1.58.2: {}
+  playwright-core@1.58.2:
+    optional: true
 
   playwright@1.58.2:
     dependencies:
       playwright-core: 1.58.2
     optionalDependencies:
       fsevents: 2.3.2
+    optional: true
 
-  pngjs@7.0.0: {}
+  pngjs@7.0.0:
+    optional: true
 
   possible-typed-array-names@1.1.0: {}
 
@@ -4899,6 +4901,7 @@ snapshots:
       '@polka/url': 1.0.0-next.29
       mrmime: 2.0.1
       totalist: 3.0.1
+    optional: true
 
   source-map-js@1.2.1: {}
 
@@ -4990,7 +4993,8 @@ snapshots:
 
   tinyrainbow@3.0.3: {}
 
-  totalist@3.0.1: {}
+  totalist@3.0.1:
+    optional: true
 
   ts-api-utils@2.4.0(typescript@5.9.3):
     dependencies:
@@ -5210,7 +5214,8 @@ snapshots:
 
   word-wrap@1.2.5: {}
 
-  ws@8.19.0: {}
+  ws@8.19.0:
+    optional: true
 
   yallist@3.1.1: {}
 

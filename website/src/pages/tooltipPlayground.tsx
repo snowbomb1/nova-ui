@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Tooltip, Select, Option, TooltipPosition } from "@nova-ui/core";
+import { Tooltip, Select, Option, TooltipPosition } from "@snowbomb1/nova-ui";
 import Playground from '../playground/Playground';
 
 

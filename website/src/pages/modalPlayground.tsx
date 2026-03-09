@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, ModalSize, Header, Box, BoxPosition, Select, Option, Viewer, Button } from "@nova-ui/core";
+import { Modal, ModalSize, Header, Box, BoxPosition, Select, Option, Viewer, Button } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"

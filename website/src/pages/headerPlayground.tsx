@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Header, HeaderVariant, Option, Select, Input } from '@nova-ui/core';
+import { Header, HeaderVariant, Option, Select, Input } from '@snowbomb1/nova-ui';
 import Playground from "../playground/Playground";
 
 

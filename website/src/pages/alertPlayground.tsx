@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, AlertType, Option, Select } from "@nova-ui/core";
+import { Alert, AlertType, Option, Select } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 

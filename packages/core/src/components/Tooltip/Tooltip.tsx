@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import styles from './tooltip.module.css';
@@ -15,6 +15,7 @@ export const Tooltip = ({ children, message = undefined,  position = 'top' }: To
     const [visible, setVisible] = useState(false);
     const triggerRef = useRef<HTMLDivElement>(null);
     const tooltipRef = useRef<HTMLDivElement>(null);
+    const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
 
     useLayoutEffect(() => {
         if (!visible) return;
@@ -56,13 +57,32 @@ export const Tooltip = ({ children, message = undefined,  position = 'top' }: To
     }, [visible, position]);
     
     const handleMouseEnter = () => {
+        if (isTouchDevice()) return; // ignore on touch devices
         if (!message) return;
         setVisible(true);
     };
 
     const handleMouseLeave = () => {
+        if (isTouchDevice()) return; // ignore on touch devices
         setVisible(false);
-    }
+    };
+
+    const handleClick = (e: React.MouseEvent) => {
+        if (!isTouchDevice()) return; // ignore on non-touch devices
+        e.stopPropagation();
+        setVisible(prev => !prev);
+    };
+
+    useEffect(() => {
+        if (!visible) return;
+        const handleClickOutside = (e: MouseEvent) => {
+            if (triggerRef.current && !triggerRef.current.contains(e.target as Node)) {
+                setVisible(false);
+            }
+        };
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [visible]);
 
     if (!message) {
         return <>{children}</>;
@@ -70,7 +90,13 @@ export const Tooltip = ({ children, message = undefined,  position = 'top' }: To
 
     return (
         <>
-            <div ref={triggerRef} className={styles.triggerWrapper} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            <div
+                ref={triggerRef}
+                className={styles.triggerWrapper}
+                onClick={handleClick}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+            >
                 {children}
             </div>
             {createPortal(

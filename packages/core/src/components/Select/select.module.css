@@ -1,7 +1,12 @@
 .container {
-    position: 'relative';
-    width: '100%';
+    position: relative;
+    width: 100%;
     min-width: 250px;
+    outline: none;
+}
+
+.container:focus-within {
+    outline: none;
 }
 
 .hiddenSelect {
@@ -19,6 +24,15 @@
     padding: 0.75rem 1rem;
     cursor: pointer;
     color: var(--color-text);
+}
+
+.control:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.control:focus:not(:focus-visible) {
+    outline: none;
 }
 
 .disabled {

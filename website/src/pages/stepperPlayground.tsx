@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Stepper, Toggle, Input, Select } from "@nova-ui/core";
+import { Stepper, Toggle, Input, Select } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 

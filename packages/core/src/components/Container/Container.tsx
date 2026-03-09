@@ -1,5 +1,5 @@
 import styles from './container.module.css';
-
+import { useId } from 'react';
 
 export type ContainerVariant = 'default' | 'outlined' | 'elevated' | 'flat';
 export type ContainerPadding = 'none' | 'sm' | 'md' | 'lg';
@@ -15,7 +15,7 @@ export interface ContainerProps {
     * 'elevated' - Border with shadow
     * 'flat' - Transparent background with no border
     * 
-    * @default 'defualt'
+    * @default 'default'
     */
     variant?: ContainerVariant;
    /* 
@@ -27,16 +27,18 @@ export interface ContainerProps {
     * @default 'md'
    */
     padding?: ContainerPadding;
+    fullWidth?: boolean;
 }
 
-export const Container = ({ children, header, headerActions, footer, variant='default', padding='md' }: ContainerProps) => {
+export const Container = ({ children, header, headerActions, footer, variant='default', padding='md', fullWidth=false }: ContainerProps) => {
     const hasHeader = header || headerActions;
+    const labeledBy = useId();
 
     return (
         <div
-            className={`${styles.container} ${styles[variant]} ${styles[`padding-${padding}`]}`}
+            className={`${styles.container} ${styles[variant]} ${styles[`padding-${padding}`]} ${fullWidth ? styles.fullWidth : undefined}`}
             role={header ? "region" : undefined}
-            aria-labelledby={header ? "container-header" : undefined}
+            aria-labelledby={header ? labeledBy : undefined}
         
         >
             {hasHeader && (

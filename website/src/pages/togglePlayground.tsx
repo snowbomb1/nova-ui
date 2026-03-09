@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toggle, Input, Option, Select } from "@nova-ui/core";
+import { Toggle, Input, Option, Select } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 const TogglePlayground = () => {

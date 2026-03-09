@@ -25,8 +25,13 @@
     padding-top: 0.25rem;
 }
 
-.borderFocused {
+.border:focus-within {
     border-color: var(--color-accent);
+}
+
+.container:focus-within .label {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
 .borderError {

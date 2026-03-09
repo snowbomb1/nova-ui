@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Header, Input, TopNav } from '@nova-ui/core';
+import { Header, Input, TopNav } from '@snowbomb1/nova-ui'
 import { routes } from './routes';
 import { SupernovaLogo } from './logo/Logo'
 

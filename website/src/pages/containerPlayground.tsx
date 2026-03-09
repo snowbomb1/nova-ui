@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, ContainerVariant, ContainerPadding, Button, Option,
-    Select, Box, Viewer, Input, Toggle, Header} from "@nova-ui/core";
+    Select, Box, Viewer, Input, Toggle, Header} from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"
@@ -12,6 +12,7 @@ const ContainerPlayground = () => {
     const [actions, setActions] = useState<boolean>(true);
     const [variant, setVariant] = useState<Option>({ label: "Default", value: "default" });
     const [padding, setPadding] = useState<Option>({ label: 'Medium', value: 'md' });
+    const [fullWidth, setFullWidth] = useState<boolean>(false);
     return (
         <Playground
             utils={
@@ -41,6 +42,7 @@ const ContainerPlayground = () => {
                         ]}
                     />
                     <Toggle value={actions} onChange={setActions} label="Header Actions" />
+                    <Toggle value={fullWidth} onChange={setFullWidth} label="Full Width" />
                 </>
             }
             component={
@@ -52,6 +54,7 @@ const ContainerPlayground = () => {
                     variant={variant.value as ContainerVariant}
                     padding={padding.value as ContainerPadding}
                     footer={footer}
+                    fullWidth={fullWidth}
                 >
                     <Box>
                         <Viewer src={imageUrl} alt="Nova Portrait" />
@@ -65,6 +68,7 @@ const ContainerPlayground = () => {
     ${actions ? `headerActions={<Button onClick={() => console.log("clicked")}>Click me</Button>}`: ''}
     variant={"${variant.value as ContainerVariant}"}
     padding={"${padding.value as ContainerPadding}"}
+    fullWidth={${fullWidth}
 >
     <Box>
         <Viewer src={imageUrl} alt="Nova Portrait" />
