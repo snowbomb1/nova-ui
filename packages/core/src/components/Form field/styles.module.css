@@ -25,6 +25,10 @@
     padding-top: 0.25rem;
 }
 
+.fullWidth {
+    width: 100%;
+}
+
 .border:focus-within {
     border-color: var(--color-accent);
 }

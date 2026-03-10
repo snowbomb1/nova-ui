@@ -1,5 +1,5 @@
 import styles from './container.module.css';
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 
 export type ContainerVariant = 'default' | 'outlined' | 'elevated' | 'flat';
 export type ContainerPadding = 'none' | 'sm' | 'md' | 'lg';
@@ -30,7 +30,8 @@ export interface ContainerProps {
     fullWidth?: boolean;
 }
 
-export const Container = ({ children, header, headerActions, footer, variant='default', padding='md', fullWidth=false }: ContainerProps) => {
+export const Container = forwardRef<HTMLDivElement, ContainerProps>(
+    ({ children, header, headerActions, footer, variant='default', padding='md', fullWidth=false }, ref) => {
     const hasHeader = header || headerActions;
     const labeledBy = useId();
 
@@ -42,7 +43,7 @@ export const Container = ({ children, header, headerActions, footer, variant='de
     }
 
     return (
-        <div
+        <div ref={ref}
             className={`${styles.container} ${styles[variant]} ${styles[`padding${paddingString[padding]}`]} ${fullWidth ? styles.fullWidth : ''}`}
             role={header ? "region" : undefined}
             aria-labelledby={header ? labeledBy : undefined}
@@ -70,4 +71,4 @@ export const Container = ({ children, header, headerActions, footer, variant='de
             )}
         </div>
     )
-}
+});

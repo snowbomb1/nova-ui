@@ -1,0 +1,70 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100%;
+}
+
+.gapsm { gap: 0.5rem; }
+.gapmd { gap: 1rem; }
+.gaplg { gap: 1.5rem; }
+
+@media (min-width: 0px) {
+    .colspan1  { grid-column: span 1; }
+    .colspan2  { grid-column: span 2; }
+    .colspan3  { grid-column: span 3; }
+    .colspan4  { grid-column: span 4; }
+    .colspan5  { grid-column: span 5; }
+    .colspan6  { grid-column: span 6; }
+    .colspan7  { grid-column: span 7; }
+    .colspan8  { grid-column: span 8; }
+    .colspan9  { grid-column: span 9; }
+    .colspan10 { grid-column: span 10; }
+    .colspan11 { grid-column: span 11; }
+    .colspan12 { grid-column: span 12; }
+}
+
+
+@media (min-width: 576px) {
+    .colspanSm1  { grid-column: span 1; }
+    .colspanSm2  { grid-column: span 2; }
+    .colspanSm3  { grid-column: span 3; }
+    .colspanSm4  { grid-column: span 4; }
+    .colspanSm5  { grid-column: span 5; }
+    .colspanSm6  { grid-column: span 6; }
+    .colspanSm7  { grid-column: span 7; }
+    .colspanSm8  { grid-column: span 8; }
+    .colspanSm9  { grid-column: span 9; }
+    .colspanSm10  { grid-column: span 10; }
+    .colspanSm11  { grid-column: span 11; }
+    .colspanSm12  { grid-column: span 12; }
+}
+
+@media (min-width: 768px) {
+    .colspanMd1  { grid-column: span 1; }
+    .colspanMd2  { grid-column: span 2; }
+    .colspanMd3  { grid-column: span 3; }
+    .colspanMd4  { grid-column: span 4; }
+    .colspanMd5  { grid-column: span 5; }
+    .colspanMd6  { grid-column: span 6; }
+    .colspanMd7  { grid-column: span 7; }
+    .colspanMd8  { grid-column: span 8; }
+    .colspanMd9  { grid-column: span 9; }
+    .colspanMd10  { grid-column: span 10; }
+    .colspanMd11  { grid-column: span 11; }
+    .colspanMd12  { grid-column: span 12; }
+}
+
+@media (min-width: 1024px) {
+    .colspanLg1  { grid-column: span 1; }
+    .colspanLg2  { grid-column: span 2; }
+    .colspanLg3  { grid-column: span 3; }
+    .colspanLg4  { grid-column: span 4; }
+    .colspanLg5  { grid-column: span 5; }
+    .colspanLg6  { grid-column: span 6; }
+    .colspanLg7  { grid-column: span 7; }
+    .colspanLg8  { grid-column: span 8; }
+    .colspanLg9  { grid-column: span 9; }
+    .colspanLg10  { grid-column: span 10; }
+    .colspanLg11  { grid-column: span 11; }
+    .colspanLg12  { grid-column: span 12; }
+}

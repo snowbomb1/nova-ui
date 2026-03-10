@@ -11,6 +11,7 @@ import ButtonPlayground from './pages/buttonPlayground';
 import CheckboxPlayground from './pages/checkboxPlayground';
 import ContainerPlayground from './pages/containerPlayground';
 import FormFieldPlayground from './pages/formFieldPlayground';
+import GridPlayground from './pages/gridPlayground';
 import HeaderPlayground from './pages/headerPlayground';
 import InputPlayground from './pages/inputPlayground';
 import ModalPlayground from './pages/modalPlayground';
@@ -34,6 +35,7 @@ export const routes: RouteProps[] = [
     { path: '/checkbox', Component: CheckboxPlayground },
     { path: '/container', Component: ContainerPlayground },
     { path: '/formField', Component: FormFieldPlayground },
+    { path: '/grid', Component: GridPlayground },
     { path: '/header', Component: HeaderPlayground },
     { path: '/input', Component: InputPlayground },
     { path: '/modal', Component: ModalPlayground },

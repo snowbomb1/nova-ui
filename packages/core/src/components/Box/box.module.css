@@ -8,10 +8,12 @@
 .box[data-direction="vertical"] {
     flex-direction: column;
 }
-/* In column, horizontal placement is controlled by align-items */
 .box[data-direction="vertical"][data-position="left"]   { align-items: flex-start; }
 .box[data-direction="vertical"][data-position="center"] { align-items: center; }
 .box[data-direction="vertical"][data-position="right"]  { align-items: flex-end; }
+/* Reverse direction */
+.box[data-direction="vertical"][data-reverse="true"] { flex-direction: column-reverse; }
+.box[data-direction="vertical"][data-reverse="true"] { flex-direction: column-reverse; }
 
 
 /* --- HORIZONTAL LOGIC --- */
@@ -19,7 +21,10 @@
     flex-direction: row;
     align-items: center; 
 }
-/* In row, horizontal placement is controlled by justify-content */
 .box[data-direction="horizontal"][data-position="left"]   { justify-content: flex-start; }
 .box[data-direction="horizontal"][data-position="center"] { justify-content: center; }
 .box[data-direction="horizontal"][data-position="right"]  { justify-content: flex-end; }
+/* Reverse direction */
+.box[data-direction="horizontal"][data-reverse="true"][data-position="left"] { justify-content: flex-end; flex-direction: row-reverse; }
+.box[data-direction="horizontal"][data-reverse="true"][data-position="right"] { justify-content: flex-start; flex-direction: row-reverse; }
+

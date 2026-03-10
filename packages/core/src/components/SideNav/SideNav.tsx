@@ -7,6 +7,8 @@ import { ActionSheet } from "../ActionSheet";
 export type NavItem = {
     label: string;
     icon?: React.ReactNode;
+    destructive?: boolean;
+    type?: 'nav' | 'action'
     onClick: () => void;
 }
 
@@ -64,7 +66,8 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
                     return {
                         label: item.label,
                         icon: item.icon,
-                        onClick: item.onClick
+                        onClick: item.onClick,
+                        destructive: item.destructive
                     }
                 })}
             />
@@ -118,11 +121,11 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
                                 className={`${styles.item} ${item.label.toLowerCase() === active ? styles.active : ''}`}
                                 aria-current={item.label === active ? 'page' : undefined}
                                 onClick={() => {
-                                    setActive(item.label.toLowerCase())
-                                    item.onClick();
-                                    if (isOpen) {
-                                        onToggle();
+                                    if (item.type !== 'action') {
+                                        setActive(item.label.toLowerCase());
                                     }
+                                    item.onClick();
+                                    if (isOpen) onToggle();
                                 }}
                                 title={!isOpen ? item.label : undefined}
                             >

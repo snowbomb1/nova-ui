@@ -8,11 +8,12 @@ export interface FormFieldProps extends LabelHTMLAttributes<HTMLLabelElement> {
     error?: string;
     required?: boolean;
     disabled?: boolean;
+    fullWidth?: boolean;
     children: React.ReactNode;
 }
 
 
-export const FormField = ({ label, helperText, error, required, disabled, children }: FormFieldProps) => {
+export const FormField = ({ label, helperText, error, required=false, disabled=false, fullWidth=false, children }: FormFieldProps) => {
     const fieldId = useId();
 
      return (
@@ -32,6 +33,7 @@ export const FormField = ({ label, helperText, error, required, disabled, childr
                         ${styles.border}
                         ${error ? styles.borderError : ''}
                         ${disabled ? styles.borderDisabled : ''}
+                        ${fullWidth ? styles.fullWidth : ''}
                     `}
                 >
                     {children}

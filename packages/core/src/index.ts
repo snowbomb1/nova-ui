@@ -9,6 +9,7 @@ export * from './components/Checkbox';
 export * from './components/Container';
 export * from './components/FloatingMenuButton';
 export * from './components/Form field';
+export * from './components/Grid';
 export * from './components/Header';
 export * from './components/Input';
 export * from './components/Modal';

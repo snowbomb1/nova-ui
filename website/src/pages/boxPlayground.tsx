@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Playground from "../playground/Playground";
-import { Box, BoxPosition, FlexDirection, FormField, Option, Select, Stepper } from "@snowbomb1/nova-ui";
+import { Box, BoxPosition, FlexDirection, Option, Select, Stepper, Toggle } from "@snowbomb1/nova-ui";
 
 const BoxPlayground = () => {
     const [children, setChildren] = useState<number>(3);
     const [position, setPosition] = useState<Option>({ label: "Center", value: "center" });
     const [direction, setDirection] = useState<Option>({ label: "Vertical", value: 'vertical' })
+    const [reverse, setReverse] = useState<boolean>(false);
+
     return (
         <Playground
             utils={
@@ -29,12 +31,14 @@ const BoxPlayground = () => {
                             { label: 'Horizontal', value: 'horizontal' }
                         ]}
                     />
+                    <Toggle label="Reverse direction" value={reverse} onChange={setReverse} />
                     <Stepper label="Total Children" min={1} value={children} onChange={setChildren} />
                 </>
             }
             component={
                 <Box position={position.value as BoxPosition}
                     direction={direction.value as FlexDirection}
+                    reverse={reverse}
                 >
                     {Array.from({ length: children }).map((_, index) => (
                         <div key={index} style={{ 
@@ -53,6 +57,7 @@ const BoxPlayground = () => {
 <Box
     position={"${position.value}"}
     direction={"${direction.value}"}
+    reverse={${reverse}}
 >
     {children}
 </Box>

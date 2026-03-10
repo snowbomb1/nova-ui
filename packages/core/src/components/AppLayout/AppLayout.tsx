@@ -32,7 +32,7 @@ export const AppLayout = ({ topNav, sideNav, sideNavOpen = false,
             <motion.div
                 className={styles.mainArea}
                 animate={{
-                    marginLeft: isMobile 
+                    marginLeft: !sideNav || isMobile 
                         ? '0px'
                         : (sideNavOpen ? sideNavExpandedWidth : sideNavCollapsedWidth)
                 }}

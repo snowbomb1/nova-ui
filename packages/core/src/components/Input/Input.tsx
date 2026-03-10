@@ -13,11 +13,12 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
     required?: boolean;
     label?: string;
     error?: string;
+    fullWidth?: boolean;
     helperText?: string;
 }
 
 export const Input = ({ value, onChange, disabled=false, suggestions = [],
-    placeholder, hideClear=false, label, error, required=false, helperText, ...props }: InputProps
+    placeholder, hideClear=false, label, error, required=false, fullWidth=false, helperText, ...props }: InputProps
 ) => {
     const inputId = useId();
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -29,7 +30,11 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
     }, [suggestions, value]);
 
     return (
-        <FormField label={label} required={required} disabled={disabled} helperText={helperText} error={error}>
+        <FormField
+            label={label} required={required}
+            disabled={disabled} helperText={helperText}
+            error={error} fullWidth={fullWidth}
+        >
             <div className={styles.inputContainer}>
                 <motion.input
                     id={inputId}

@@ -15,6 +15,7 @@ interface SharedProps {
     required?: boolean;
     label?: string;
     helperText?: string;
+    fullWidth?: boolean;
     error?: string;
 }
 
@@ -35,7 +36,7 @@ export type SelectProps = SingleSelectProps | MultiSelectProps;
 export const Select = (props: SelectProps) => {
     const { selectedOption, selectType = "single", autoFilter = false,
         options, onChange, placeholder = "Select...", disabled = false,
-        name, required, label, helperText,  error } = props;
+        name, required, label, helperText,  error, fullWidth=false } = props;
 
     const selectId = useId();
     const [isOpen, setIsOpen] = useState(false);
@@ -144,7 +145,11 @@ export const Select = (props: SelectProps) => {
     };
 
     return (
-        <FormField label={label} required={required} disabled={disabled} helperText={helperText} error={error}>
+        <FormField
+            label={label} required={required}
+            disabled={disabled} helperText={helperText}
+            error={error} fullWidth={fullWidth}
+        >
             <div ref={containerRef} className={styles.container}>
                 <select
                     name={name}
