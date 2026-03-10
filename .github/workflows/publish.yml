@@ -37,4 +37,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter @snowbomb1/nova-ui build
-      - run: cd packages/core && npm publish --access public
+      - run: cd packages/core && npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
