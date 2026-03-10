@@ -1,11 +1,15 @@
 {
   "name": "@snowbomb1/nova-ui",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "type": "module",
   "private": false,
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snowbomb1/nova-ui"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
