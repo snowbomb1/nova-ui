@@ -16,9 +16,6 @@ export interface GridProps {
 const buildCellClasses = (def: GridCellDef): string => {
     const classes = [];
 
-    console.log('def:', def);
-    console.log('colspan:', def.colspan);
-
     if (typeof def.colspan === 'object') {
         if (def.colspan.default) classes.push(styles[`colspan${def.colspan.default}`]);
         if (def.colspan.sm) classes.push(styles[`colspanSm${def.colspan.sm}`]);
@@ -26,7 +23,6 @@ const buildCellClasses = (def: GridCellDef): string => {
         if (def.colspan.lg) classes.push(styles[`colspanLg${def.colspan.lg}`]);
     }
 
-    console.log('classes:', classes);
     return classes.join(' ');
 }
 

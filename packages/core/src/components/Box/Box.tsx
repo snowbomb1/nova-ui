@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import styles from './box.module.css';
 import { forwardRef } from "react";
 
@@ -10,16 +9,18 @@ export interface BoxProps {
     position?: BoxPosition;
     direction?: FlexDirection;
     reverse?: boolean;
+    style?: React.CSSProperties;
 }
 
 export const Box = forwardRef<HTMLDivElement, BoxProps>(
-    ({ children, position="center", direction = "vertical", reverse=false }, ref) => {
+    ({ children, position="center", direction = "vertical", reverse=false, style }, ref) => {
     return (
         <div ref={ref}
             className={styles.box}
             data-position={position}
             data-direction={direction}
             data-reverse={reverse ? true : undefined}
+            style={style}
         >
             {children}
         </div>

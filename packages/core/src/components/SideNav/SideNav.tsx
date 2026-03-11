@@ -76,7 +76,7 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
 
     return (
         <>
-            {/* Overlay - only when expanded */}
+            {/* Overlay */}
             {isOpen && (
                 <div className={styles.overlay} onClick={onToggle} onKeyDown={(event) => {
                     if (event.key === 'Enter') {

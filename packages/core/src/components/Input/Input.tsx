@@ -1,5 +1,5 @@
 import { useId, useMemo, useState } from "react";
-import { motion, type HTMLMotionProps, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { FormField } from "../Form field";
 import styles from './input.module.css';
@@ -36,7 +36,7 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
             error={error} fullWidth={fullWidth}
         >
             <div className={styles.inputContainer}>
-                <motion.input
+                <input
                     id={inputId}
                     className={styles.input}
                     value={value}
@@ -51,7 +51,7 @@ export const Input = ({ value, onChange, disabled=false, suggestions = [],
                         setTimeout(() => setShowSuggestions(false), 150);
                         onBlur?.(e);
                     }}
-                    {...rest as HTMLMotionProps<"input">}
+                    {...rest}
                 />
 
                 {!hideClear && value && (

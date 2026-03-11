@@ -28,10 +28,11 @@ export interface ContainerProps {
    */
     padding?: ContainerPadding;
     fullWidth?: boolean;
+    style?: React.CSSProperties;
 }
 
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
-    ({ children, header, headerActions, footer, variant='default', padding='md', fullWidth=false }, ref) => {
+    ({ children, header, headerActions, footer, variant='default', padding='md', fullWidth=false, style }, ref) => {
     const hasHeader = header || headerActions;
     const labeledBy = useId();
 
@@ -44,6 +45,7 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 
     return (
         <div ref={ref}
+            style={style}
             className={`${styles.container} ${styles[variant]} ${styles[`padding${paddingString[padding]}`]} ${fullWidth ? styles.fullWidth : ''}`}
             role={header ? "region" : undefined}
             aria-labelledby={header ? labeledBy : undefined}

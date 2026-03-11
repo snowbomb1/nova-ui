@@ -18,6 +18,7 @@ import ModalPlayground from './pages/modalPlayground';
 import SelectPlayground from './pages/selectPlayground';
 import SideNavPlayground from './pages/sidenavPlayground';
 import StepperPlayground from './pages/stepperPlayground';
+import TextAreaPlayground from './pages/textAreaPlayground';
 import ToastPlayground from './pages/toastPlayground';
 import TogglePlayground from './pages/togglePlayground';
 import TooltipPlayground from './pages/tooltipPlayground';
@@ -42,6 +43,7 @@ export const routes: RouteProps[] = [
     { path: '/select', Component: SelectPlayground },
     { path: '/sideNav', Component: SideNavPlayground },
     { path: '/stepper', Component: StepperPlayground },
+    { path: '/textArea', Component: TextAreaPlayground },
     { path: '/toast', Component: ToastPlayground },
     { path: '/toggle', Component: TogglePlayground },
     { path: '/tooltip', Component: TooltipPlayground },

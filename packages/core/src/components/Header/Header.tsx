@@ -1,6 +1,6 @@
 import styles from './styles.module.css';
 
-export type HeaderVariant = 'h1' | 'h2' | 'h3' | 'h4';
+export type HeaderVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface HeaderProps {
     children: React.ReactNode

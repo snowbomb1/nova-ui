@@ -16,6 +16,7 @@ export * from './components/Modal';
 export * from './components/Select';
 export * from './components/SideNav';
 export * from './components/Stepper';
+export * from './components/TextArea';
 export * from './components/Toast';
 export * from './components/Toggle';
 export * from './components/Tooltip';

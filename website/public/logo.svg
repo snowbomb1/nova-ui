@@ -6,11 +6,11 @@
 >
     <path
         d="M64 8 L88 40 L120 64 L88 88 L64 120 L40 88 L8 64 L40 40 Z"
-        fill="#5ab9ff"
+        fill="#1A6B7A"
     />
     <circle 
         cx="64" cy="64" r="14"
-        fill="#5ab9ff" 
+        fill="#1A6B7A"
     />
     <circle 
         cx="64" cy="64" r="4.5" 

@@ -104,3 +104,8 @@
     content: '⚠';
     font-size: 1rem;
 }
+
+.required {
+    color: var(--color-error);
+    font-size: small;
+}

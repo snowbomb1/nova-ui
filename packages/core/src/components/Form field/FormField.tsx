@@ -25,7 +25,7 @@ export const FormField = ({ label, helperText, error, required=false, disabled=f
                         className={`${styles.label} ${error ? styles.labelError : ''}`}
                     >
                         {label}
-                        {required && <span>*</span>}
+                        {required && <span className={styles.required}>*</span>}
                     </label>
                 )}
                  <div

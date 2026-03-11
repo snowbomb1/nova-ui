@@ -1,0 +1,32 @@
+.container {
+    position: relative;
+    width: 100%;
+    min-width: 250px;
+}
+
+.field {
+    width: 100%;
+    padding: 0.8rem 2.5rem 0.8rem 1.2rem;
+    font-size: 0.875rem;
+    color: var(--color-text);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.field::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.6;
+}
+
+.field:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.3);
+}
+
+@media (max-width: 768px) {
+    .field {
+        font-size: 16px;
+    }
+}
