@@ -14,15 +14,20 @@ export interface ActionSheetProps {
     onClose: () => void;
     title?: string;
     message?: string;
+    position?: "bottom" | "side"
     actions: ActionSheetAction[];
 }
 
-export const ActionSheet = ({ isOpen, onClose, title, message, actions }: ActionSheetProps) => {
+export const ActionSheet = ({ isOpen, onClose, title, message, actions, position="bottom" }: ActionSheetProps) => {
     const y = useMotionValue(0);
+    const x = useMotionValue(0);
+    const isBottom = position === 'bottom';
 
     const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-        if (info.offset.y > 250 || info.velocity.y > 500) {
-            handleClose();
+        if (position === 'side') {
+            if (info.offset.x < -250 || info.velocity.x < -500) handleClose();
+        } else {
+            if (info.offset.y > 250 || info.velocity.y > 500) handleClose();
         }
     };
 
@@ -39,24 +44,26 @@ export const ActionSheet = ({ isOpen, onClose, title, message, actions }: Action
 
                     {/* Sheet */}
                     <motion.div
-                        className={styles.sheet}
+                        className={`${styles.sheet} ${isBottom ? styles.bottomSheet : styles.sideSheet}`}
                         role="dialog"
                         aria-modal="true"
                         aria-labelledby={title ? "action-sheet-title" : undefined}
-                        style={{ y }}
-                        drag="y"
-                        dragConstraints={{ top: 0, bottom: 0 }}
-                        dragElastic={{ top: 0, bottom: 0.5 }}
+                        style={isBottom ? { y } : { x }}
+                        drag={isBottom ? "y" : "x"}
+                        dragConstraints={isBottom ? { top: 0, bottom: 0 } : { left: 0, right: 0 }}
+                        dragElastic={isBottom ? { top: 0, bottom: 0.5 } : { left: 0.5, right: 0 }}
                         onDragEnd={handleDragEnd}
-                        initial={{ y: '100%' }}
-                        animate={{ y: 0 }}
-                        exit={{ y: '100%' }}
+                        initial={isBottom ? { y: '100%' } : { x: '-100%' }}
+                        animate={isBottom ? { y: 0 } : { x: 0 }}
+                        exit={isBottom ? { y: '100%' } : { x: '-100%' }}
                         transition={{ type: "spring", damping: 30, stiffness: 300 }}
                     >
                         {/* Drag handle */}
-                        <div className={styles.handle}>
-                            <div className={styles.handleBar} />
-                        </div>
+                        {isBottom && (
+                            <div className={styles.handle}>
+                                <div className={styles.handleBar} />
+                            </div>
+                        )}
 
                         {/* Header */}
                         {(title || message) && (

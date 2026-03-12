@@ -1,18 +1,23 @@
 import { useState } from "react";
-import { ActionSheet, Button } from "@snowbomb1/nova-ui";
+import { ActionSheet, Button, Toggle } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 
 const ActionSheetPlayground = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [position, setPosition] = useState<boolean>(true);
     
     return (
         <Playground
+            utils={
+                <Toggle label={`Position - ${position ? "Bottom" : "Left Side"} `} value={position} onChange={setPosition} />
+            }
             component={
                 <>
                 <Button onClick={() => setIsOpen(true)}>Open</Button>
                 <ActionSheet
                     isOpen={isOpen}
+                    position={position ? "bottom" : "side"}
                     onClose={() => setIsOpen(false)}
                     title="Example Action Sheet"
                     message="Example Message"
@@ -28,6 +33,7 @@ const ActionSheetPlayground = () => {
                 `
 <ActionSheet
     isOpen={${isOpen}}
+    position={${position ? "bottom" : "side"}}
     onClose={() => setIsOpen(false)}
     title="Example Action Sheet"
     message="Example Message"

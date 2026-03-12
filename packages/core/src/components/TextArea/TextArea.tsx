@@ -2,7 +2,7 @@ import { useId } from "react";
 import { FormField } from "../Form field";
 import styles from './textarea.module.css';
 
-export interface TextAreaProps {
+export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
     label: string;
     helperText?: string;
     fullWidth?: boolean;
@@ -14,7 +14,9 @@ export interface TextAreaProps {
     onChange: (value: string) => void;
 }
 
-export const TextArea = ({ value, onChange, placeHolder, label, helperText, required=false, fullWidth=false, error, disabled=false }: TextAreaProps) => {
+export const TextArea = ({ value, onChange, placeHolder, label,
+    helperText, required=false, fullWidth=false, error, disabled=false, ...props }: TextAreaProps
+) => {
     const fieldId = useId();
 
     return (
@@ -33,6 +35,7 @@ export const TextArea = ({ value, onChange, placeHolder, label, helperText, requ
                     placeholder={placeHolder}
                     aria-invalid={error ? "true" : "false"}
                     aria-describedby={error ? `${fieldId}-error` : helperText ? `${fieldId}-helper` : undefined}
+                    {...props}
                />
             </div>
         </FormField>
