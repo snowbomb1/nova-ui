@@ -13,6 +13,7 @@ export * from './components/Grid';
 export * from './components/Header';
 export * from './components/Input';
 export * from './components/Modal';
+export * from './components/Progressbar';
 export * from './components/Select';
 export * from './components/SideNav';
 export * from './components/Stepper';

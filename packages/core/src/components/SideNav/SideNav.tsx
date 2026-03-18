@@ -8,6 +8,7 @@ export type NavItem = {
     label: string;
     icon?: React.ReactNode;
     destructive?: boolean;
+    disabled?: boolean;
     type?: 'nav' | 'action'
     onClick: () => void;
 }

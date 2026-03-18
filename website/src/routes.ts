@@ -15,6 +15,7 @@ import GridPlayground from './pages/gridPlayground';
 import HeaderPlayground from './pages/headerPlayground';
 import InputPlayground from './pages/inputPlayground';
 import ModalPlayground from './pages/modalPlayground';
+import ProgressBarPlayground from './pages/progressbarPlayground';
 import SelectPlayground from './pages/selectPlayground';
 import SideNavPlayground from './pages/sidenavPlayground';
 import StepperPlayground from './pages/stepperPlayground';
@@ -40,6 +41,7 @@ export const routes: RouteProps[] = [
     { path: '/header', Component: HeaderPlayground },
     { path: '/input', Component: InputPlayground },
     { path: '/modal', Component: ModalPlayground },
+    { path: '/progressBar', Component: ProgressBarPlayground },
     { path: '/select', Component: SelectPlayground },
     { path: '/sideNav', Component: SideNavPlayground },
     { path: '/stepper', Component: StepperPlayground },
