@@ -1,20 +1,25 @@
+import { CheckCircleIcon, ExclamationTriangleIcon, XCircleIcon, InformationCircleIcon } from "../../icons";
 import styles from './alert.module.css';
-import { InformationCircleIcon, ExclamationTriangleIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
 export type AlertType = 'success' | 'warning' | 'error' | 'info';
 
 export interface AlertProps {
-    type?: AlertType
+    /** 
+     * The type/severity of the alert which determines its color and icon
+     * @default 'info'
+     */
+    type?: AlertType;
+    /** The content to display inside the alert */
     children: React.ReactNode;
 }
 
 export const Alert = ({ type="info", children }: AlertProps) => {
 
     const statusIcons = {
-        success: <CheckCircleIcon width="20" />,
-        warning: <ExclamationTriangleIcon width="20" />,
-        error: <XCircleIcon width="20" />,
-        info: <InformationCircleIcon width="20" />
+        success: <CheckCircleIcon size={18} />,
+        warning: <ExclamationTriangleIcon size={18} />,
+        error: <XCircleIcon size={18} />,
+        info: <InformationCircleIcon size={18} />
     };
 
     return (

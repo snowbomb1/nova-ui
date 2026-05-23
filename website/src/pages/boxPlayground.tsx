@@ -31,7 +31,7 @@ const BoxPlayground = () => {
                             { label: 'Horizontal', value: 'horizontal' }
                         ]}
                     />
-                    <Toggle label="Reverse direction" value={reverse} onChange={setReverse} />
+                    <Toggle label="Reverse direction" checked={reverse} onChange={setReverse} />
                     <Stepper label="Total Children" min={1} value={children} onChange={setChildren} />
                 </>
             }

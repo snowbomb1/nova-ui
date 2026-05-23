@@ -8,6 +8,8 @@ const FormFieldPlayground = () => {
     const [description, setDescription] = useState<string>("Example Helper")
     const [required, setRequired] = useState<boolean>(true);
     const [error, setError] = useState<string>("");
+    const [skeleton, setSkeleton] = useState<boolean>(false);
+    
     return (
         <Playground
             utils={
@@ -15,7 +17,8 @@ const FormFieldPlayground = () => {
                     <Input label="Label" required value={label} onChange={setLabel} />
                     <Input label="Helper Text" value={description} onChange={setDescription} />
                     <Input label="Error State" value={error} onChange={setError} />
-                    <Toggle label="Required" value={required} onChange={setRequired} />
+                    <Toggle label="Required" checked={required} onChange={setRequired} />
+                    <Toggle label="Skeleton" checked={skeleton} onChange={setSkeleton} />
                 </>
             }
             component={
@@ -24,26 +27,28 @@ const FormFieldPlayground = () => {
                     helperText={description}
                     required={required}
                     error={error}
+                    skeleton={skeleton}
                 >
                     <Box direction="horizontal">
-                        <Toggle label="Setting 1" value={true} onChange={() => null} />
-                        <Toggle label="Setting 2" value={true} onChange={() => null} />
-                        <Toggle label="Setting 3" value={true} onChange={() => null} />
+                        <Toggle label="Setting 1" checked={true} onChange={() => null} />
+                        <Toggle label="Setting 2" checked={true} onChange={() => null} />
+                        <Toggle label="Setting 3" checked={true} onChange={() => null} />
                     </Box>
                 </FormField>
             }
             code={
                 `
 <FormField
-    label={${label}}
-    helperText={${description}}
+    label={"${label}"}
+    helperText={"${description}"}
     required={${required}}
-    error={${error}}
+    error={"${error}"}
+    skeleton={${skeleton}}
 >
-     <Box direction="horizontal">
-        <Toggle label="Setting 1" value={true} onChange={() => null} />
-        <Toggle label="Setting 2" value={true} onChange={() => null} />
-        <Toggle label="Setting 3" value={true} onChange={() => null} />
+    <Box direction="horizontal">
+        <Toggle label="Setting 1" checked={true} onChange={() => null} />
+        <Toggle label="Setting 2" checked={true} onChange={() => null} />
+        <Toggle label="Setting 3" checked={true} onChange={() => null} />
     </Box>
 </FormField>             
 `

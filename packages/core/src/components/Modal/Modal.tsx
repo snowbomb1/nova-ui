@@ -1,21 +1,45 @@
 import { useLayoutEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon } from "../../icons";
 import styles from './modal.module.css';
 
-export type ModalSize = 's' | 'm' | 'l' | 'xl';
+export type ModalSize = 's' | 'm' | 'l' | 'xl' | 'fullscreen';
 
 export interface ModalProps {
+    /** Whether the modal is visible */
     isVisible: boolean;
+    /** Callback fired when the modal should close */
     onClose: () => void;
+    /** The content to display inside the modal body */
     children: React.ReactNode;
+    /** 
+     * The size of the modal
+     * - 's' - Small (400px max)
+     * - 'm' - Medium (600px max)
+     * - 'l' - Large (800px max)
+     * - 'xl' - Extra large (1140px max)
+     * - 'fullscreen' - Full screen
+     * @default 'm'
+     */
     size?: ModalSize;
+    /** Content to display in the modal header */
     header?: React.ReactNode;
+    /** Content to display in the modal footer */
     footer?: React.ReactNode;
+    /** 
+     * Whether to prevent closing the modal by clicking outside or pressing Escape
+     * @default false
+     */
+    preventClose?: boolean;
+    /** 
+     * Whether to hide the close button
+     * @default false
+     */
+    hideCloseButton?: boolean;
 }
 
 
-export const Modal = ({ isVisible, onClose, size="m", header, footer, children}: ModalProps) => {
+export const Modal = ({ isVisible, onClose, size="m", header, footer, children, preventClose=false, hideCloseButton=false }: ModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useLayoutEffect(() => {
@@ -49,7 +73,7 @@ export const Modal = ({ isVisible, onClose, size="m", header, footer, children}:
     }, [isVisible]);
 
     useLayoutEffect(() => {
-        if (!isVisible) return;
+        if (!isVisible || preventClose) return;
 
         const handleEscape = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -57,7 +81,13 @@ export const Modal = ({ isVisible, onClose, size="m", header, footer, children}:
 
         document.addEventListener('keydown', handleEscape);
         return () => document.removeEventListener('keydown', handleEscape);
-    }, [isVisible, onClose]);
+    }, [isVisible, onClose, preventClose]);
+
+    const handleOverlayClick = () => {
+        if (!preventClose) {
+            onClose();
+        }
+    };
 
     return (
         <AnimatePresence>
@@ -69,7 +99,7 @@ export const Modal = ({ isVisible, onClose, size="m", header, footer, children}:
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    onClick={onClose}
+                    onClick={handleOverlayClick}
                 >
                     <motion.div id="modal"
                         ref={modalRef}
@@ -85,17 +115,19 @@ export const Modal = ({ isVisible, onClose, size="m", header, footer, children}:
                             onClick={(event) => event.stopPropagation()}
                         >
                             {header}
-                             <motion.button
-                                className={styles.close}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.2 }}
-                                onClick={onClose}
-                                aria-label="Close Modal"
-                                type="button"
-                            >
-                                 <XMarkIcon width="24" />
-                            </motion.button>
+                            {!hideCloseButton && (
+                                <motion.button
+                                    className={styles.close}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.2 }}
+                                    onClick={onClose}
+                                    aria-label="Close Modal"
+                                    type="button"
+                                >
+                                    <XMarkIcon size={24} />
+                                </motion.button>
+                            )}
                         </motion.div>
                         <motion.div id="content" className={styles.content}
                             onClick={(event) => event.stopPropagation()}

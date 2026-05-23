@@ -10,7 +10,7 @@ const ActionSheetPlayground = () => {
     return (
         <Playground
             utils={
-                <Toggle label={`Position - ${position ? "Bottom" : "Left Side"} `} value={position} onChange={setPosition} />
+                <Toggle label={`Position - ${position ? "Bottom" : "Left Side"} `} checked={position} onChange={setPosition} />
             }
             component={
                 <>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, ContainerVariant, ContainerPadding, Button, Option,
-    Select, Box, Viewer, Input, Toggle, Header} from "@snowbomb1/nova-ui";
+    Select, Box, Viewer, Input, Toggle, Header } from "@snowbomb1/nova-ui";
 import Playground from "../playground/Playground";
 
 const imageUrl = "https://uggaa8teyxhdfwbc.public.blob.vercel-storage.com/nova-portrait"
@@ -13,6 +13,8 @@ const ContainerPlayground = () => {
     const [variant, setVariant] = useState<Option>({ label: "Default", value: "default" });
     const [padding, setPadding] = useState<Option>({ label: 'Medium', value: 'md' });
     const [fullWidth, setFullWidth] = useState<boolean>(false);
+    const [skeleton, setSkeleton] = useState<boolean>(false);
+    
     return (
         <Playground
             utils={
@@ -41,8 +43,9 @@ const ContainerPlayground = () => {
                             { label: 'Large', value: 'lg' }
                         ]}
                     />
-                    <Toggle value={actions} onChange={setActions} label="Header Actions" />
-                    <Toggle value={fullWidth} onChange={setFullWidth} label="Full Width" />
+                    <Toggle checked={actions} onChange={setActions} label="Header Actions" />
+                    <Toggle checked={fullWidth} onChange={setFullWidth} label="Full Width" />
+                    <Toggle checked={skeleton} onChange={setSkeleton} label="Skeleton" />
                 </>
             }
             component={
@@ -55,6 +58,7 @@ const ContainerPlayground = () => {
                     padding={padding.value as ContainerPadding}
                     footer={footer}
                     fullWidth={fullWidth}
+                    skeleton={skeleton}
                 >
                     <Box>
                         <Viewer src={imageUrl} alt="Nova Portrait" />
@@ -65,10 +69,11 @@ const ContainerPlayground = () => {
                 `
 <Container
     header={<Header variant="h2">${header}</Header>}
-    ${actions ? `headerActions={<Button onClick={() => console.log("clicked")}>Click me</Button>}`: ''}
-    variant={"${variant.value as ContainerVariant}"}
-    padding={"${padding.value as ContainerPadding}"}
-    fullWidth={${fullWidth}
+    ${actions ? `headerActions={<Button>Click me</Button>}` : ''}
+    variant={"${variant.value}"}
+    padding={"${padding.value}"}
+    fullWidth={${fullWidth}}
+    skeleton={${skeleton}}
 >
     <Box>
         <Viewer src={imageUrl} alt="Nova Portrait" />

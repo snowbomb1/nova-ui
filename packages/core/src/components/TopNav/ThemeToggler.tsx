@@ -1,5 +1,5 @@
 import { useTheme } from "../../hooks/useTheme";
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { MoonIcon, SunIcon } from "../../icons";
 import { Button } from "../Button/Button";
 
 
@@ -8,7 +8,7 @@ export const ThemeToggler = () => {
     return (
         <Button variant="icon" onClick={toggleTheme} disabled={isTransitioning}
             aria-label={theme === 'dark' ? "Switch to light mode" : "Switch to dark mode"}>
-            { theme === 'dark' ? <SunIcon width="24" /> : <MoonIcon width="24" />}
+            { theme === 'dark' ? <SunIcon size={24} /> : <MoonIcon size={24} />}
         </Button>
     )
 };

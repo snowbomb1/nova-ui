@@ -8,6 +8,20 @@
 .gapmd { gap: 1rem; }
 .gaplg { gap: 1.5rem; }
 
+/* Align items (vertical) */
+.alignstart { align-items: start; }
+.aligncenter { align-items: center; }
+.alignend { align-items: end; }
+.alignstretch { align-items: stretch; }
+
+/* Justify content (horizontal) */
+.justifystart { justify-content: start; }
+.justifycenter { justify-content: center; }
+.justifyend { justify-content: end; }
+.justifybetween { justify-content: space-between; }
+.justifyaround { justify-content: space-around; }
+.justifyevenly { justify-content: space-evenly; }
+
 @media (min-width: 0px) {
     .colspan1  { grid-column: span 1; }
     .colspan2  { grid-column: span 2; }

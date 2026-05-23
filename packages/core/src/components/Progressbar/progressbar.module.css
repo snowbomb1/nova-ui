@@ -1,6 +1,5 @@
 .bar {
-    min-width: 250px;
-    max-width: 100%;
+    width: 100%;
     height: 0.75rem;
     background-color: var(--color-text);
     border-radius: 999px;
@@ -9,9 +8,103 @@
     overflow: hidden;
 }
 
+/* Size variants */
+.sm { height: 0.375rem; }
+.md { height: 0.75rem; }
+.lg { height: 1rem; }
+
 .fill {
     height: 100%;
     background-color: var(--color-primary);
     border-radius: 999px;
     transition: width 0.3s ease;
+}
+
+/* Indeterminate state */
+.indeterminate {
+    position: relative;
+}
+
+.indeterminateFill {
+    position: absolute;
+    height: 100%;
+    width: 30%;
+    background-color: var(--color-primary);
+    border-radius: 999px;
+    animation: indeterminate-slide 1.5s ease-in-out infinite;
+}
+
+@keyframes indeterminate-slide {
+    0% {
+        left: -30%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Screen reader only */
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Skeleton state */
+.skeleton {
+    background-color: var(--skeleton-base);
+}
+
+.skeletonFill {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+    border-radius: 999px;
+}
+
+.skeletonFill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: progressbar-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes progressbar-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .fill {
+        transition: none;
+    }
+
+    .indeterminateFill {
+        animation: none;
+        left: 35%;
+    }
+
+    .skeletonFill::after {
+        animation: none;
+    }
 }

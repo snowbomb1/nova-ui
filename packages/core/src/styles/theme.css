@@ -3,7 +3,7 @@
     --color-primary-dark: #0F4F5C;
     --color-secondary: #7A4A1E;
     --color-secondary-dark: #5C3412;
-    --color-accent: #B8860B;
+    --color-accent: #8B6914;
 
     --color-background: #F0F4F7;
     --color-surface: #FFFFFF;
@@ -21,15 +21,20 @@
     --shadow-md: 0 4px 12px rgba(26, 107, 122, 0.20);
     --shadow-lg: 0 8px 24px rgba(26, 107, 122, 0.28);
 
-    --color-success: #1B5E45;
+    /* Colorblind-friendly status colors */
+    --color-success: #0D7377;
     --color-warning: #B45309;
-    --color-error: #B91C1C;
+    --color-error: #C41E3A;
     --color-info: #1A5276;
 
-    --toast-bg-success: rgba(27, 94, 69, 0.10);
+    --toast-bg-success: rgba(13, 115, 119, 0.10);
     --toast-bg-warning: rgba(180, 83, 9, 0.10);
-    --toast-bg-error: rgba(185, 28, 28, 0.10);
+    --toast-bg-error: rgba(196, 30, 58, 0.10);
     --toast-bg-info: rgba(26, 82, 118, 0.10);
+
+    /* Skeleton loading */
+    --skeleton-base: #9CA3AF;
+    --skeleton-highlight: rgba(255, 255, 255, 0.9);
 }
 
 .dark {
@@ -48,23 +53,29 @@
     --color-disabled: #4A5568;
     --color-border: rgba(255, 255, 255, 0.25);
 
-    --color-text-on-primary: #FFFFFF;
-    --color-text-on-secondary: #FFFFFF;
-    --color-text-on-accent: #FFFFFF;
+    /* Dark text on bright buttons for contrast */
+    --color-text-on-primary: #1A1A1A;
+    --color-text-on-secondary: #1A1A1A;
+    --color-text-on-accent: #1A1A1A;
 
     --shadow-sm: 0 2px 8px rgba(255, 110, 64, 0.25);
     --shadow-md: 0 4px 16px rgba(255, 110, 64, 0.35);
     --shadow-lg: 0 8px 32px rgba(255, 110, 64, 0.45);
 
-    --color-success: #34D399;
+    /* Colorblind-friendly status colors */
+    --color-success: #2DD4BF;
     --color-warning: #FBBF24;
-    --color-error: #F87171;
+    --color-error: #FB7185;
     --color-info: #60A5FA;
 
-    --toast-bg-success: rgba(52, 211, 153, 0.12);
+    --toast-bg-success: rgba(45, 212, 191, 0.12);
     --toast-bg-warning: rgba(251, 191, 36, 0.12);
-    --toast-bg-error: rgba(248, 113, 113, 0.12);
+    --toast-bg-error: rgba(251, 113, 133, 0.12);
     --toast-bg-info: rgba(96, 165, 250, 0.12);
+
+    /* Skeleton loading */
+    --skeleton-base: #374151;
+    --skeleton-highlight: rgba(255, 255, 255, 0.4);
 }
 
 /* ============================================
@@ -85,17 +96,28 @@
         --color-text-secondary: #B0BEC5;
         --color-disabled: #6B7280;
         --color-border: rgba(255, 255, 255, 0.15);
+
+        /* Dark text on bright buttons for contrast */
+        --color-text-on-primary: #1A1A1A;
+        --color-text-on-secondary: #1A1A1A;
+        --color-text-on-accent: #1A1A1A;
+
         --shadow-sm: 0 2px 8px rgba(255, 110, 64, 0.2);
         --shadow-md: 0 4px 12px rgba(255, 110, 64, 0.3);
         --shadow-lg: 0 8px 24px rgba(255, 110, 64, 0.4);
-        --color-success: #34D399;
+        /* Colorblind-friendly status colors */
+        --color-success: #2DD4BF;
         --color-warning: #FBBF24;
-        --color-error: #F87171;
+        --color-error: #FB7185;
         --color-info: #60A5FA;
-        --toast-bg-success: rgba(52, 211, 153, 0.15);
+        --toast-bg-success: rgba(45, 212, 191, 0.15);
         --toast-bg-warning: rgba(251, 191, 36, 0.15);
-        --toast-bg-error: rgba(248, 113, 113, 0.15);
+        --toast-bg-error: rgba(251, 113, 133, 0.15);
         --toast-bg-info: rgba(96, 165, 250, 0.15);
+
+        /* Skeleton loading */
+        --skeleton-base: #374151;
+        --skeleton-highlight: rgba(255, 255, 255, 0.4);
     }
 }
 
@@ -115,6 +137,19 @@ body {
     color: var(--color-text);
     transition: background-color 0.3s ease, color 0.3s ease;
     min-height: 100vh;
+}
+
+/* ============================================
+   Skeleton Loading Animation
+   ============================================ */
+
+@keyframes nova-skeleton-shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* ============================================

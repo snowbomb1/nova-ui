@@ -10,7 +10,7 @@ const SideNavPlayground = () => {
     return (
         <Playground
             utils={
-                <Toggle label={`Position - ${position ? "Left Side" : "Right Side"} `} value={position} onChange={setPosition} />
+                <Toggle label={`Position - ${position ? "Left Side" : "Right Side"} `} checked={position} onChange={setPosition} />
             }
             component={
                 <>

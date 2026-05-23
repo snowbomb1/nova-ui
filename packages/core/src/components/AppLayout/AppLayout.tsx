@@ -3,11 +3,26 @@ import { motion } from 'motion/react';
 import styles from './applayout.module.css';
 
 export interface AppLayoutProps {
+    /** Navigation component to display at the top of the layout */
     topNav?: ReactNode;
+    /** Navigation component to display on the side of the layout */
     sideNav?: ReactNode;
+    /** 
+     * Whether the side navigation is expanded
+     * @default false
+     */
     sideNavOpen?: boolean;
+    /** 
+     * Width of the side navigation when expanded
+     * @default '280px'
+     */
     sideNavExpandedWidth?: string;
+    /** 
+     * Width of the side navigation when collapsed
+     * @default '50px'
+     */
     sideNavCollapsedWidth?: string;
+    /** The main content of the application */
     children: ReactNode;
 }
 

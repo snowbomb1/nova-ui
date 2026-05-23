@@ -1,30 +1,42 @@
 import { useState, useLayoutEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ViewerLoader } from "./ViewerLoader";
 import { useMediaLoader } from "../../hooks/useMediaLoader";
 import styles from "./viewer.module.css"
 
 export interface VideoProps {
+    /** Whether to show video controls */
     controls?: boolean;
+    /** Whether the video should loop */
     loop?: boolean;
+    /** Whether the video should autoplay */
     autoPlay?: boolean;
+    /** Whether the video should be muted */
     muted?: boolean;
 }
 
 export type ViewerAspectRatio = '16/9' | '9/16' | '1/1' | '4/3' | '3/2' | '21/19'
 
 export interface ViewerProps {
+    /** URL of the image or video to display */
     src: string;
+    /** Alt text for the media (required for accessibility) */
     alt: string;
+    /** 
+     * Video-specific options (only applies when src is a video)
+     * @default { controls: true, loop: true, autoPlay: true, muted: true }
+     */
     video?: VideoProps;
-    /*
-    * @default '300px'
-    */
+    /** 
+     * Width of the thumbnail
+     * @default '300px'
+     */
     thumbnailWidth?: string;
-    /*
-    * @default '9/16'
-    */
+    /** 
+     * Aspect ratio of the thumbnail
+     * @default '9/16'
+     */
     aspectRatio?: ViewerAspectRatio;
+    /** Callback fired when the media fails to load */
     onError?: (error: Error) => void;
 }
 
@@ -52,7 +64,24 @@ export const Viewer = ({ src, alt, video = { controls: true, loop: true, autoPla
     }, [isOpen]);
 
     if (isLoading) {
-        return <ViewerLoader divRef={thumbnailRef} aspectRatio={aspectRatio} width={thumbnailWidth} />;
+        return (
+            <div
+                ref={thumbnailRef} 
+                className={styles.thumbnailWrapper}
+                style={{
+                    width: thumbnailWidth,
+                    aspectRatio: aspectRatio.toString(),
+                    borderRadius: '0.5rem',
+                }}
+            >
+                <div 
+                    className={styles.skeleton}
+                    aria-busy="true" 
+                    aria-label="Loading media"
+                    role="status"
+                />
+            </div>
+        );
     }
 
     if (hasError) {

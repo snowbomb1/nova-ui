@@ -17,6 +17,12 @@
     text-align: left;
     align-items: center;
     border: none;
+    min-height: 44px;
+}
+
+.accordion:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
 }
 
 .header {
@@ -27,21 +33,143 @@
 
 .icon {
     margin-left: auto;
-    color: var(--color-text)
+    color: var(--color-text);
 }
 
 .content {
-    position: relative;
+    display: grid;
+    grid-template-rows: 0fr;
     background-color: var(--color-surface);
-    transition: max-height 0.2s ease-out;
-    max-height: 0;
+    transition: grid-template-rows 0.2s ease-out;
+}
+
+.content > * {
+    overflow: hidden;
 }
 
 .content.open {
+    grid-template-rows: 1fr;
+}
+
+.content.open > * {
     padding: 1rem;
-    max-height: 500px;
 }
 
 .container:hover:not(:has(.content.open)) {
-  border-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+/* Skeleton state */
+.skeletonContainer {
+    pointer-events: none;
+    border-color: var(--skeleton-base);
+}
+
+.skeletonHeader {
+    height: 1.25rem;
+    border-radius: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+}
+
+.skeletonHeader::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: accordion-skeleton-shimmer 1.5s infinite;
+}
+
+.skeletonHeader span {
+    visibility: hidden;
+    font-size: medium;
+    font-weight: 600;
+    padding: 0 0.25rem;
+}
+
+.skeletonIcon {
+    margin-left: auto;
+    width: 24px;
+    height: 24px;
+    border-radius: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+}
+
+.skeletonIcon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: accordion-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes accordion-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.skeletonContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.skeletonLine {
+    height: 1rem;
+    border-radius: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+}
+
+.skeletonLine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: accordion-skeleton-shimmer 1.5s infinite;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .content {
+        transition: none;
+    }
+
+    .skeletonHeader::after,
+    .skeletonIcon::after,
+    .skeletonLine::after {
+        animation: none;
+    }
 }

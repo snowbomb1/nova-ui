@@ -1,4 +1,4 @@
-/* AppLayout.module.css */
+/* Mobile-first: base styles */
 .layout {
     position: relative;
     display: flex;
@@ -12,21 +12,25 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    margin-left: 0;
 }
 
 .content {
     flex: 1;
-    padding: 2rem;
-    max-width: 1400px; /* Optional: limit content width */
+    padding: 1rem;
+    max-width: var(--content-max-width, 1400px);
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .mainArea {
-        margin-left: 0 !important; /* No margin on mobile */
-    }
-    
+/* Desktop styles */
+@media (min-width: 769px) {
     .content {
-        padding: 1rem;
+        padding: 2rem;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .layout * {
+        transition: none;
     }
 }

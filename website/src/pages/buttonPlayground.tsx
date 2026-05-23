@@ -8,7 +8,9 @@ const ButtonPlayground = () => {
     const [position, setPosition] = useState<Option>({ label: 'Top', value: 'top' })
     const [variant, setVariant] = useState<Option>({ label: 'Primary', value: 'primary' })
     const [disabled, setDisabled] = useState<boolean>(false);
-    const [disabledMesssage, setDisabledMessage] = useState<string>("")
+    const [loading, setLoading] = useState<boolean>(false);
+    const [skeleton, setSkeleton] = useState<boolean>(false); 
+    const [disabledMessage, setDisabledMessage] = useState<string>("")
 
     return (
         <Playground
@@ -24,7 +26,6 @@ const ButtonPlayground = () => {
                             { label: "Icon", value: "icon" }
                         ]}
                     />
-                    <Input label="Disabled Message" value={disabledMesssage} onChange={setDisabledMessage} />
                     <Select
                         label="Tooltip Position"
                         selectedOption={position}
@@ -36,7 +37,10 @@ const ButtonPlayground = () => {
                             { label: "Right", value: "right" }
                         ]}
                     />
-                    <Toggle label="Disabled" value={disabled} onChange={setDisabled} />
+                    <Input label="Disabled Message" value={disabledMessage} onChange={setDisabledMessage} />
+                    <Toggle label="Disabled" checked={disabled} onChange={setDisabled} />
+                    <Toggle label="Loading" checked={loading} onChange={setLoading} />
+                    <Toggle label="Skeleton" checked={skeleton} onChange={setSkeleton} />
                 </>
             }
             component={
@@ -44,8 +48,10 @@ const ButtonPlayground = () => {
                     variant={variant.value as ButtonVariant}
                     disabled={disabled}
                     onClick={() => console.log("clicked!")}
-                    disabledMessage={disabledMesssage}
+                    disabledMessage={disabledMessage}
                     tooltipPosition={position.value as TooltipPosition}
+                    loading={loading}
+                    skeleton={skeleton}
                 >Click me</Button>
             }
             code={
@@ -54,8 +60,10 @@ const ButtonPlayground = () => {
     variant={"${variant.value}"}
     disabled={${disabled}}
     onClick={() => console.log("clicked!")}
-    disabledMessage={"${disabledMesssage}"}
+    disabledMessage={"${disabledMessage}"}
     tooltipPosition={"${position.value}"}
+    loading={${loading}}
+    skeleton={${skeleton}}
 >Click me</Button>             
 `
             }

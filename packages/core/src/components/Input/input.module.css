@@ -1,17 +1,46 @@
 .inputContainer {
     position: relative;
     width: 100%;
-    min-width: 250px;
+    display: flex;
+    align-items: center;
 }
 
+/* Prefix and suffix slots */
+.prefix,
+.suffix {
+    display: flex;
+    align-items: center;
+    color: var(--color-text-secondary);
+    flex-shrink: 0;
+}
+
+.prefix {
+    padding-left: 0.75rem;
+}
+
+.suffix {
+    padding-right: 0.5rem;
+    gap: 0.25rem;
+}
+
+/* Mobile-first: base styles */
 .input {
     width: 100%;
-    padding: 0.8rem 2.5rem 0.8rem 1.2rem;
-    font-size: 0.875rem;
+    padding: 0.625rem 1rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+    line-height: 1.5;
     color: var(--color-text);
     background: transparent;
     border: none;
     outline: none;
+}
+
+.input.hasPrefix {
+    padding-left: 0.5rem;
+}
+
+.input.hasSuffix {
+    padding-right: 0.5rem;
 }
 
 .input::placeholder {
@@ -25,11 +54,44 @@
     filter: grayscale(0.3);
 }
 
-.clearButton {
+/* Skeleton state */
+.skeleton {
+    pointer-events: none;
+}
+
+.skeletonInput {
+    width: 100%;
+    height: 2.375rem;
+    border-radius: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+}
+
+.skeletonInput::after {
+    content: '';
     position: absolute;
-    right: 0.8rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: input-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes input-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.clearButton {
     background: transparent;
     border: none;
     cursor: pointer;
@@ -37,11 +99,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    color: var(--color-text-secondary);
 }
 
 .clearButton:hover {
     color: var(--color-primary);
-    transform: translateY(-50%) scale(1.1);
+    transform: scale(1.1);
+}
+
+.clearButton:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
 }
 
 .suggestionsList {
@@ -58,11 +128,13 @@
     z-index: 1000;
     max-height: 200px;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-text-secondary) transparent;
 }
 
 .suggestionItem {
     padding: 0.6rem 1rem;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     color: var(--color-text);
     border-radius: 0.3rem;
     cursor: pointer;
@@ -85,8 +157,20 @@
     border-radius: 10px;
 }
 
-@media (max-width: 768px) {
+/* Desktop styles */
+@media (min-width: 769px) {
     .input {
-        font-size: 16px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .clearButton:hover {
+        transform: none;
+    }
+
+    .skeletonInput::after {
+        animation: none;
     }
 }

@@ -1,0 +1,53 @@
+.header {
+    color: var(--color-text);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.header:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* Skeleton state */
+.skeleton {
+    display: inline-block;
+    border-radius: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+}
+
+.skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: header-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes header-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.skeletonText {
+    visibility: hidden;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .skeleton::after {
+        animation: none;
+    }
+}

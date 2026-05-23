@@ -17,16 +17,19 @@
 
 .border {
     position: relative;
-    display: inline-flex;
+    display: flex;
     background: var(--color-surface);
     border: 1.5px solid var(--color-border);
     border-radius: 0.5rem;
     transition: border-color 0.2s ease;
     padding-top: 0.25rem;
+    width: 100%;
+    max-width: 320px;
 }
 
 .fullWidth {
     width: 100%;
+    max-width: none;
 }
 
 .border:focus-within {
@@ -51,6 +54,44 @@
 
 .border:hover:not(.borderDisabled):not(.borderError) {
     border-color: var(--color-accent);
+}
+
+/* Skeleton state */
+.borderSkeleton {
+    pointer-events: none;
+    border-color: var(--skeleton-base);
+}
+
+.labelSkeleton {
+    background: var(--skeleton-base) !important;
+    border-color: transparent !important;
+    color: transparent !important;
+    overflow: hidden;
+    position: relative;
+}
+
+.labelSkeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: formfield-skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes formfield-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.labelSkeletonText {
+    visibility: hidden;
 }
 
 .label {
@@ -84,6 +125,7 @@
 .required {
     color: var(--color-error);
     margin-left: 0.25rem;
+    font-size: small;
 }
 
 .helperText {
@@ -100,12 +142,19 @@
     gap: 0.25rem;
 }
 
-.errorText::before {
-    content: '⚠';
-    font-size: 1rem;
+.errorText svg {
+    flex-shrink: 0;
 }
 
-.required {
-    color: var(--color-error);
-    font-size: small;
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .border,
+    .label {
+        transition: none;
+    }
+
+    .labelSkeleton::after {
+        animation: none;
+        background: var(--skeleton-base);
+    }
 }

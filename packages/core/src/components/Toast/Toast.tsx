@@ -1,18 +1,37 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { XCircleIcon, CheckCircleIcon, InformationCircleIcon, ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { CheckCircleIcon, ExclamationTriangleIcon, XCircleIcon, InformationCircleIcon } from "../../icons";
 import styles from './toast.module.css';
 
 export type ToastPosition = 'top' | 'bottom';
 export type ToastStatus = 'success' | 'warning' | 'error' | 'info';
 
 export interface ToastProps {
+    /** Whether the toast is visible */
     visible: boolean;
+    /** Callback fired when the toast should be dismissed */
     onDismiss: () => void;
+    /** 
+     * Time in milliseconds before the toast auto-dismisses. Set to 0 to disable auto-dismiss.
+     * @default 5000
+     */
     timeout?: number;
+    /** 
+     * Position of the toast on screen
+     * @default 'top'
+     */
     position?: ToastPosition;
+    /** 
+     * The type/severity of the toast which determines its color and icon
+     * @default 'info'
+     */
     status?: ToastStatus;
+    /** The content to display inside the toast */
     children: React.ReactNode;
+    /** 
+     * Whether to show the dismiss button
+     * @default true
+     */
     dismissible?: boolean;
 }
 
@@ -37,10 +56,10 @@ export const Toast = ({
     }, [visible, timeout, onDismiss]);
 
     const statusIcons = {
-        success: <CheckCircleIcon width="20" />,
-        warning: <ExclamationTriangleIcon width="20" />,
-        error: <XCircleIcon width="20" />,
-        info: <InformationCircleIcon width="20" />
+        success: <CheckCircleIcon size={18} />,
+        warning: <ExclamationTriangleIcon size={18} />,
+        error: <XCircleIcon size={18} />,
+        info: <InformationCircleIcon size={18} />
     };
 
     return (
@@ -76,7 +95,7 @@ export const Toast = ({
                                 whileTap={{ scale: 0.9 }}
                                 aria-label="Dismiss"
                             >
-                                <XCircleIcon width="20" />
+                                <XCircleIcon size={20} />
                             </motion.button>
                         )}
                     </motion.div>

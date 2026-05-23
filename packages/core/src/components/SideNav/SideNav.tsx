@@ -1,32 +1,50 @@
 import { useLayoutEffect, useState } from "react";
 import { motion } from "motion/react";
 import styles from './sidenav.module.css';
-import { XMarkIcon, Bars3Icon } from '@heroicons/react/24/solid';
+import { XMarkIcon, Bars3Icon } from '../../icons';
 import { ActionSheet } from "../ActionSheet";
 
 export type NavItem = {
+    /** Display text for the navigation item */
     label: string;
+    /** Icon element to display alongside the label */
     icon?: React.ReactNode;
+    /** Whether this is a destructive action (displays in error color) */
     destructive?: boolean;
+    /** Whether the item is disabled */
     disabled?: boolean;
-    type?: 'nav' | 'action'
+    /** 
+     * Type of item - 'nav' for navigation links, 'action' for buttons
+     * @default 'nav'
+     */
+    type?: 'nav' | 'action';
+    /** Callback fired when the item is clicked */
     onClick: () => void;
 }
 
 export type NavPosition = 'left' | 'right'
 
 export interface SideNavProps {
+    /** Whether the side navigation is expanded */
     isOpen: boolean;
+    /** Callback fired when the navigation should toggle open/closed */
     onToggle: () => void;
+    /** Array of navigation items to display */
     items: NavItem[];
-    /*
-    * @default "280px"
-    */
+    /** 
+     * Width of the navigation when expanded
+     * @default '280px'
+     */
     expandedWidth?: string;
-    /*
-    * @default "50px"
-    */
+    /** 
+     * Width of the navigation when collapsed (icons only)
+     * @default '50px'
+     */
     collapsedWidth?: string;
+    /** 
+     * Which side of the screen to display the navigation
+     * @default 'left'
+     */
     position?: NavPosition;
 }
 
@@ -79,11 +97,19 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
         <>
             {/* Overlay */}
             {isOpen && (
-                <div className={styles.overlay} onClick={onToggle} onKeyDown={(event) => {
-                    if (event.key === 'Enter') {
-                        onToggle()
-                    }
-                }} />
+                <div 
+                    className={styles.overlay} 
+                    onClick={onToggle} 
+                    onKeyDown={(event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            onToggle();
+                        }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-label="Close navigation"
+                />
             )}
 
             {/* Sidenav */}
@@ -108,7 +134,7 @@ export const SideNav = ({ isOpen, items, onToggle, expandedWidth = "280px",
                         whileTap={{ scale: 0.95 }}
                         aria-label={isOpen ? "Close menu" : "Open menu"}
                     >
-                        {isOpen ? <XMarkIcon width="24" /> : <Bars3Icon width="24" />}
+                        {isOpen ? <XMarkIcon size={24} /> : <Bars3Icon size={24} />}
                     </motion.button>
                 </div>
 

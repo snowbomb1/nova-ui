@@ -1,52 +1,73 @@
 import { useId, useLayoutEffect, useRef } from "react";
-import { motion } from "motion/react";
 import styles from './toggle.module.css'
 
 export interface ToggleProps {
+    /** Label text displayed next to the toggle */
     label: string;
-    value: boolean;
+    /** 
+     * Whether the toggle is on or off
+     * @deprecated Use `checked` instead for consistency with Checkbox
+     */
+    value?: boolean;
+    /** Whether the toggle is on or off */
+    checked?: boolean;
+    /** Callback fired when the toggle state changes */
     onChange: (enabled: boolean) => void;
+    /** 
+     * Whether the toggle is disabled
+     * @default false
+     */
     disabled?: boolean;
+    /** 
+     * Shows a skeleton placeholder. Use when the toggle hasn't loaded yet.
+     * @default false
+     */
+    skeleton?: boolean;
 }
 
 
-export const Toggle = ({ label, value, onChange, disabled=false }: ToggleProps) => {
+export const Toggle = ({ label, value, checked, onChange, disabled=false, skeleton=false }: ToggleProps) => {
     const toggleRef = useRef<HTMLButtonElement>(null);
     const labelId = useId();
+    
+    // Support both `checked` and `value` for backwards compatibility
+    const isChecked = checked ?? value ?? false;
 
     useLayoutEffect(() => {
         if (!toggleRef.current) return;
-        if (value) toggleRef.current.style.setProperty('--toggle-direction', 'flex-end');
+        if (isChecked) toggleRef.current.style.setProperty('--toggle-direction', 'flex-end');
         else toggleRef.current.style.setProperty('--toggle-direction', 'flex-start')
-    }, [value])
+    }, [isChecked])
+
+    if (skeleton) {
+        return (
+            <div className={styles.wrapper} aria-hidden="true">
+                <span className={styles.skeletonLabel}><span>{label}</span></span>
+                <div className={styles.skeletonSwitch} />
+            </div>
+        );
+    }
 
     return (
         <div className={styles.wrapper}>
-            <span className={styles.label}>{label}</span>
-            <motion.button
+            <span id={labelId} className={styles.label}>{label}</span>
+            <button
                 ref={toggleRef}
                 role="switch"
-                aria-checked={value}
+                aria-checked={isChecked}
                 aria-labelledby={labelId}
-                className={`${styles.switch} ${value ? styles.enabled : ""}`}
-                onClick={() => onChange(!value)}
+                className={`${styles.switch} ${isChecked ? styles.enabled : ""}`}
+                onClick={() => onChange(!isChecked)}
                 disabled={disabled}
                 onKeyDown={(e) => {
                     if (e.key === ' ' || e.key === 'Enter') {
                         e.preventDefault();
-                        onChange(!value);
+                        onChange(!isChecked);
                     }
                 }}
-                {...(!disabled && { whileHover: { scale: 1.1 } })}
             >
-                <motion.div 
-                    layout
-                    className={styles.handle}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 15 }}
-                />
-            </motion.button>
+                <div className={styles.handle} />
+            </button>
         </div>
     )
 }

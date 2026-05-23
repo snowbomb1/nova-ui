@@ -1,16 +1,18 @@
 import { useState } from "react";
-import { Header, HeaderVariant, Option, Select, Input } from '@snowbomb1/nova-ui';
+import { Header, HeaderVariant, Option, Select, Input, Toggle } from '@snowbomb1/nova-ui';
 import Playground from "../playground/Playground";
 
 
 const HeaderPlayground = () => {
     const [variant, setVariant] = useState<Option>({ label: "H1", value: 'h1' })
-    const [string, setString] = useState<string>("Nova UI")
+    const [text, setText] = useState<string>("Nova UI")
+    const [skeleton, setSkeleton] = useState<boolean>(false);
+    
     return (
         <Playground
             utils={
                 <>
-                    <Input label="Header" required value={string} onChange={setString} />
+                    <Input label="Header Text" required value={text} onChange={setText} />
                     <Select
                         label="Header Variant"
                         selectedOption={variant}
@@ -24,17 +26,18 @@ const HeaderPlayground = () => {
                             { label: "H6", value: "h6" }
                         ]}
                     />
+                    <Toggle label="Skeleton" checked={skeleton} onChange={setSkeleton} />
                 </>
             }
             component={
-                <Header variant={variant.value as HeaderVariant}>
-                    {string}
+                <Header variant={variant.value as HeaderVariant} skeleton={skeleton}>
+                    {text}
                 </Header>
             }
             code={
                 `
-<Header variant={"${variant.value as HeaderVariant}"}>
-    ${string}
+<Header variant={"${variant.value}"} skeleton={${skeleton}}>
+    ${text}
 </Header>                
 `
             }

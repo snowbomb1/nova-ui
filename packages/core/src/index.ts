@@ -8,7 +8,7 @@ export * from './components/Button';
 export * from './components/Checkbox';
 export * from './components/Container';
 export * from './components/FloatingMenuButton';
-export * from './components/Form field';
+export * from './components/FormField';
 export * from './components/Grid';
 export * from './components/Header';
 export * from './components/Input';
@@ -23,6 +23,9 @@ export * from './components/Toggle';
 export * from './components/Tooltip';
 export * from './components/TopNav';
 export * from './components/Viewer';
+
+// Icons
+export * from './icons';
 
 // Hooks
 export { useMediaLoader } from './hooks/useMediaLoader';

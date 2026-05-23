@@ -35,7 +35,7 @@ const ToastPlayground = () => {
                         ]}
                     />
                     <Input label="Timeout" inputMode="numeric" value={timeOut} onChange={setTimeout} />
-                    <Toggle label="Dismissible" value={dismissible} onChange={setDismissible} />
+                    <Toggle label="Dismissible" checked={dismissible} onChange={setDismissible} />
                 </>
             }
             component={

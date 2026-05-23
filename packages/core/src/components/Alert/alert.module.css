@@ -1,7 +1,8 @@
+/* Mobile-first: base styles */
 .alert {
     pointer-events: auto;
     width: 100%;
-    padding: 1rem 1.25rem;
+    padding: 0.875rem 1rem;
     background: var(--toast-bg);
     border-radius: 12px;
     color: var(--color-text);
@@ -11,6 +12,7 @@
     position: relative;
     overflow: hidden;
     border: 2px solid var(--status-color);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
 
@@ -23,11 +25,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 0.5rem;
 }
 
 .statusIcon {
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statusIcon svg {
+    width: 18px;
+    height: 18px;
 }
 
 .content {
@@ -57,13 +66,9 @@
     --toast-bg: var(--toast-bg-info);
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-    .container {
-        width: calc(100% - 2rem);
-    }
-    
+/* Desktop styles */
+@media (min-width: 769px) {
     .alert {
-        padding: 0.875rem 1rem;
+        padding: 1rem 1.25rem;
     }
 }

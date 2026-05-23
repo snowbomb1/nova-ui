@@ -1,34 +1,97 @@
 import { useMemo, useState, useEffect, useRef, useId, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { XMarkIcon } from "../../icons";
 import styles from './select.module.css';
 import { Input } from "../Input/Input";
-import { FormField } from "../Form field";
+import { FormField } from "../FormField";
 
 export type Option = { label: string, value: string | number };
 
 interface SharedProps {
+    /** Array of options to display in the dropdown */
     options: Option[];
+    /** 
+     * Whether to show a search input to filter options
+     * @default false
+     */
     autoFilter?: boolean;
+    /** Placeholder text shown when no option is selected */
     placeholder?: string;
+    /** 
+     * Whether the select is disabled
+     * @default false
+     */
     disabled?: boolean;
+    /** Name attribute for the hidden select element (for form submission) */
     name?: string;
+    /** 
+     * Whether the select is required
+     * @default false
+     */
     required?: boolean;
+    /** Label text displayed above the select */
     label?: string;
+    /** Helper text displayed below the select */
     helperText?: string;
+    /** 
+     * Whether the select should take full width of its container
+     * @default false
+     */
     fullWidth?: boolean;
+    /** Error message to display below the select */
     error?: string;
+    /** 
+     * Shows a skeleton placeholder. Use when the select hasn't loaded yet.
+     * @default false
+     */
+    skeleton?: boolean;
+    /** 
+     * Whether to show a clear button when an option is selected
+     * @default false
+     */
+    clearable?: boolean;
+    /** 
+     * Whether the select is in a loading state
+     * @default false
+     */
+    loading?: boolean;
 }
 
-interface SingleSelectProps extends SharedProps {
+interface SingleSelectBaseProps extends SharedProps {
+    /** 
+     * The selection mode
+     * @default 'single'
+     */
     selectType?: 'single';
+    /** The currently selected option */
     selectedOption?: Option;
+}
+
+interface SingleSelectClearableProps extends SingleSelectBaseProps {
+    /** Whether to show a clear button when an option is selected */
+    clearable: true;
+    /** Callback fired when an option is selected or cleared */
+    onChange: (option: Option | undefined) => void;
+}
+
+interface SingleSelectNonClearableProps extends SingleSelectBaseProps {
+    /** Whether to show a clear button when an option is selected */
+    clearable?: false;
+    /** Callback fired when an option is selected */
     onChange: (option: Option) => void;
 }
 
+type SingleSelectProps = SingleSelectClearableProps | SingleSelectNonClearableProps;
+
 interface MultiSelectProps extends SharedProps {
+    /** The selection mode for multiple selections */
     selectType: 'multi';
+    /** Array of currently selected options */
     selectedOption?: Option[];
+    /** Callback fired when options are selected/deselected */
     onChange: (options: Option[]) => void;
+    /** Whether to show a clear button (always available for multi-select) */
+    clearable?: boolean;
 }
 
 export type SelectProps = SingleSelectProps | MultiSelectProps;
@@ -36,14 +99,17 @@ export type SelectProps = SingleSelectProps | MultiSelectProps;
 export const Select = (props: SelectProps) => {
     const { selectedOption, selectType = "single", autoFilter = false,
         options, onChange, placeholder = "Select...", disabled = false,
-        name, required, label, helperText,  error, fullWidth=false } = props;
+        name, required, label, helperText, error, fullWidth=false, skeleton=false,
+        clearable=false, loading=false } = props;
 
     const selectId = useId();
     const [isOpen, setIsOpen] = useState(false);
     const [query, setQuery] = useState("");
     const [highlightedIndex, setHighlightedIndex] = useState<number | null>(null);
+    const [announcement, setAnnouncement] = useState('');
     const containerRef = useRef<HTMLDivElement>(null);
     const controlRef = useRef<HTMLDivElement>(null);
+    const menuRef = useRef<HTMLDivElement>(null);
 
     const handleSelect = useCallback((option: Option) => {
         if (disabled) return;
@@ -54,14 +120,27 @@ export const Select = (props: SelectProps) => {
                 ? current.filter(o => o.value !== option.value)
                 : [...current, option];
             (onChange as (options: Option[]) => void)(next);
+            setAnnouncement(exists ? `${option.label} removed` : `${option.label} selected`);
             controlRef.current?.focus();
         } else {
-            (onChange as (option: Option) => void)(option);
+            (onChange as (option: Option | undefined) => void)(option);
+            setAnnouncement(`${option.label} selected`);
             setIsOpen(false);
             controlRef.current?.blur();
         }
         setQuery("");
     }, [disabled, selectType, selectedOption, onChange]);
+
+    const handleClear = useCallback((e: React.MouseEvent) => {
+        e.stopPropagation();
+        if (selectType === "multi") {
+            (onChange as (options: Option[]) => void)([]);
+            setAnnouncement('Selection cleared');
+        } else {
+            (onChange as (option: Option | undefined) => void)(undefined);
+            setAnnouncement('Selection cleared');
+        }
+    }, [selectType, onChange]);
 
     const filteredOptions = useMemo(() => {
         return options.filter(o =>
@@ -99,7 +178,11 @@ export const Select = (props: SelectProps) => {
                 case 'Escape':
                     e.preventDefault();
                     setIsOpen(false);
-                    controlRef.current?.blur();
+                    controlRef.current?.focus();
+                    break;
+                case 'Tab':
+                    // Close on tab out
+                    setIsOpen(false);
                     break;
             }
         };
@@ -112,7 +195,7 @@ export const Select = (props: SelectProps) => {
         const handleClickOutside = (event: MouseEvent) => {
             if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
                 setIsOpen(false);
-                controlRef.current?.blur();
+                controlRef.current?.focus();
             }
         };
         document.addEventListener('mousedown', handleClickOutside);
@@ -120,7 +203,7 @@ export const Select = (props: SelectProps) => {
     }, [isOpen]);
 
     const handleToggle = () => {
-        if (disabled) return;
+        if (disabled || loading) return;
         setIsOpen(prev => !prev);
     };
 
@@ -143,6 +226,26 @@ export const Select = (props: SelectProps) => {
         }
         return (selectedOption as Option)?.value === opt.value;
     };
+
+    const showClearButton = clearable && !isEmpty && !disabled && !loading;
+
+    if (skeleton) {
+        return (
+            <FormField
+                label={label} required={required}
+                disabled={disabled} helperText={helperText}
+                error={error} fullWidth={fullWidth}
+                skeleton
+            >
+                <div className={styles.container}>
+                    <div className={`${styles.control} ${styles.skeleton}`} aria-hidden="true">
+                        <span className={styles.skeletonText}>{placeholder}</span>
+                        <span className={styles.arrow}>▼</span>
+                    </div>
+                </div>
+            </FormField>
+        );
+    }
 
     return (
         <FormField
@@ -174,12 +277,13 @@ export const Select = (props: SelectProps) => {
 
                 <div
                     ref={controlRef}
-                    className={`${styles.control} ${disabled ? styles.disabled : ''}`}
+                    className={`${styles.control} ${disabled ? styles.disabled : ''} ${loading ? styles.loading : ''}`}
                     onClick={handleToggle}
                     role="combobox"
                     aria-haspopup="listbox"
                     aria-expanded={isOpen}
                     aria-controls={`${selectId}-listbox`}
+                    aria-busy={loading}
                     tabIndex={disabled ? -1 : 0}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
@@ -189,20 +293,39 @@ export const Select = (props: SelectProps) => {
                     }}
                 >
                     <span className={`${styles.value} ${isEmpty ? styles.placeholder : ''}`}>
-                        {displayLabel}
+                        {loading ? 'Loading...' : displayLabel}
                     </span>
-                    <motion.span
-                        className={styles.arrow}
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.2 }}
-                    >
-                        ▼
-                    </motion.span>
+                    
+                    <div className={styles.controls}>
+                        {showClearButton && (
+                            <button
+                                type="button"
+                                className={styles.clearButton}
+                                onClick={handleClear}
+                                aria-label="Clear selection"
+                                tabIndex={-1}
+                            >
+                                <XMarkIcon size={16} />
+                            </button>
+                        )}
+                        {loading ? (
+                            <span className={styles.spinner} aria-hidden="true" />
+                        ) : (
+                            <motion.span
+                                className={styles.arrow}
+                                animate={{ rotate: isOpen ? 180 : 0 }}
+                                transition={{ duration: 0.2 }}
+                            >
+                                ▼
+                            </motion.span>
+                        )}
+                    </div>
                 </div>
 
                 <AnimatePresence>
                     {isOpen && (
                         <motion.div
+                            ref={menuRef}
                             id={`${selectId}-listbox`}
                             className={styles.menu}
                             initial={{ opacity: 0, y: -4, scale: 0.95 }}
@@ -236,13 +359,7 @@ export const Select = (props: SelectProps) => {
                                                     e.stopPropagation();
                                                     handleSelect(opt);
                                                 }}
-                                                tabIndex={highlighted ? 0 : -1}
-                                                onKeyDown={(e) => {
-                                                    if (e.key === 'Enter' || e.key === ' ') {
-                                                        e.preventDefault();
-                                                        handleSelect(opt);
-                                                    }
-                                                }}
+                                                tabIndex={-1}
                                                 role="option"
                                                 aria-selected={selected}
                                             >
@@ -262,6 +379,15 @@ export const Select = (props: SelectProps) => {
                         </motion.div>
                     )}
                 </AnimatePresence>
+                
+                {/* Live region for screen reader announcements */}
+                <div 
+                    aria-live="polite" 
+                    aria-atomic="true" 
+                    className={styles.srOnly}
+                >
+                    {announcement}
+                </div>
             </div>
         </FormField>
     );

@@ -30,7 +30,7 @@ const ViewerPlayground = () => {
                     <Select label="Media Type" helperText="Detected Automatically"
                         selectType="single" 
                         selectedOption={mediaType}
-                        onChange={(option) => setMediaType(option)}
+                        onChange={setMediaType}
                         options={[
                             { label: "image", value: "image" },
                             { label: "video", value: "video"}
@@ -43,7 +43,7 @@ const ViewerPlayground = () => {
                                 <Toggle
                                     key={key}
                                     label={key}
-                                    value={videoOptions[key as keyof typeof videoOptions] || false}
+                                    checked={videoOptions[key as keyof typeof videoOptions] || false}
                                     onChange={() => toggleVideoSetting(key as keyof typeof videoOptions)}
                                 />
                             ))}

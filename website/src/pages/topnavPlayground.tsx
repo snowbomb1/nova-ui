@@ -35,7 +35,7 @@ const TopNavPlayground = () => {
                             { label: "H4", value: "h4" }
                         ]}
                     />
-                    <Toggle label="AutoComplete" value={autoComplete} onChange={setAutoComplete} />
+                    <Toggle label="AutoComplete" checked={autoComplete} onChange={setAutoComplete} />
                 </>
             }
             component={

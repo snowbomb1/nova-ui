@@ -11,15 +11,16 @@
     padding: 8px 12px;
     border-radius: 4px;
     font-size: 14px;
-    z-index: 1000;
+    z-index: 10000;
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: var(--color-text);
+    color: var(--color-text-on-primary);
     pointer-events: none;
     white-space: nowrap;
     display: flex;
     flex-direction: column;
     align-items: center;
     will-change: transform;
+    max-width: calc(100vw - 2rem);
 }
 
 .arrow {
@@ -32,24 +33,32 @@
 
 /* TOP Position */
 .tooltip[data-position='top'] .arrow {
-    top: 100%; /* Bottom edge of box */
+    top: 100%;
     border-color: var(--color-primary) transparent transparent transparent;
 }
 
 /* BOTTOM Position */
 .tooltip[data-position='bottom'] .arrow {
-    bottom: 100%; /* Top edge of box */
+    bottom: 100%;
     border-color: transparent transparent var(--color-primary) transparent;
 }
 
 /* LEFT Position */
 .tooltip[data-position='left'] .arrow {
-    left: 100%; /* Right edge of box */
+    left: 100%;
     border-color: transparent transparent transparent var(--color-primary);
 }
 
 /* RIGHT Position */
 .tooltip[data-position='right'] .arrow {
-    right: 100%; /* Left edge of box */
+    right: 100%;
     border-color: transparent var(--color-primary) transparent transparent;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .tooltip {
+        transition: none;
+        animation: none;
+    }
 }

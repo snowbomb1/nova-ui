@@ -10,6 +10,7 @@ export default function TextAreaPlayground() {
     const [error, setError] = useState<string>("");
     const [required, setRequired] = useState<boolean>(true);
     const [disabled, setDisabled] = useState<boolean>(false);
+    const [skeleton, setSkeleton] = useState<boolean>(false);
 
     return (
         <Playground
@@ -18,8 +19,9 @@ export default function TextAreaPlayground() {
                     <Input label="Label" value={label} onChange={setLabel} />
                     <Input label="Helper Text" value={helperText} onChange={setHelperText} />
                     <Input label="Error" value={error} onChange={setError} />
-                    <Toggle label="Required" value={required} onChange={setRequired} />
-                    <Toggle label="Disabled" value={disabled} onChange={setDisabled} />
+                    <Toggle label="Required" checked={required} onChange={setRequired} />
+                    <Toggle label="Disabled" checked={disabled} onChange={setDisabled} />
+                    <Toggle label="Skeleton" checked={skeleton} onChange={setSkeleton} />
                 </>
             }
             component={
@@ -32,7 +34,8 @@ export default function TextAreaPlayground() {
                     error={error}
                     value={value}
                     onChange={setValue}
-                    placeHolder="Enter text here"
+                    placeholder="Enter text here"
+                    skeleton={skeleton}
                 />
             }
             code={`
@@ -40,12 +43,13 @@ export default function TextAreaPlayground() {
     fullWidth
     required={${required}}
     disabled={${disabled}}
-    label={label}
-    helperText={helperText}
-    error={error}
+    label={"${label}"}
+    helperText={"${helperText}"}
+    error={"${error}"}
     value={value}
     onChange={setValue}
-    placeHolder="Enter text here"
+    placeholder="Enter text here"
+    skeleton={${skeleton}}
 />
 `}
         />

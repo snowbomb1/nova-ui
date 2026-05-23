@@ -16,21 +16,30 @@
     gap: 0.75rem;
     cursor: pointer;
     user-select: none;
+    min-height: 44px;
+    padding: 0.5rem 0;
 }
 
 .box {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border: 2px solid var(--color-border);
     border-radius: 0.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .box:hover {
     border-color: var(--color-primary);
+}
+
+/* Focus styles for keyboard navigation */
+.hiddenInput:focus-visible + .label .box {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
 }
 
 .checked {
@@ -50,4 +59,86 @@
 
 .disabled .label {
     cursor: not-allowed;
+}
+
+/* Skeleton state */
+.skeletonContainer {
+    pointer-events: none;
+}
+
+.skeletonBox {
+    width: 24px;
+    height: 24px;
+    border-radius: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+    flex-shrink: 0;
+}
+
+.skeletonBox::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: checkbox-skeleton-shimmer 1.5s infinite;
+}
+
+.skeletonLabel {
+    height: 1rem;
+    border-radius: 0.25rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--skeleton-base);
+    margin-left: 0.75rem;
+}
+
+.skeletonLabel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--skeleton-highlight),
+        transparent
+    );
+    animation: checkbox-skeleton-shimmer 1.5s infinite;
+}
+
+.skeletonLabel span {
+    visibility: hidden;
+    font-size: 0.9375rem;
+    padding: 0 0.25rem;
+}
+
+@keyframes checkbox-skeleton-shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .box {
+        transition: none;
+    }
+
+    .skeletonBox::after,
+    .skeletonLabel::after {
+        animation: none;
+    }
 }
